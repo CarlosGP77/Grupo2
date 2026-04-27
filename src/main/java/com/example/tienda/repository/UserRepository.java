@@ -1,6 +1,6 @@
-package com.example.demo.repository;
+package com.example.tienda.repository;
 
-import com.example.demo.model.Usuario;
+import com.example.tienda.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 // Los dos parámetros genéricos indican:
 //   - Usuario → la entidad sobre la que opera

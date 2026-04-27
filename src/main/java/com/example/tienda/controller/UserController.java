@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.example.tienda.controller;
 
-import com.example.demo.model.Usuario;
-import com.example.demo.service.UserService;
+import com.example.tienda.model.Usuario;
+import com.example.tienda.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

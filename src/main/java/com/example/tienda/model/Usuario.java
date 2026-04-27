@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.tienda.model;
 import jakarta.persistence.*;
 
 // @Entity le dice a JPA que esta clase es una tabla en la base de datos.

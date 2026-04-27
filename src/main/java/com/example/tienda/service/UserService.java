@@ -1,6 +1,6 @@
-package com.example.demo.service;
-import com.example.demo.model.Usuario;
-import com.example.demo.repository.UserRepository;
+package com.example.tienda.service;
+import com.example.tienda.model.Usuario;
+import com.example.tienda.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
