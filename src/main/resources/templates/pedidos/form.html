@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'DM Sans', sans-serif; background: #f5f4f0; }
+        h2 { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -1px; }
+        .form-card { background: #fff; border: 2px solid #111; border-radius: 16px; }
+        .btn-dark { background: #111; border-color: #111; }
+        .form-control:focus { border-color: #111; box-shadow: 0 0 0 3px rgba(0,0,0,.1); }
+        label { font-weight: 500; font-size: .9rem; }
+    </style>
+</head>
+<body>
+    <div class="container py-5" style="max-width:520px">
+        <a href="/pedidos" class="text-decoration-none text-muted small">← Volver a pedidos</a>
+        <h2 class="mt-2 mb-4" th:text="${pedido.id != null} ? 'Editar Pedido' : 'Nuevo Pedido'"></h2>
+
+        <form th:action="@{/pedidos/guardar}" method="post" th:object="${pedido}" class="form-card p-4">
+            <input type="hidden" th:field="*{id}">
+
+            <div class="mb-3">
+                <label for="cliente">Nombre del cliente</label>
+                <input type="text" id="cliente" th:field="*{cliente}" class="form-control" placeholder="Ej: Ana García" required>
+            </div>
+            <div class="mb-4">
+                <label for="fecha">Fecha del pedido</label>
+                <input type="date" id="fecha" th:field="*{fecha}" class="form-control" required>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="/pedidos" class="btn btn-outline-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-dark px-4">Guardar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
