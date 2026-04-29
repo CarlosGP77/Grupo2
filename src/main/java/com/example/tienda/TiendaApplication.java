@@ -8,6 +8,6 @@ public class TiendaApplication {
     // inicializa el contexto de Spring, conecta con la base de datos
     // y deja la aplicación escuchando en http://localhost:8080
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(TiendaApplication.class, args);
     }
 }
