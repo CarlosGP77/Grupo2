@@ -26,9 +26,29 @@
                 <label for="cliente">Nombre del cliente</label>
                 <input type="text" id="cliente" th:field="*{cliente}" class="form-control" placeholder="Ej: Ana García" required>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
                 <label for="fecha">Fecha del pedido</label>
                 <input type="date" id="fecha" th:field="*{fecha}" class="form-control" required>
+            </div>
+            <div class="mb-4">
+                <label for="productos">Productos del pedido</label>
+                <div id="productos" class="border rounded p-3" style="max-height: 250px; overflow-y: auto;">
+                    <div th:if="${#lists.isEmpty(todosProductos)}" class="text-muted small">
+                        No hay productos disponibles
+                    </div>
+                    <div th:each="producto : ${todosProductos}" class="form-check mb-2">
+                        <input type="checkbox"
+                               th:id="'producto_' + ${producto.id}"
+                               th:value="${producto.id}"
+                               name="productosSeleccionados"
+                               class="form-check-input"
+                               th:checked="${pedido.productos != null && #lists.contains(pedido.productos, producto)}">
+                        <label th:for="'producto_' + ${producto.id}" class="form-check-label">
+                            <span th:text="${producto.nombre}"></span>
+                            <span class="text-muted small" th:text="'(€' + ${producto.precio} + ')'"></span>
+                        </label>
+                    </div>
+                </div>
             </div>
             <div class="d-flex justify-content-between">
                 <a href="/pedidos" class="btn btn-outline-secondary">Cancelar</a>
