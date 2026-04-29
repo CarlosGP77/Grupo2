@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/pedidos")
 public class PedidoController {
     private final PedidoService service;
 
@@ -16,34 +18,34 @@ public class PedidoController {
         this.service = service;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public String index() {
-        return "index";
+        return "pedidos/lista";
     }
 
-    @GetMapping("/listapedidos")
+    @GetMapping("/lista")
     public String listar(Model model) {
         model.addAttribute("todos", service.obtenerTodoPedido());
         return "pedidos/lista";
     }
-    @GetMapping("/nuevopedidos")
+    @GetMapping("/nuevo")
     public String form(Model model) {
         model.addAttribute("usaux", new Producto());
         return "pedidos/form";
     }
-    @GetMapping("/editarpedidos/{id}")
+    @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         model.addAttribute("usaux", service.obtenerPorIdPedido(id));
         return "pedidos/form";
     }
-    @GetMapping("/borrarpedidos/{id}")
+    @GetMapping("/borrar/{id}")
     public String borrar(@PathVariable Long id) {
         service.borrarPedido(id);
-        return "redirect:/pedidos/listapedidos";
+        return "redirect:/pedidos/lista";
     }
-    @PostMapping("/guardarpedidos")
+    @PostMapping("/guardar")
     public String guardar(Pedido u) {
         service.guerdarPedido(u);
-        return "redirect:/pedidos/listapedidos";
+        return "redirect:/pedidos/lista";
     }
 }

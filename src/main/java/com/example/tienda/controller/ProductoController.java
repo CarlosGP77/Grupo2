@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/productos")
 public class ProductoController {
     private final ProductoService service;
 
@@ -15,34 +17,34 @@ public class ProductoController {
         this.service = service;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public String index() {
-        return "index";
+        return "productos/lista";
     }
 
-    @GetMapping("/listaproductos")
+    @GetMapping("/lista")
     public String listar(Model model) {
         model.addAttribute("todos", service.obtenerTodoProducto());
         return "productos/lista";
     }
-    @GetMapping("/nuevoproducto")
+    @GetMapping("/nuevo")
     public String form(Model model) {
         model.addAttribute("usaux", new Producto());
         return "productos/form";
     }
-    @GetMapping("/editarproducto/{id}")
+    @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         model.addAttribute("usaux", service.obtenerPorIdProducto(id));
         return "productos/form";
     }
-    @GetMapping("/borrarproducto/{id}")
+    @GetMapping("/borrar/{id}")
     public String borrar(@PathVariable Long id) {
         service.borrarProducto(id);
-        return "redirect:/productos/listaproductos";
+        return "redirect:/productos/lista";
     }
-    @PostMapping("/guardarproducto")
+    @PostMapping("/guardar")
     public String guardar(Producto u) {
         service.guardarProducto(u);
-        return "redirect:/productos/listaproductos";
+        return "redirect:/productos/lista";
     }
 }
