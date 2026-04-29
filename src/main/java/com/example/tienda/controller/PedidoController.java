@@ -30,12 +30,12 @@ public class PedidoController {
     }
     @GetMapping("/nuevo")
     public String form(Model model) {
-        model.addAttribute("usaux", new Producto());
+        model.addAttribute("pedido", new Pedido());
         return "pedidos/form";
     }
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
-        model.addAttribute("usaux", service.obtenerPorIdPedido(id));
+        model.addAttribute("pedido", service.obtenerPorIdPedido(id));
         return "pedidos/form";
     }
     @GetMapping("/borrar/{id}")

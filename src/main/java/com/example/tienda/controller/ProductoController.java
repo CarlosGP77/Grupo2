@@ -29,12 +29,12 @@ public class ProductoController {
     }
     @GetMapping("/nuevo")
     public String form(Model model) {
-        model.addAttribute("usaux", new Producto());
+        model.addAttribute("producto", new Producto());
         return "productos/form";
     }
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
-        model.addAttribute("usaux", service.obtenerPorIdProducto(id));
+        model.addAttribute("producto", service.obtenerPorIdProducto(id));
         return "productos/form";
     }
     @GetMapping("/borrar/{id}")
