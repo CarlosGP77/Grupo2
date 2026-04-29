@@ -45,12 +45,11 @@
                     <td class="fw-500" th:text="${p.cliente}"></td>
                     <td th:text="${p.fecha}"></td>
                     <td>
-                        <span class="num-badge" th:text="${#sets.size(p.productos)}"></span>
-                        <a th:href="@{/pedidos/{id}/productos(id=${p.id})}" class="ms-2 small text-decoration-none">Gestionar →</a>
+                        <span class="num-badge" th:text="${#lists.size(p.productos)}"></span>
                     </td>
                     <td>
                         <a th:href="@{/pedidos/editar/{id}(id=${p.id})}" class="btn btn-outline-dark btn-sm me-1">Editar</a>
-                        <a th:href="@{/pedidos/eliminar/{id}(id=${p.id})}"
+                        <a th:href="@{/pedidos/borrar/{id}(id=${p.id})}"
                            class="btn btn-outline-danger btn-sm"
                            onclick="return confirm('¿Eliminar pedido?')">Eliminar</a>
                     </td>

@@ -44,10 +44,10 @@
                     <td class="text-muted small" th:text="${p.id}"></td>
                     <td class="fw-500" th:text="${p.nombre}"></td>
                     <td><span class="precio-badge" th:text="'€' + ${p.precio}"></span></td>
-                    <td class="text-muted small" th:text="${#sets.size(p.pedidos)} + ' pedido(s)'"></td>
+                    <td class="text-muted small" th:text="${#lists.size(p.pedidos)} + ' pedido(s)'"></td>
                     <td>
                         <a th:href="@{/productos/editar/{id}(id=${p.id})}" class="btn btn-outline-dark btn-sm me-1">Editar</a>
-                        <a th:href="@{/productos/eliminar/{id}(id=${p.id})}"
+                        <a th:href="@{/productos/borrar/{id}(id=${p.id})}"
                            class="btn btn-outline-danger btn-sm"
                            onclick="return confirm('¿Eliminar producto?')">Eliminar</a>
                     </td>

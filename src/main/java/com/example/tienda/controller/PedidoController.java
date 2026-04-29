@@ -19,13 +19,14 @@ public class PedidoController {
     }
 
     @GetMapping("")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("pedidos", service.obtenerTodoPedido());
         return "pedidos/lista";
     }
 
     @GetMapping("/lista")
     public String listar(Model model) {
-        model.addAttribute("todos", service.obtenerTodoPedido());
+        model.addAttribute("pedidos", service.obtenerTodoPedido());
         return "pedidos/lista";
     }
     @GetMapping("/nuevo")

@@ -18,13 +18,14 @@ public class ProductoController {
     }
 
     @GetMapping("")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("productos", service.obtenerTodoProducto());
         return "productos/lista";
     }
 
     @GetMapping("/lista")
     public String listar(Model model) {
-        model.addAttribute("todos", service.obtenerTodoProducto());
+        model.addAttribute("productos", service.obtenerTodoProducto());
         return "productos/lista";
     }
     @GetMapping("/nuevo")
