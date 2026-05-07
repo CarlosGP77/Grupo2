@@ -22,14 +22,14 @@
                 <a href="/" class="text-decoration-none text-muted small">← Inicio</a>
                 <h2 class="mb-0 mt-1">🛒 Pedidos</h2>
             </div>
-            <a href="/pedidos/nuevo" class="btn btn-dark px-4">+ Nuevo pedido</a>
+            <a href="/usuarios/nuevo" class="btn btn-dark px-4">+ Nuevo pedido</a>
         </div>
 
-        <div th:if="${#lists.isEmpty(pedidos)}" class="text-center py-5 text-muted">
-            <p class="fs-5">No hay pedidos aún. ¡Crea el primero!</p>
+        <div th:if="${#lists.isEmpty(usuarios)}" class="text-center py-5 text-muted">
+            <p class="fs-5">No hay usuarios aún. ¡Crea el primero!</p>
         </div>
 
-        <table th:unless="${#lists.isEmpty(pedidos)}" class="table table-bordered bg-white shadow-sm">
+        <table th:unless="${#lists.isEmpty(usuarios)}" class="table table-bordered bg-white shadow-sm">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -40,7 +40,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="p : ${pedidos}">
+                <tr th:each="p : ${usuarios}">
                     <td class="text-muted small" th:text="${p.id}"></td>
                     <td class="fw-500" th:text="${p.cliente}"></td>
                     <td th:text="${p.fecha}"></td>
@@ -48,8 +48,8 @@
                         <span class="num-badge" th:text="${#lists.size(p.productos)}"></span>
                     </td>
                     <td>
-                        <a th:href="@{/pedidos/editar/{id}(id=${p.id})}" class="btn btn-outline-dark btn-sm me-1">Editar</a>
-                        <a th:href="@{/pedidos/borrar/{id}(id=${p.id})}"
+                        <a th:href="@{/usuarios/editar/{id}(id=${p.id})}" class="btn btn-outline-dark btn-sm me-1">Editar</a>
+                        <a th:href="@{/usuarios/borrar/{id}(id=${p.id})}"
                            class="btn btn-outline-danger btn-sm"
                            onclick="return confirm('¿Eliminar pedido?')">Eliminar</a>
                     </td>

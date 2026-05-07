@@ -16,10 +16,10 @@
 </head>
 <body>
     <div class="container py-5" style="max-width:520px">
-        <a href="/pedidos" class="text-decoration-none text-muted small">← Volver a pedidos</a>
+        <a href="/usuarios" class="text-decoration-none text-muted small">← Volver a usuarios</a>
         <h2 class="mt-2 mb-4" th:text="${pedido.id != null} ? 'Editar Pedido' : 'Nuevo Pedido'"></h2>
 
-        <form th:action="@{/pedidos/guardar}" method="post" th:object="${pedido}" class="form-card p-4">
+        <form th:action="@{/usuarios/guardar}" method="post" th:object="${pedido}" class="form-card p-4">
             <input type="hidden" th:field="*{id}">
 
             <div class="mb-3">
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-between">
-                <a href="/pedidos" class="btn btn-outline-secondary">Cancelar</a>
+                <a href="/usuarios" class="btn btn-outline-secondary">Cancelar</a>
                 <button type="submit" class="btn btn-dark px-4">Guardar</button>
             </div>
         </form>

@@ -20,7 +20,7 @@
 <body>
     <div class="container py-5">
         <div class="mb-4 pb-3 top-bar">
-            <a href="/pedidos" class="text-decoration-none text-muted small">← Volver a pedidos</a>
+            <a href="/usuarios" class="text-decoration-none text-muted small">← Volver a usuarios</a>
             <h2 class="mt-1 mb-0">Pedido #<span th:text="${pedido.id}"></span></h2>
             <p class="text-muted mb-0">
                 Cliente: <strong th:text="${pedido.cliente}"></strong> &nbsp;·&nbsp;
@@ -48,7 +48,7 @@
                             <span class="precio-badge ms-2" th:text="'€' + ${p.precio}"></span>
                         </div>
                         <!-- Desasignar: POST para evitar CSRF con GET -->
-                        <form th:action="@{/pedidos/{pid}/desasignar/{rid}(pid=${pedido.id},rid=${p.id})}" method="post">
+                        <form th:action="@{/usuarios/{pid}/desasignar/{rid}(pid=${pedido.id},rid=${p.id})}" method="post">
                             <button class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Quitar del pedido?')">Quitar</button>
                         </form>
                     </div>
@@ -73,7 +73,7 @@
                             <span th:if="${pedido.productos.contains(p)}" class="assigned-badge ms-1">ya añadido</span>
                         </div>
                         <form th:unless="${pedido.productos.contains(p)}"
-                              th:action="@{/pedidos/{pid}/asignar/{rid}(pid=${pedido.id},rid=${p.id})}" method="post">
+                              th:action="@{/usuarios/{pid}/asignar/{rid}(pid=${pedido.id},rid=${p.id})}" method="post">
                             <button class="btn btn-dark btn-sm">+ Añadir</button>
                         </form>
                     </div>

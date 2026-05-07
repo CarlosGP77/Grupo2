@@ -35,7 +35,7 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Precio</th>
-                    <th>En pedidos</th>
+                    <th>En usuarios</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -44,7 +44,7 @@
                     <td class="text-muted small" th:text="${p.id}"></td>
                     <td class="fw-500" th:text="${p.nombre}"></td>
                     <td><span class="precio-badge" th:text="'€' + ${p.precio}"></span></td>
-                    <td class="text-muted small" th:text="${#lists.size(p.pedidos)} + ' pedido(s)'"></td>
+                    <td class="text-muted small" th:text="${#lists.size(p.usuarios)} + ' pedido(s)'"></td>
                     <td>
                         <a th:href="@{/productos/editar/{id}(id=${p.id})}" class="btn btn-outline-dark btn-sm me-1">Editar</a>
                         <a th:href="@{/productos/borrar/{id}(id=${p.id})}"
