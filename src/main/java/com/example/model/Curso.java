@@ -22,7 +22,7 @@ public class Curso {
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UsuariosCursos> usuariosCursos = new ArrayList<>();
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reserva> reservas = new ArrayList<>();
+    private List<Reservas> reservas = new ArrayList<>();
 
     public Integer getId_curso() { return id_curso; }
     public void setId_curso(Integer id_curso) { this.id_curso = id_curso; }
@@ -35,7 +35,7 @@ public class Curso {
     public void setUbicaciones(List<Ubicacion> ubicaciones) { this.ubicaciones = ubicaciones; }
     public List<UsuariosCursos> getUsuariosCursos() { return usuariosCursos; }
     public void setUsuariosCursos(List<UsuariosCursos> usuariosCursos) { this.usuariosCursos = usuariosCursos; }
-    public List<Reserva> getReservas() { return reservas; }
-    public void setReservas(List<Reserva> reservas) { this.reservas = reservas; }
+    public List<Reservas> getReservas() { return reservas; }
+    public void setReservas(List<Reservas> reservas) { this.reservas = reservas; }
 }
 

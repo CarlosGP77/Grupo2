@@ -30,7 +30,7 @@ public class Usuario {
     private boolean  verificar_titulacion;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reserva> reservas = new ArrayList<>();
+    private List<Reservas> reservas = new ArrayList<>();
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UsuariosCursos> usuariosCursos = new ArrayList<>();
 
@@ -57,8 +57,8 @@ public class Usuario {
 
 
 
-    public List<Reserva> getReservas() { return reservas; }
-    public void setReservas(List<Reserva> reservas) { this.reservas = reservas; }
+    public List<Reservas> getReservas() { return reservas; }
+    public void setReservas(List<Reservas> reservas) { this.reservas = reservas; }
     public List<UsuariosCursos> getUsuariosCursos() { return usuariosCursos; }
     public void setUsuariosCursos(List<UsuariosCursos> usuariosCursos) { this.usuariosCursos = usuariosCursos; }
 }

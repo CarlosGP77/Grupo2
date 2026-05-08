@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.example.model.Curso;
-import com.example.model.Reserva;
+import com.example.model.Reservas;
 import com.example.model.Usuario;
 import com.example.model.UsuariosCursos;
 import com.example.repository.CursoRepository;
@@ -39,7 +39,7 @@ public class TestController {
     public String index(Model model) {
         List<Usuario> usuarios = usuarioRepository.findAll();
         List<Curso> cursos = cursoRepository.findAll();
-        List<Reserva> reservas = reservaRepository.findAll();
+        List<Reservas> reservas = reservaRepository.findAll();
         List<UsuariosCursos> usuariosCursos = usuariosCursosRepository.findAll();
 
         model.addAttribute("usuarios", usuarios);
@@ -85,7 +85,7 @@ public class TestController {
         if (!usuarios.isEmpty() && !cursos.isEmpty()) {
             Usuario u = usuarios.get(0);
             Curso c = cursos.get(0);
-            Reserva r = new Reserva(u, c);
+            Reservas r = new Reservas(u, c);
             r.setEstado("CONFIRMADA");
             r.setFecha_hora(LocalDateTime.now());
             reservaRepository.save(r);

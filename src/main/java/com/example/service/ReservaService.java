@@ -1,6 +1,6 @@
 package com.example.service;
 
-import com.example.model.Reserva;
+import com.example.model.Reservas;
 import com.example.model.Usuario;
 import com.example.model.Curso;
 import com.example.repository.ReservaRepository;
@@ -17,42 +17,42 @@ public class ReservaService {
     private ReservaRepository reservaRepository;
 
     // Obtener todas las reservas
-    public List<Reserva> obtenerTodas() {
+    public List<Reservas> obtenerTodas() {
         return reservaRepository.findAll();
     }
 
     // Obtener una reserva por ID
-    public Optional<Reserva> obtenerPorId(Long id) {
+    public Optional<Reservas> obtenerPorId(Long id) {
         return reservaRepository.findById(id);
     }
 
     // Obtener reservas de un usuario
-    public List<Reserva> obtenerPorUsuario(Usuario usuario) {
+    public List<Reservas> obtenerPorUsuario(Usuario usuario) {
         return reservaRepository.findByUsuario(usuario);
     }
 
     // Obtener reservas de un curso
-    public List<Reserva> obtenerPorCurso(Curso curso) {
+    public List<Reservas> obtenerPorCurso(Curso curso) {
         return reservaRepository.findByCurso(curso);
     }
 
     // Obtener reservas por estado
-    public List<Reserva> obtenerPorEstado(String estado) {
+    public List<Reservas> obtenerPorEstado(String estado) {
         return reservaRepository.findByEstado(estado);
     }
 
     // Crear una nueva reserva
-    public Reserva crear(Reserva reserva) {
+    public Reservas crear(Reservas reserva) {
         reserva.setFecha_hora(LocalDateTime.now());
         reserva.setEstado("pendiente");
         return reservaRepository.save(reserva);
     }
 
     // Confirmar una reserva
-    public Reserva confirmar(Long id) {
-        Optional<Reserva> reserva = reservaRepository.findById(id);
+    public Reservas confirmar(Long id) {
+        Optional<Reservas> reserva = reservaRepository.findById(id);
         if (reserva.isPresent()) {
-            Reserva r = reserva.get();
+            Reservas r = reserva.get();
             r.setEstado("confirmada");
             return reservaRepository.save(r);
         }
@@ -60,10 +60,10 @@ public class ReservaService {
     }
 
     // Cancelar una reserva
-    public Reserva cancelar(Long id) {
-        Optional<Reserva> reserva = reservaRepository.findById(id);
+    public Reservas cancelar(Long id) {
+        Optional<Reservas> reserva = reservaRepository.findById(id);
         if (reserva.isPresent()) {
-            Reserva r = reserva.get();
+            Reservas r = reserva.get();
             r.setEstado("cancelada");
             return reservaRepository.save(r);
         }
@@ -71,10 +71,10 @@ public class ReservaService {
     }
 
     // Actualizar una reserva
-    public Reserva actualizar(Long id, Reserva reservaActualizada) {
-        Optional<Reserva> reserva = reservaRepository.findById(id);
+    public Reservas actualizar(Long id, Reservas reservaActualizada) {
+        Optional<Reservas> reserva = reservaRepository.findById(id);
         if (reserva.isPresent()) {
-            Reserva r = reserva.get();
+            Reservas r = reserva.get();
             r.setEstado(reservaActualizada.getEstado());
             return reservaRepository.save(r);
         }
