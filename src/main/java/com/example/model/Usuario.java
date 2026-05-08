@@ -33,7 +33,7 @@ public class Usuario {
     private Integer telefono_contacto;
     private String password;
     @Column(name = "Verificar_titulacion")
-    private boolean verificar_titulacion = false;
+    private Boolean verificar_titulacion = false;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
