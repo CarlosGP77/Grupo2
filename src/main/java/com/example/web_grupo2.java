@@ -14,11 +14,21 @@ public class web_grupo2 {
         SpringApplication.run(web_grupo2.class, args);
     }
 
+    /**
+     * Crea usuarios ADMIN y VERIFICADOR solo si no existen en la BD.
+     * Una vez creados, se guardan permanentemente.
+     * Esto se ejecuta UNA SOLA VEZ en el primer arranque.
+     * En arranques posteriores, solo verifica que existan (sin intentar crear de nuevo).
+     */
     @Bean
-    public CommandLineRunner createRoles(@Autowired UsuarioRepository usuarioRepository, @Autowired PasswordEncoder encoder) {
+    public CommandLineRunner initializeDefaultUsers(@Autowired UsuarioRepository usuarioRepository,
+                                                      @Autowired PasswordEncoder encoder) {
         return args -> {
-            // Crear usuario ADMIN
+            // Variables para control
             String adminDni = "admin";
+            String verDni = "verificador";
+
+            // ADMIN: Se crea solo si no existe
             if (!usuarioRepository.existsById(adminDni)) {
                 Usuario admin = new Usuario();
                 admin.setDni(adminDni);
@@ -27,13 +37,14 @@ public class web_grupo2 {
                 admin.setLicencia("ADMIN");
                 admin.setPassword(encoder.encode("admin123"));
                 admin.setRol(Usuario.Rol.ADMIN);
-                admin.setVerificar_titulacion(true);  // Admin siempre verificado
+                admin.setVerificar_titulacion(true);
                 usuarioRepository.save(admin);
-                System.out.println("✓ Usuario ADMIN creado: dni=admin password=admin123");
+                System.out.println("✓ Usuario ADMIN creado en BD: dni=admin password=admin123");
+            } else {
+                System.out.println("✓ Usuario ADMIN ya existe en BD (sin cambios)");
             }
 
-            // Crear usuario VERIFICADOR
-            String verDni = "verificador";
+            // VERIFICADOR: Se crea solo si no existe
             if (!usuarioRepository.existsById(verDni)) {
                 Usuario verificador = new Usuario();
                 verificador.setDni(verDni);
@@ -42,9 +53,11 @@ public class web_grupo2 {
                 verificador.setLicencia("VERIFICADOR");
                 verificador.setPassword(encoder.encode("verificador123"));
                 verificador.setRol(Usuario.Rol.VERIFICADOR);
-                verificador.setVerificar_titulacion(true);  // Verificador siempre verificado
+                verificador.setVerificar_titulacion(true);
                 usuarioRepository.save(verificador);
-                System.out.println("✓ Usuario VERIFICADOR creado: dni=verificador password=verificador123");
+                System.out.println("✓ Usuario VERIFICADOR creado en BD: dni=verificador password=verificador123");
+            } else {
+                System.out.println("✓ Usuario VERIFICADOR ya existe en BD (sin cambios)");
             }
         };
     }
