@@ -25,7 +25,8 @@ services:
       DB_USER: root
       DB_PASSWORD: ${DB_PASSWORD:-admin_123}
     ports:
-      - "8080:8080"
+      # Map container port 8080 to host port 80 so app is reachable at http://localhost/
+      - "80:8080"
     volumes:
       - ./:/app:cached
 
