@@ -21,11 +21,9 @@ public class web_grupo2 {
                 Usuario u = new Usuario();
                 u.setDni(adminDni);
                 u.setNombre_completo("Administrador");
-                u.setEmail("admin@example.com");
-                u.setLicencia("ADMIN");
-                u.setPassword(encoder.encode("admin123"));
+                u.setEmail("admin@mourosub.com");
+                u.setPassword(encoder.encode("Admin_123"));
                 usuarioRepository.save(u);
-                System.out.println("Usuario admin creado: dni=admin password=admin123");
             }
         };
     }

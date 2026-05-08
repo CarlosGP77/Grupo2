@@ -1,119 +1,138 @@
 package com.example.controller;
 
-import com.example.model.Curso;
-import com.example.model.Reservas;
-import com.example.model.Usuario;
-import com.example.model.UsuariosCursos;
-import com.example.repository.CursoRepository;
-import com.example.repository.ReservaRepository;
-import com.example.repository.UsuarioRepository;
-import com.example.repository.UsuariosCursosRepository;
+import com.example.model.*;
+import com.example.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.math.BigDecimal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.List;
 
 @Controller
 public class TestController {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private CursoRepository cursoRepository;
-
-    @Autowired
-    private ReservaRepository reservaRepository;
-
-    @Autowired
-    private UsuariosCursosRepository usuariosCursosRepository;
+    @Autowired private UsuarioRepository usuarioRepository;
+    @Autowired private CursoRepository cursoRepository;
+    @Autowired private ReservaRepository reservaRepository;
+    @Autowired private UsuariosCursosRepository usuariosCursosRepository;
+    @Autowired private ActividadRepository actividadRepository;
+    @Autowired private UbicacionRepository ubicacionRepository;
+    @Autowired private InstructorRepository instructorRepository;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     @GetMapping("/test")
     public String index(Model model) {
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        List<Curso> cursos = cursoRepository.findAll();
-        List<Reservas> reservas = reservaRepository.findAll();
-        List<UsuariosCursos> usuariosCursos = usuariosCursosRepository.findAll();
-
-        model.addAttribute("usuarios", usuarios);
-        model.addAttribute("cursos", cursos);
-        model.addAttribute("reservas", reservas);
-        model.addAttribute("usuariosCursos", usuariosCursos);
+        model.addAttribute("usuarios", usuarioRepository.findAll());
+        model.addAttribute("cursos", cursoRepository.findAll());
+        model.addAttribute("reservas", reservaRepository.findAll());
+        model.addAttribute("usuariosCursos", usuariosCursosRepository.findAll());
+        model.addAttribute("actividades", actividadRepository.findAll());
+        model.addAttribute("ubicaciones", ubicacionRepository.findAll());
+        model.addAttribute("instructores", instructorRepository.findAll());
         return "test/index";
     }
 
-    @GetMapping("/test/create-user")
-    public String createUser(@RequestParam(required = false) String dni,
-                             @RequestParam(required = false) String password) {
-        String id = (dni == null || dni.isEmpty()) ? "000000001" : dni;
-        if (!usuarioRepository.existsById(id)) {
+    // USUARIO - Formulario
+    @PostMapping("/test/usuario/crear")
+    public String crearUsuario(@RequestParam String dni,
+                               @RequestParam String nombre_completo,
+                               @RequestParam String email,
+                               @RequestParam String licencia,
+                               @RequestParam String password) {
+        if (dni != null && !dni.isEmpty()) {
             Usuario u = new Usuario();
-            u.setDni(id);
-            u.setNombre_completo("Usuario " + id);
-            u.setEmail("user" + id + "@example.com");
-            u.setLicencia("LIC-" + id);
-            if (password != null && !password.isEmpty()) {
-                PasswordEncoder encoder = new BCryptPasswordEncoder();
-                u.setPassword(encoder.encode(password));
-            }
+            u.setDni(dni);
+            u.setNombre_completo(nombre_completo);
+            u.setEmail(email);
+            u.setLicencia(licencia);
+            u.setPassword(passwordEncoder.encode(password));
             usuarioRepository.save(u);
         }
         return "redirect:/test";
     }
 
-    @GetMapping("/test/create-course")
-    public String createCourse(@RequestParam(required = false) String name) {
-        String nombre = (name == null || name.isEmpty()) ? "Curso demo" : name;
+    // CURSO - Formulario
+    @PostMapping("/test/curso/crear")
+    public String crearCurso(@RequestParam String nombre,
+                             @RequestParam String descripcion) {
         Curso c = new Curso();
         c.setNombre(nombre);
-        c.setDescripcion("Descripción de prueba para " + nombre);
+        c.setDescripcion(descripcion);
         cursoRepository.save(c);
         return "redirect:/test";
     }
 
-    @GetMapping("/test/create-reserva")
-    public String createReserva() {
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        List<Curso> cursos = cursoRepository.findAll();
-        if (!usuarios.isEmpty() && !cursos.isEmpty()) {
-            Usuario u = usuarios.get(0);
-            Curso c = cursos.get(0);
-            Reservas r = new Reservas(u, c);
-            r.setEstado("CONFIRMADA");
+    // ACTIVIDAD - Formulario
+    @PostMapping("/test/actividad/crear")
+    public String crearActividad(@RequestParam String nombre,
+                                 @RequestParam String descripcion) {
+        Actividad a = new Actividad();
+        a.setNombre(nombre);
+        a.setDescripcion(descripcion);
+        actividadRepository.save(a);
+        return "redirect:/test";
+    }
+
+    // UBICACION - Formulario
+    @PostMapping("/test/ubicacion/crear")
+    public String crearUbicacion(@RequestParam String nombre,
+                                 @RequestParam String descripcion,
+                                 @RequestParam(required = false) Integer actividad_id) {
+        Ubicacion u = new Ubicacion();
+        u.setNombre(nombre);
+        u.setDescripcion(descripcion);
+        if (actividad_id != null && actividad_id > 0) {
+            Actividad a = actividadRepository.findById(actividad_id).orElse(null);
+            u.setActividad(a);
+        }
+        ubicacionRepository.save(u);
+        return "redirect:/test";
+    }
+
+    // INSTRUCTOR - Formulario
+    @PostMapping("/test/instructor/crear")
+    public String crearInstructor(@RequestParam String dni,
+                                  @RequestParam String nombre,
+                                  @RequestParam String email,
+                                  @RequestParam String disponibilidad) {
+        Instructor i = new Instructor();
+        i.setDni(dni);
+        i.setNombre(nombre);
+        i.setEmail(email);
+        i.setDisponibilidad(disponibilidad.equals("on") || disponibilidad.equals("true"));
+        instructorRepository.save(i);
+        return "redirect:/test";
+    }
+
+    // RESERVA - Formulario
+    @PostMapping("/test/reserva/crear")
+    public String crearReserva(@RequestParam String dni_usuario,
+                               @RequestParam Integer id_curso,
+                               @RequestParam String estado) {
+        Usuario u = usuarioRepository.findById(dni_usuario).orElse(null);
+        Curso c = cursoRepository.findById(id_curso).orElse(null);
+        if (u != null && c != null) {
+            Reserva r = new Reserva(u, c);
+            r.setEstado(estado);
             r.setFecha_hora(LocalDateTime.now());
             reservaRepository.save(r);
         }
         return "redirect:/test";
     }
 
-    @GetMapping("/test/create-usuarios-cursos")
-    public String createUsuariosCursos() {
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        List<Curso> cursos = cursoRepository.findAll();
-        if (!usuarios.isEmpty() && !cursos.isEmpty()) {
-            Usuario u = usuarios.get(0);
-            Curso c = cursos.get(0);
-            UsuariosCursos uc = new UsuariosCursos();
-            uc.setUsuario(u);
-            uc.setCurso(c);
-            uc.setPrecio(BigDecimal.ZERO);
-            usuariosCursosRepository.save(uc);
-        }
-        return "redirect:/test";
-    }
-
     @GetMapping("/test/clear-all")
     public String clearAll() {
-        // Delete in order to avoid FK constraint issues
         reservaRepository.deleteAll();
         usuariosCursosRepository.deleteAll();
+        ubicacionRepository.deleteAll();
+        actividadRepository.deleteAll();
+        instructorRepository.deleteAll();
         cursoRepository.deleteAll();
         usuarioRepository.deleteAll();
         return "redirect:/test";
