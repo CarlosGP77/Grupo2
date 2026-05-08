@@ -10,6 +10,8 @@ public class Ubicacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ubicacion")
     private Integer id_ubicacion;
+    @Column(length = 60)
+    private String nombre;
     @Column(columnDefinition = "TEXT")
     private String descripcion;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -21,6 +23,8 @@ public class Ubicacion {
 
     public Integer getId_ubicacion() { return id_ubicacion; }
     public void setId_ubicacion(Integer id_ubicacion) { this.id_ubicacion = id_ubicacion; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
     public Actividad getActividad() { return actividad; }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reservas")
-public class Reservas {
+public class Reserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +26,9 @@ public class Reservas {
     private LocalDateTime fecha_hora;
 
     // Constructores
-    public Reservas() {}
+    public Reserva() {}
 
-    public Reservas(Usuario usuario, Curso curso) {
+    public Reserva(Usuario usuario, Curso curso) {
         this.usuario = usuario;
         this.curso = curso;
     }
