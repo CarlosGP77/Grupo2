@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Controlador de administración - solo accesible para usuarios con rol ADMIN.
@@ -49,9 +50,11 @@ public class AdminController {
 
     /**
      * Estadísticas en JSON (para consumo desde frontend)
+     * GET /admin/api/stats
      */
     @GetMapping("/api/stats")
-    public org.springframework.web.bind.annotation.ResponseBody String getStats() {
+    @ResponseBody
+    public String getStats() {
         long totalUsuarios = usuarioRepository.count();
         long usuariosNoVerificados = usuarioRepository.findAll()
                 .stream()
@@ -66,4 +69,3 @@ public class AdminController {
         );
     }
 }
-
