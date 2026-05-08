@@ -1,6 +1,5 @@
 package com.example.config;
 
-import com.example.repository.UsuarioRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,7 +19,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
+                // Rutas públicas
                 .requestMatchers("/test/**", "/", "/login", "/css/**", "/js/**").permitAll()
+                // Rutas ADMIN - solo administrador
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                // Rutas VERIFICADOR - admin o verificador
+                .requestMatchers("/verificador/**").hasAnyRole("ADMIN", "VERIFICADOR")
+                // Cualquier otra ruta requiere autenticación
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -36,4 +41,6 @@ public class SecurityConfig {
         return http.build();
     }
 }
+
+
 

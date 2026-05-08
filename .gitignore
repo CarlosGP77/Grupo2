@@ -4,3 +4,9 @@ application-prod.properties
 application-test.properties
 *.log
 *.tmp
+
+# Local env containing secrets (do not commit)
+.env
+.env.*
+.secrets
+

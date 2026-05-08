@@ -44,7 +44,8 @@ public class TestController {
                                @RequestParam String nombre_completo,
                                @RequestParam String email,
                                @RequestParam String licencia,
-                               @RequestParam String password) {
+                               @RequestParam String password,
+                               @RequestParam(required = false, defaultValue = "USUARIO") String rol) {
         if (dni != null && !dni.isEmpty()) {
             Usuario u = new Usuario();
             u.setDni(dni);
@@ -52,6 +53,16 @@ public class TestController {
             u.setEmail(email);
             u.setLicencia(licencia);
             u.setPassword(passwordEncoder.encode(password));
+            
+            // Asignar rol (ADMIN, VERIFICADOR, USUARIO)
+            try {
+                u.setRol(Usuario.Rol.valueOf(rol.toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                u.setRol(Usuario.Rol.USUARIO);
+            }
+            
+            // Los usuarios nuevos por defecto no están verificados
+            u.setVerificar_titulacion(false);
             usuarioRepository.save(u);
         }
         return "redirect:/test";

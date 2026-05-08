@@ -8,6 +8,12 @@ import java.util.List;
 @Table(name = "usuarios")
 public class Usuario {
 
+    public enum Rol {
+        ADMIN,        // Control total
+        VERIFICADOR,  // Solo verifica credenciales
+        USUARIO       // Usuario normal
+    }
+
     @Id
     @Column(length = 9)
     private String dni;
@@ -27,7 +33,11 @@ public class Usuario {
     private Integer telefono_contacto;
     private String password;
     @Column(name = "Verificar_titulacion")
-    private boolean  verificar_titulacion;
+    private boolean verificar_titulacion = false;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private Rol rol = Rol.USUARIO;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservas> reservas = new ArrayList<>();
@@ -53,8 +63,10 @@ public class Usuario {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     public boolean getVerificar_titulacion() { return verificar_titulacion; }
-    public void setVerificar_titulacion(boolean verificar_titulacion) {}
+    public void setVerificar_titulacion(boolean verificar_titulacion) { this.verificar_titulacion = verificar_titulacion; }
 
+    public Rol getRol() { return rol; }
+    public void setRol(Rol rol) { this.rol = rol; }
 
 
     public List<Reservas> getReservas() { return reservas; }
