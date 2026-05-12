@@ -4,6 +4,7 @@ application-prod.properties
 application-test.properties
 *.log
 *.tmp
+target/
 
 # Local env containing secrets (do not commit)
 .env
