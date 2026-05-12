@@ -16,6 +16,21 @@ services:
       timeout: 3s
       retries: 20
 
+  db-init:
+    image: mariadb:10.11
+    container_name: grupo2_db_init
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    restart: "no"
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD:-admin_123}
+    volumes:
+      - ./docker/init-db.sql:/init/init-db.sql:ro
+    entrypoint: ["/bin/sh", "-c"]
+    command: >
+      mariadb -h mariadb -u root -p"$$DB_PASSWORD" < /init/init-db.sql
+
   app:
     build: .
     container_name: grupo2_app
@@ -23,6 +38,8 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+      db-init:
+        condition: service_completed_successfully
     environment:
       DB_URL: jdbc:mariadb://mariadb:3306/${DB_NAME:-mourosub}
       DB_USER: root
