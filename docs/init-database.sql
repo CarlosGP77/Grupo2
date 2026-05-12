@@ -132,7 +132,7 @@ INSERT INTO usuarios (dni, nombre_completo, email, password, rol, Verificar_titu
 
 -- Insertar usuario VERIFICADOR
 INSERT INTO usuarios (dni, nombre_completo, email, password, rol, Verificar_titulacion) VALUES
-('verificador', 'Verificador de Credenciales', 'verificador@example.com', '$2a$10$7J7.4DxXkEK6I.QQxCTvXOK6Z8V3qz1g2kW3H5vB9pL.rF8qkFLne', 'VERIFICADOR', 1);
+('verificador', 'Verificador de Credenciales', 'verificador@example.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'VERIFICADOR', 1);
 
 -- Insertar instructores
 INSERT INTO instructores (dni, nombre, disponibilidad, titulaciones, email, telefono_contacto, telefono_personal) VALUES
