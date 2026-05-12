@@ -4,9 +4,7 @@ WORKDIR /build
 COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
-
-# Stage 2: Runtime
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=builder /build/target/demo-web-0.0.1-SNAPSHOT.jar app.jar
 
