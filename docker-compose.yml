@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  db:
+  mariadb:
     image: mariadb:10.11
     container_name: grupo2_db
     restart: unless-stopped
@@ -17,18 +17,14 @@ services:
     build: .
     container_name: grupo2_app
     depends_on:
-      - db
+      - mariadb
     restart: unless-stopped
     environment:
-      # Spring Boot will read these and application.properties has fallbacks
-      DB_URL: jdbc:mariadb://db:3306/${DB_NAME:-mourosub}
+      DB_URL: jdbc:mariadb://mariadb:3306/${DB_NAME:-mourosub}
       DB_USER: root
       DB_PASSWORD: ${DB_PASSWORD:-admin_123}
     ports:
-      # Map container port 8080 to host port 80 so app is reachable at http://localhost/
       - "80:8080"
-    volumes:
-      - ./:/app:cached
 
 volumes:
   db_data:
