@@ -16,7 +16,6 @@ services:
   app:
     build: .
     container_name: grupo2_app
-    restart: unless-stopped
     depends_on:
       - mariadb
     restart: unless-stopped
