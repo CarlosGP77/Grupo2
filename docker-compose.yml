@@ -18,7 +18,6 @@ services:
     container_name: grupo2_app
     depends_on:
       - mariadb
-    restart: unless-stopped
     environment:
       DB_URL: jdbc:mariadb://mariadb:3306/${DB_NAME:-mourosub}
       DB_USER: root
