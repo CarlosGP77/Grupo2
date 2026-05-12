@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     telefono INT,
     telefono_de_contacto INT,
     password VARCHAR(255),
+    rol VARCHAR(20) DEFAULT 'USUARIO',
+    Verificar_titulacion TINYINT DEFAULT 0,
     INDEX idx_email (email)
 );
 
@@ -123,6 +125,14 @@ INSERT INTO usuarios (dni, nombre_completo, email, licencia, titulaciones, poliz
 ('12345678A', 'Juan García López', 'juan@example.com', 'LIC-001', 'Bachillerato', 'POL-001', 600123456, 600123456),
 ('87654321B', 'María Rodríguez Pérez', 'maria@example.com', 'LIC-002', 'Técnico Informática', 'POL-002', 600789012, 600789012),
 ('11111111C', 'Carlos López Martínez', 'carlos@example.com', 'LIC-003', 'Grado Informática', 'POL-003', 600555555, 600555555);
+
+-- Insertar usuario ADMIN
+INSERT INTO usuarios (dni, nombre_completo, email, password, rol, Verificar_titulacion) VALUES
+('admin', 'Administrador del Sistema', 'admin@example.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'ADMIN', 1);
+
+-- Insertar usuario VERIFICADOR
+INSERT INTO usuarios (dni, nombre_completo, email, password, rol, Verificar_titulacion) VALUES
+('verificador', 'Verificador de Credenciales', 'verificador@example.com', '$2a$10$7J7.4DxXkEK6I.QQxCTvXOK6Z8V3qz1g2kW3H5vB9pL.rF8qkFLne', 'VERIFICADOR', 1);
 
 -- Insertar instructores
 INSERT INTO instructores (dni, nombre, disponibilidad, titulaciones, email, telefono_contacto, telefono_personal) VALUES
