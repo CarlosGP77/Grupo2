@@ -19,8 +19,39 @@ CREATE TABLE IF NOT EXISTS usuarios (
 );
 
 -- Asegurar columnas nuevas en usuarios si la tabla ya existía
-ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS rol VARCHAR(20) NOT NULL DEFAULT 'USUARIO';
-ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS Verificar_titulacion TINYINT(1) NOT NULL DEFAULT 0;
+SET @db_name := DATABASE();
+
+SET @rol_exists := (
+    SELECT COUNT(*)
+    FROM information_schema.COLUMNS
+    WHERE TABLE_SCHEMA = @db_name
+      AND TABLE_NAME = 'usuarios'
+      AND COLUMN_NAME = 'rol'
+);
+SET @sql := IF(
+    @rol_exists = 0,
+    'ALTER TABLE usuarios ADD COLUMN rol VARCHAR(20) NOT NULL DEFAULT ''USUARIO''',
+    'SELECT 1'
+);
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @verif_exists := (
+    SELECT COUNT(*)
+    FROM information_schema.COLUMNS
+    WHERE TABLE_SCHEMA = @db_name
+      AND TABLE_NAME = 'usuarios'
+      AND COLUMN_NAME = 'Verificar_titulacion'
+);
+SET @sql := IF(
+    @verif_exists = 0,
+    'ALTER TABLE usuarios ADD COLUMN Verificar_titulacion TINYINT(1) NOT NULL DEFAULT 0',
+    'SELECT 1'
+);
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 
 -- Tabla ACTIVIDADES
 CREATE TABLE IF NOT EXISTS actividades (
