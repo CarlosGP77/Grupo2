@@ -24,6 +24,8 @@ services:
       DB_URL: jdbc:mariadb://mariadb:3306/${DB_NAME:-mourosub}
       DB_USER: root
       DB_PASSWORD: ${DB_PASSWORD:-admin_123}
+    volumes:
+      - /root/ssl/keystore.p12:/app/keystore.p12
     ports:
       - "443:8080"
 
