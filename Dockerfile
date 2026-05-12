@@ -1,5 +1,4 @@
 FROM maven:3.9-eclipse-temurin-21 AS builder
-
 WORKDIR /build
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 RUN git clone https://github.com/CarlosGP77/Grupo2.git .
@@ -10,4 +9,3 @@ COPY --from=builder /build/target/*.jar app.jar
 COPY ssl/keystore.p12 keystore.p12
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
