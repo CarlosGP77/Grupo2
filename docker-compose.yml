@@ -10,13 +10,19 @@ services:
       MARIADB_DATABASE: ${DB_NAME:-mourosub}
     volumes:
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
 
   app:
     build: .
     container_name: grupo2_app
     restart: unless-stopped
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     environment:
       DB_URL: jdbc:mariadb://mariadb:3306/${DB_NAME:-mourosub}
       DB_USER: root
