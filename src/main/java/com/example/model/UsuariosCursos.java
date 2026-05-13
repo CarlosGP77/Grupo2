@@ -11,7 +11,7 @@ public class UsuariosCursos {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuarios_dni", referencedColumnName = "dni")
+    @JoinColumn(name = "usuarios_dni", referencedColumnName = "dni", columnDefinition = "VARCHAR(9)")
     private Usuario usuario;
 
     @Id
