@@ -3,7 +3,6 @@ version: '3.8'
 services:
   mariadb:
     image: mariadb:10.11
-    container_name: grupo2_db
     restart: unless-stopped
     environment:
       - MARIADB_ROOT_PASSWORD=admin_123
@@ -23,7 +22,7 @@ services:
     container_name: grupo2_app
     restart: unless-stopped
     environment:
-      - DB_URL=jdbc:mariadb://grupo2_db:3306/mourosub
+      - DB_URL=jdbc:mariadb://mariadb:3306/mourosub
       - DB_USER=root
       - DB_PASSWORD=admin_123
     volumes:
