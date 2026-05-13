@@ -39,10 +39,13 @@ services:
       DB_USER: root
       DB_PASSWORD: admin_123
       JPA_DDL_AUTO: create-drop
-      SERVER_PORT: 8081
+      SERVER_PORT: 443
+      SERVER_SSL_ENABLED: true
+      SERVER_KEYSTORE: /app/keystore.p12
+      SERVER_KEYSTORE_PASSWORD: Admin_123
 
     ports:
-      - "8081:8081"
+      - "443:443"
 
     networks:
       - grupo2-network
@@ -51,12 +54,8 @@ services:
       mariadb:
         condition: service_healthy
 
-    healthcheck:
-      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8081/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+    # App healthcheck removed (use container status + logs). If you want an https healthcheck,
+    # ensure the runtime image includes curl/wget and adjust the command to use --no-check-certificate.
 
 volumes:
   db_data:
