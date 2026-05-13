@@ -13,9 +13,9 @@ FROM eclipse-temurin:17-jdk
 WORKDIR /app
 COPY --from=builder /build/target/*.jar app.jar
 
-EXPOSE 8080
+EXPOSE 8081
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD wget -q -O - http://localhost:8080/ || exit 1
+    CMD wget -q -O - http://localhost:8081/ || exit 1
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
