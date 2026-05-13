@@ -25,7 +25,7 @@ public class DatabaseBootstrapper implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         ensureUser(
-                "admin",
+                "12345678A",
                 "Administrador del Sistema",
                 "admin@example.com",
                 "Admin_123",
@@ -34,7 +34,7 @@ public class DatabaseBootstrapper implements ApplicationRunner {
         );
 
         ensureUser(
-                "verificador",
+                "87654321B",
                 "Verificador de Credenciales",
                 "verificador@example.com",
                 "Admin_123",
