@@ -1,0 +1,188 @@
+version: '3.9'
+
+# ============================================
+# DOCKER COMPOSE PARA PRODUCCIÓN EN DEBIAN
+# ============================================
+# Uso: docker-compose -f docker-compose.prod.yml up -d
+
+services:
+  # ============================================
+  # BASE DE DATOS - MariaDB 11.4
+  # ============================================
+  mariadb:
+    image: mariadb:11.4-jammy
+    container_name: mourosubv2-mariadb-prod
+    restart: always
+
+    # Limitar recursos
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+
+    # Puertos (solo interno en producción)
+    ports:
+      - "3306:3306"
+
+    # Variables de entorno
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MARIADB_AUTO_UPGRADE: 1
+      MARIADB_DISABLE_MYSQL_UNIX_SOCKET: 1
+      TZ: 'UTC'
+
+    # Volúmenes para persistencia
+    volumes:
+      # Datos persistentes
+      - mariadb_data:/var/lib/mysql
+      # Logs
+      - mariadb_logs:/var/log/mysql
+      # Configuración personalizada (opcional)
+      - ./config/mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf:ro
+
+    # Red interna
+    networks:
+      - mourosubv2-prod
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+      start_period: 40s
+
+    # Opciones de MariaDB para producción
+    command:
+      - '--character-set-server=utf8mb4'
+      - '--collation-server=utf8mb4_unicode_ci'
+      - '--max_connections=500'
+      - '--default-storage-engine=InnoDB'
+      - '--innodb_buffer_pool_size=1G'
+      - '--query_cache_size=32M'
+      - '--slow-query-log=1'
+      - '--long_query_time=2'
+
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "7"
+
+  # ============================================
+  # APLICACIÓN - Spring Boot
+  # ============================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    image: mourosubv2:prod-latest
+    container_name: mourosubv2-app-prod
+    restart: always
+
+    # Limitar recursos
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+
+    # Puerto público
+    ports:
+      - "8080:8080"
+
+    # Variables de entorno
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/${DB_NAME}?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.mariadb.jdbc.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MariaDBDialect
+      SPRING_JPA_SHOW_SQL: 'false'
+      SPRING_THYMELEAF_CACHE: 'true'
+      SPRING_DEVTOOLS_RESTART_ENABLED: 'false'
+      SERVER_PORT: 8080
+      SERVER_COMPRESSION_ENABLED: 'true'
+      SERVER_COMPRESSION_MIN_RESPONSE_SIZE: '1024'
+      JAVA_OPTS: -XX:+UseG1GC -XX:MaxRAMPercentage=70.0 -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled
+      TZ: 'UTC'
+
+    # Volúmenes
+    volumes:
+      # Logs de la aplicación
+      - app_logs:/app/logs
+
+    # Dependencias
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+    # Red interna
+    networks:
+      - mourosubv2-prod
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "10"
+        labels: "mourosubv2=prod"
+
+# ============================================
+# VOLÚMENES
+# ============================================
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_PATH:-./data/mariadb}
+
+  mariadb_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_PATH:-./data/logs/mariadb}
+
+  app_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_PATH:-./data/logs/app}
+
+# ============================================
+# REDES
+# ============================================
+networks:
+  mourosubv2-prod:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/16
+

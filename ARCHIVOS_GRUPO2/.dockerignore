@@ -1,0 +1,59 @@
+# ============================================
+# .dockerignore para Grupo2
+# ============================================
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+.DS_Store
+.code-workspace
+
+# Build
+target/
+*.class
+*.jar
+*.war
+*.ear
+build/
+dist/
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+*.m2
+
+# Gradle
+.gradle
+gradle
+
+# Node (si lo hay)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Documentación temporal
+*.md
+README*
+CHANGELOG*
+LICENSE*
+
+# Otros
+*.log
+temp/
+tmp/
+*.tmp
+.env.example
+.env
+docker-compose*.yml
+Dockerfile
+.dockerignore
+

@@ -1,0 +1,79 @@
+# ============================================
+# Configuración de MariaDB para Producción
+# ============================================
+# Lugar: ./config/mariadb.cnf
+# Usar en: docker-compose.prod.yml
+
+[mysqld]
+# ============================================
+# Configuración General
+# ============================================
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+default-storage-engine = InnoDB
+skip-external-locking = 1
+symbolic-links = 0
+
+# ============================================
+# Memoria y Buffer Pool
+# ============================================
+# Asignar 70% de RAM disponible
+innodb_buffer_pool_size = 1400M
+innodb_log_file_size = 256M
+innodb_log_buffer_size = 16M
+query_cache_size = 32M
+query_cache_type = 1
+table_open_cache = 4000
+max_connections = 500
+max_allowed_packet = 16M
+
+# ============================================
+# Performance
+# ============================================
+innodb_flush_log_at_trx_commit = 2
+innodb_flush_method = O_DIRECT
+innodb_file_per_table = 1
+binlog_format = ROW
+tmp_table_size = 32M
+max_heap_table_size = 32M
+
+# ============================================
+# Networking
+# ============================================
+bind-address = 0.0.0.0
+port = 3306
+wait_timeout = 600
+interactive_timeout = 600
+
+# ============================================
+# Logging para Debug
+# ============================================
+log_error = /var/log/mysql/error.log
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow.log
+long_query_time = 2
+log_queries_not_using_indexes = 1
+
+# ============================================
+# Durabilidad
+# ============================================
+sync_binlog = 0
+innodb_autoinc_lock_mode = 2
+event_scheduler = ON
+
+# ============================================
+# Replicación (si es necesario)
+# ============================================
+# server-id = 1
+# log_bin = mysql-bin
+# relay-log = mysql-relay-bin
+# relay-log-index = mysql-relay-bin.index
+
+[mysqldump]
+quick
+quote-names
+max_allowed_packet = 16M
+
+[isamchk]
+key_buffer_size = 16M
+

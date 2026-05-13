@@ -1,0 +1,124 @@
+version: '3.9'
+
+# ============================================
+# Docker Compose para Grupo2
+# ✅ Configuración arreglada para conexión BD
+# ============================================
+
+services:
+  # ============================================
+  # BASE DE DATOS - MariaDB 11.4
+  # ============================================
+  mariadb:
+    image: mariadb:11.4-jammy
+    container_name: grupo2-mariadb
+    restart: unless-stopped
+
+    # Configuración de BD
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD:-admin_123}
+      MARIADB_DATABASE: ${DB_NAME:-mourosub}
+      MARIADB_AUTO_UPGRADE: 1
+      MARIADB_DISABLE_MYSQL_UNIX_SOCKET: 1
+      TZ: 'UTC'
+
+    # Persistencia de datos
+    volumes:
+      - grupo2_mariadb_data:/var/lib/mysql
+
+    # Puerto
+    ports:
+      - "3306:3306"
+
+    # Red Docker
+    networks:
+      - grupo2-network
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ============================================
+  # APLICACIÓN - Spring Boot
+  # ============================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: grupo2-app:latest
+    container_name: grupo2-app
+    restart: unless-stopped
+
+    # Variables de entorno
+    environment:
+      # Database
+      DB_URL: jdbc:mariadb://mariadb:3306/mourosub
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-admin_123}
+
+      # JPA
+      JPA_DDL_AUTO: ${JPA_DDL_AUTO:-create-drop}
+
+      # Servidor
+      SERVER_PORT: 8080
+
+      # Timezone
+      TZ: 'UTC'
+
+    # Puertos
+    ports:
+      - "8080:8080"
+
+    # Red Docker
+    networks:
+      - grupo2-network
+
+    # Dependencias
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# ============================================
+# VOLÚMENES
+# ============================================
+volumes:
+  grupo2_mariadb_data:
+    driver: local
+
+# ============================================
+# REDES
+# ============================================
+networks:
+  grupo2-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
+

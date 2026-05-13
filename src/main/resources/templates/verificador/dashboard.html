@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Verificador - MouroSubV2</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+        .sidebar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+        .sidebar-menu a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: background 0.3s;
+        }
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .main-content {
+            padding: 30px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card h5 {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-graduation-cap"></i> MouroSubV2 - Verificador
+            </a>
+            <div class="ms-auto">
+                <span class="me-3" th:text="${username}"></span>
+                <form action="/logout" method="post" style="display: inline;">
+                    <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar">
+                <h5 class="mb-4">
+                    <i class="fas fa-check-circle"></i> Verificación
+                </h5>
+                <div class="sidebar-menu">
+                    <a href="/verificador/dashboard">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="/verificador/users">
+                        <i class="fas fa-users"></i> Usuarios Pendientes
+                    </a>
+                    <a href="/verificador/qualifications">
+                        <i class="fas fa-certificate"></i> Titulaciones
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 main-content">
+                <h2>Panel de Verificación</h2>
+                <p class="text-muted">Revisa y verifica usuarios y titulaciones</p>
+                <hr>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-hourglass-half"></i> Usuarios Pendientes</h5>
+                            <div class="number" th:text="${totalPendingUsers}">0</div>
+                            <a href="/verificador/users" class="btn btn-sm btn-outline-primary mt-3">
+                                Ver Detalles
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-certificate"></i> Titulaciones Pendientes</h5>
+                            <div class="number" th:text="${totalPendingQualifications}">0</div>
+                            <a href="/verificador/qualifications" class="btn btn-sm btn-outline-primary mt-3">
+                                Ver Detalles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4 p-4">
+                    <h5>Tareas Pendientes</h5>
+                    <div class="list-group list-group-flush">
+                        <a href="/verificador/users" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-users me-2"></i> Revisar usuarios sin verificar</span>
+                            <span class="badge bg-danger rounded-pill" th:text="${totalPendingUsers}">0</span>
+                        </a>
+                        <a href="/verificador/qualifications" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-certificate me-2"></i> Verificar titulaciones</span>
+                            <span class="badge bg-danger rounded-pill" th:text="${totalPendingQualifications}">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

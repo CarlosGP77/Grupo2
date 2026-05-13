@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la Actividad - MouroSubV2</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">MouroSubV2</a>
+            <form action="/logout" method="post">
+                <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <h2 th:text="${activity.name}">Nombre de la Actividad</h2>
+                <div class="mb-3">
+                    <span class="badge" th:classappend="${isAvailable} ? 'bg-success' : 'bg-danger'"
+                          th:text="${isAvailable ? 'Disponible' : 'No Disponible'}"></span>
+                </div>
+                <hr>
+
+                <h5>Descripción</h5>
+                <p th:text="${activity.description}">Descripción</p>
+
+                <h5 class="mt-4">Detalles</h5>
+                <table class="table table-borderless">
+                    <tr>
+                        <td><strong>Curso:</strong></td>
+                        <td th:text="${activity.course.name}">Curso</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inicio:</strong></td>
+                        <td th:text="${#temporals.format(activity.startDate, 'dd/MM/yyyy HH:mm')}">Fecha</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fin:</strong></td>
+                        <td th:text="${#temporals.format(activity.endDate, 'dd/MM/yyyy HH:mm')}">Fecha</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ubicación:</strong></td>
+                        <td th:text="${activity.location.name}">Ubicación</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dirección:</strong></td>
+                        <td th:text="${activity.location.address + ', ' + activity.location.city}">Dirección</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lugares Disponibles:</strong></td>
+                        <td class="h5 text-primary" th:text="${availableSpots + ' / ' + activity.capacity}">Lugares</td>
+                    </tr>
+                </table>
+
+                <div sec:authorize="hasRole('USUARIO')" class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> Para reservar a esta actividad, es necesario tener verificada tu cuenta.
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Acciones</h5>
+                        <hr>
+
+                        <div th:if="${isAvailable && #httpServletRequest.getUserPrincipal()} && sec:authorize('hasRole(USUARIO')" class="mb-3">
+                            <div th:if="${userReservation}">
+                                <div class="alert alert-success">
+                                    <i class="fas fa-check"></i> Ya tienes una reserva en esta actividad
+                                </div>
+                            </div>
+                            <div th:unless="${userReservation}">
+                                <form method="post" th:action="${'/activities/' + activity.id + '/reserve'}">
+                                    <button type="submit" class="btn btn-success w-100">
+                                        <i class="fas fa-check"></i> Reservar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div th:unless="${isAvailable}" class="alert alert-danger">
+                            <i class="fas fa-times"></i> No hay lugares disponibles
+                        </div>
+
+                        <a href="/activities" class="btn btn-outline-secondary btn-sm w-100">
+                            <i class="fas fa-arrow-left"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

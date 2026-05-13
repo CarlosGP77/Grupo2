@@ -1,0 +1,60 @@
+# Dockerfile optimizado para Producción
+# Multi-stage build: Maven (compilación) + JDK (runtime)
+
+# ============================================
+# Etapa 1: COMPILACIÓN CON MAVEN
+# ============================================
+FROM maven:3.9.6-eclipse-temurin-21-jammy AS maven-build
+
+LABEL stage=maven-builder
+
+WORKDIR /build
+
+# Copiar archivos de configuración
+COPY pom.xml .
+COPY .mvn ./.mvn
+
+# Descargar dependencias (caché layer)
+RUN mvn dependency:resolve -B
+
+# Copiar código fuente
+COPY src ./src
+
+# Compilar sin tests
+RUN mvn clean package -DskipTests \
+    && ls -la target/
+
+# ============================================
+# Etapa 2: RUNTIME CON JDK MÍNIMO
+# ============================================
+FROM eclipse-temurin:21-jdk-jammy
+
+LABEL maintainer="MouroSubV2 Team"
+LABEL description="MouroSubV2 - Sistema de Gestión de Cursos"
+LABEL version="1.0.0"
+
+# Crear usuario non-root para seguridad
+RUN useradd -m -u 1000 appuser
+
+WORKDIR /app
+
+# Copiar JAR compilado desde etapa anterior
+COPY --from=maven-build --chown=appuser:appuser /build/target/*.jar app.jar
+
+# Cambiar a usuario no-root
+USER appuser
+
+# Punto de salud
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD java -cp app.jar org.springframework.boot.loader.JarLauncher --version &>/dev/null || exit 1
+
+# Exponer puerto
+EXPOSE 8080
+
+# Variables de entorno por defecto
+ENV JAVA_OPTS="-XX:+UseG1GC -XX:MaxRAMPercentage=75.0 -XX:+UseStringDeduplication"
+ENV SPRING_PROFILES_ACTIVE="prod"
+
+# Comando de inicio
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar app.jar"]
+

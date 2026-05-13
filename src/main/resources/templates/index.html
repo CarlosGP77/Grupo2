@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MouroSubV2 - Gestión de Cursos</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .content {
+            flex: 1;
+            padding: 40px 20px;
+        }
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 80px 20px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+        }
+        .btn-custom {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 25px;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        .feature-box {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            margin: 15px;
+        }
+        .feature-box i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        footer {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white fw-bold" href="/">
+                <i class="fas fa-graduation-cap"></i> MouroSubV2
+            </a>
+            <button class="navbar-toggler btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/courses">Cursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/activities">Actividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/locations">Ubicaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/login" th:unless="${#httpServletRequest.getUserPrincipal()}">Login</a>
+                    </li>
+                    <li class="nav-item" th:if="${#httpServletRequest.getUserPrincipal()}">
+                        <form action="/logout" method="post" style="display: inline;">
+                            <button class="btn btn-outline-light" type="submit">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="content">
+        <div class="hero">
+            <h1>Sistema de Gestión de Cursos</h1>
+            <p>Administra usuarios, cursos, actividades, ubicaciones, reservas y titulaciones</p>
+            <a href="/login" class="btn btn-light btn-custom me-2" th:unless="${#httpServletRequest.getUserPrincipal()}">
+                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+            </a>
+            <a href="/register" class="btn btn-outline-light btn-custom" th:unless="${#httpServletRequest.getUserPrincipal()}">
+                <i class="fas fa-user-plus"></i> Registrarse
+            </a>
+            <a href="/dashboard" class="btn btn-light btn-custom" th:if="${#httpServletRequest.getUserPrincipal()}">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+        </div>
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-box">
+                        <i class="fas fa-book"></i>
+                        <h5>Cursos</h5>
+                        <p>Explora nuestro catálogo de cursos disponibles</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-box">
+                        <i class="fas fa-calendar"></i>
+                        <h5>Actividades</h5>
+                        <p>Descubre actividades programadas y reserva tu lugar</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-box">
+                        <i class="fas fa-location-dot"></i>
+                        <h5>Ubicaciones</h5>
+                        <p>Encuentra las mejores sedes para cada actividad</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 MouroSubV2 - Sistema de Gestión de Cursos. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

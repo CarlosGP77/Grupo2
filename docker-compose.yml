@@ -1,0 +1,80 @@
+version: '3.9'
+
+services:
+  # Base de Datos - MariaDB
+  mariadb:
+    image: mariadb:11.4-jammy
+    container_name: mourosubv2-mariadb
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${DB_NAME:-mourosubv2}
+      MYSQL_USER: ${DB_USER:-mouro_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-mouro_pass}
+      MARIADB_AUTO_UPGRADE: 1
+      MARIADB_DISABLE_MYSQL_UNIX_SOCKET: 1
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - mourosubv2-network
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+      start_period: 40s
+    command:
+      - '--character-set-server=utf8mb4'
+      - '--collation-server=utf8mb4_unicode_ci'
+      - '--max_connections=1000'
+      - '--default-storage-engine=InnoDB'
+
+  # Aplicación Spring Boot
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - MAVEN_ARGS=-DskipTests
+    image: mourosubv2:latest
+    container_name: mourosubv2-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/${DB_NAME:-mourosubv2}?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-root}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-root}
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.mariadb.jdbc.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${JPA_DDL_AUTO:-create-drop}
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MariaDBDialect
+      SPRING_JPA_SHOW_SQL: 'false'
+      SPRING_THYMELEAF_CACHE: 'true'
+      SERVER_PORT: 8080
+      JAVA_OPTS: -XX:+UseG1GC -XX:MaxRAMPercentage=75.0
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      - mourosubv2-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  mariadb_data:
+    driver: local
+
+networks:
+  mourosubv2-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+

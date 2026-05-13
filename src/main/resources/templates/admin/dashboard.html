@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - MouroSubV2</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+        .sidebar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+        .sidebar-menu a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: background 0.3s;
+        }
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .main-content {
+            padding: 30px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card h5 {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-card.danger .number {
+            color: #dc3545;
+        }
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-graduation-cap"></i> MouroSubV2 - Admin
+            </a>
+            <div class="ms-auto">
+                <span class="me-3" th:text="${username}"></span>
+                <form action="/logout" method="post" style="display: inline;">
+                    <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar">
+                <h5 class="mb-4">
+                    <i class="fas fa-cogs"></i> Administración
+                </h5>
+                <div class="sidebar-menu">
+                    <a href="/admin/dashboard">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="/admin/users">
+                        <i class="fas fa-users"></i> Usuarios
+                    </a>
+                    <a href="/admin/courses">
+                        <i class="fas fa-book"></i> Cursos
+                    </a>
+                    <a href="/admin/activities">
+                        <i class="fas fa-calendar"></i> Actividades
+                    </a>
+                    <a href="/admin/locations">
+                        <i class="fas fa-map-marker-alt"></i> Ubicaciones
+                    </a>
+                    <a href="/admin/reservations">
+                        <i class="fas fa-ticket"></i> Reservas
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 main-content">
+                <h2>Panel de Administración</h2>
+                <p class="text-muted">Estadísticas y gestión del sistema</p>
+                <hr>
+
+                <!-- Estadísticas de Usuarios -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-users"></i> Total Usuarios</h5>
+                            <div class="number" th:text="${totalUsers}">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="stat-card danger">
+                            <h5><i class="fas fa-exclamation-circle"></i> Verificaciones Pendientes</h5>
+                            <div class="number" th:text="${pendingVerifications}">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-crown"></i> Administradores</h5>
+                            <div class="number" th:text="${totalAdmins}">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-check-double"></i> Verificadores</h5>
+                            <div class="number" th:text="${totalVerificadores}">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-user"></i> Usuarios Normales</h5>
+                            <div class="number" th:text="${totalUsuarios}">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estadísticas de Contenido -->
+                <h4 class="mt-5">Contenido</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-book"></i> Cursos</h5>
+                            <div class="number" th:text="${totalCourses}">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-calendar"></i> Actividades</h5>
+                            <div class="number" th:text="${totalActivities}">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-map-marker-alt"></i> Ubicaciones</h5>
+                            <div class="number" th:text="${totalLocations}">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="stat-card">
+                            <h5><i class="fas fa-ticket"></i> Reservas</h5>
+                            <div class="number" th:text="${totalReservations}">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Titulaciones Pendientes -->
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="stat-card danger">
+                            <h5><i class="fas fa-certificate"></i> Titulaciones Pendientes de Verificación</h5>
+                            <div class="number" th:text="${pendingQualifications}">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
