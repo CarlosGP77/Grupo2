@@ -8,4 +8,4 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y mariadb-client && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /build/target/*.jar app.jar
 EXPOSE 443 80 8080
-ENTRYPOINT ["sh", "-c", "until mariadb-admin ping -h mariadb -uroot -padmin_123 --silent; do echo 'Waiting for MariaDB...'; sleep 2; done; exec java -jar app.jar"]
+ENTRYPOINT ["sh", "-c", "until mariadb-admin ping -h grupo2_db -uroot -padmin_123 --silent; do echo 'Waiting for MariaDB...'; sleep 2; done; exec java -jar app.jar"]
