@@ -1,11 +1,22 @@
-FROM maven:3.9-eclipse-temurin-21 AS builder
+# Stage 1: Build
+FROM maven:3.9.6-eclipse-temurin-17-jammy AS builder
+
 WORKDIR /build
 COPY pom.xml .
+COPY .mvn ./.mvn
 COPY src ./src
+
 RUN mvn clean package -DskipTests
-FROM eclipse-temurin:21-jre
+
+# Stage 2: Runtime
+FROM eclipse-temurin:17-jdk-jammy
+
 WORKDIR /app
-RUN apt-get update && apt-get install -y mariadb-client && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /build/target/*.jar app.jar
-EXPOSE 443 80 8080
-ENTRYPOINT ["sh", "-c", "until mariadb-admin ping -h mariadb -uroot -padmin_123 --silent; do echo 'Waiting for MariaDB...'; sleep 2; done; exec java -jar app.jar"]
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD wget -q -O - http://localhost:8080/ || exit 1
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

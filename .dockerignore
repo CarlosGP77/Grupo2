@@ -1,0 +1,55 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Maven
+target/
+.m2/
+*.jar
+*.war
+*.ear
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node (if any)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Docker
+.docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Documentation
+docs/
+README.md
+LICENSE
+
+# Other
+*.log
+.env.local
+.env.*.local
+

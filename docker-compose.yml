@@ -1,38 +1,68 @@
-version: '3.8'
+version: '3.9'
 
 services:
   mariadb:
-    image: mariadb:10.11
+    image: mariadb:11.4-jammy
+    container_name: grupo2-mariadb
     restart: unless-stopped
+
     environment:
-      - MARIADB_ROOT_PASSWORD=admin_123
-      - MARIADB_DATABASE=mourosub
+      MARIADB_ROOT_PASSWORD: admin_123
+      MARIADB_DATABASE: mourosub
+      MARIADB_AUTO_UPGRADE: 1
+
     volumes:
       - db_data:/var/lib/mysql
+
     ports:
       - "3306:3306"
+
+    networks:
+      - grupo2-network
+
     healthcheck:
-      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 3s
-      retries: 20
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   app:
-    build: .
-    container_name: grupo2_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: grupo2-app
     restart: unless-stopped
+
     environment:
-      - DB_URL=jdbc:mariadb://mariadb:3306/mourosub
-      - DB_USER=root
-      - DB_PASSWORD=admin_123
-    volumes:
-      - type: bind
-        source: /root/ssl/keystore.p12
-        target: /app/keystore.p12
+      DB_URL: jdbc:mariadb://mariadb:3306/mourosub
+      DB_USER: root
+      DB_PASSWORD: admin_123
+      JPA_DDL_AUTO: create-drop
+      SERVER_PORT: 8080
+
     ports:
-      - "80:80"
       - "8080:8080"
-      - "443:443"
+
+    networks:
+      - grupo2-network
+
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
 volumes:
   db_data:
+    driver: local
+
+networks:
+  grupo2-network:
+    driver: bridge
