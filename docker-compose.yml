@@ -47,6 +47,10 @@ services:
     ports:
       - "443:443"
 
+    volumes:
+      # mount keystore from host (create ./certs/keystore.p12 on host or change path)
+      - ./certs/keystore.p12:/app/keystore.p12:ro
+
     networks:
       - grupo2-network
 

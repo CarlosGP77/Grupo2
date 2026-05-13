@@ -11,3 +11,7 @@ target/
 .env.*
 .secrets
 
+# Keystores
+*.p12
+certs/
+
