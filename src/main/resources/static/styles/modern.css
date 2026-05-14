@@ -1,0 +1,513 @@
+/* Modern Theme - Mourosub Ocean Experience */
+
+:root {
+    /* Dark Ocean Theme */
+    --color-background: #0b1326;
+    --color-surface: #0b1326;
+    --color-surface-container: #171f33;
+    --color-surface-container-low: #131b2e;
+    --color-surface-container-high: #222a3d;
+    --color-surface-container-highest: #2d3449;
+    --color-surface-container-lowest: #060e20;
+    --color-on-surface: #dae2fd;
+    --color-on-surface-variant: #c2c7ce;
+
+    /* Primary Colors */
+    --color-primary: #a3cbf2;
+    --color-primary-container: #0b3c5d;
+    --color-on-primary: #003353;
+    --color-on-primary-container: #7fa7cd;
+
+    /* Secondary Colors */
+    --color-secondary: #4fdbcc;
+    --color-secondary-container: #00b1a3;
+    --color-on-secondary: #003732;
+
+    /* Tertiary Colors */
+    --color-tertiary: #ffb59d;
+    --color-tertiary-container: #6c1e00;
+    --color-on-tertiary: #5d1900;
+    --color-on-tertiary-container: #ff7d50;
+
+    /* Utility Colors */
+    --color-error: #ffb4ab;
+    --color-error-container: #93000a;
+    --color-outline: #8c9198;
+    --color-outline-variant: #42474e;
+
+    /* Legacy Colors for compatibility */
+    --deep-blue: #0b3c5d;
+    --sea-blue: #1e6f8c;
+    --turquoise: #2ec4b6;
+    --white: #ffffff;
+    --light-gray: #f4f7f9;
+    --accent-orange: #ff6b35;
+    --accent-yellow: #ffd166;
+}
+
+/* Dark Mode by default */
+html.dark, body {
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
+    color-scheme: dark;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-on-surface);
+    margin: 0 0 0.5rem 0;
+}
+
+p, li {
+    color: var(--color-on-surface-variant);
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--color-secondary);
+}
+
+/* Buttons */
+button, .btn {
+    background: var(--color-secondary);
+    color: var(--color-on-surface);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+button:hover, .btn:hover {
+    background: var(--color-tertiary);
+    transform: translateY(-2px);
+}
+
+.btn-main {
+    background: var(--color-tertiary-container);
+    color: var(--color-on-tertiary);
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.btn-main:hover {
+    background: var(--color-tertiary);
+    color: var(--color-on-surface);
+}
+
+.btn-outline-custom {
+    border: 2px solid var(--color-on-surface);
+    color: var(--color-on-surface);
+    padding: 10px 26px;
+    border-radius: 30px;
+    background: transparent;
+    margin-left: 15px;
+}
+
+.btn-outline-custom:hover {
+    background: rgba(218, 226, 253, 0.1);
+    border-color: var(--color-secondary);
+}
+
+.btn-accent {
+    background: var(--color-tertiary);
+}
+
+.btn-accent:hover {
+    background: var(--color-on-tertiary-container, #ff7d50);
+}
+
+.muted {
+    color: var(--color-on-surface-variant);
+}
+
+.text-muted {
+    color: var(--color-on-surface-variant);
+}
+
+.text-success {
+    color: var(--color-secondary);
+}
+
+.card {
+    background: var(--color-surface-container);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.course-card {
+    background: var(--color-surface-container-high);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(163, 203, 242, 0.2);
+    border-color: var(--color-primary);
+}
+
+.course-card img {
+    height: 220px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.course-card .card-body {
+    padding: 20px;
+}
+
+.course-card .card-title {
+    color: var(--color-on-surface);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.course-card .card-text {
+    color: var(--color-on-surface-variant);
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.badge-custom {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--color-tertiary-container);
+    color: var(--color-on-tertiary);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-custom.bg-secondary {
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary);
+}
+
+/* Navbar */
+.navbar {
+    background: rgba(11, 19, 38, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    color: var(--color-on-surface) !important;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: var(--color-on-surface-variant) !important;
+    margin: 0 15px;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--color-primary) !important;
+}
+
+.login-btn {
+    background: var(--color-tertiary-container);
+    color: var(--color-on-surface);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background: var(--color-tertiary);
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(11, 19, 38, 0.7)),
+                url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=1974&auto=format&fit=crop') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-on-surface);
+    position: relative;
+    margin-top: 60px;
+}
+
+.hero-box {
+    background: rgba(11, 60, 93, 0.7);
+    padding: 50px;
+    border-radius: 20px;
+    max-width: 850px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(163, 203, 242, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--color-on-surface);
+}
+
+.hero p {
+    color: rgba(218, 226, 253, 0.9);
+    margin: 20px 0;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+/* Section Titles */
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    color: var(--color-on-surface);
+    font-weight: 800;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.section-title p {
+    color: var(--color-on-surface-variant);
+    font-size: 1.1rem;
+}
+
+/* Baptism Section */
+.baptism {
+    background: linear-gradient(135deg, var(--color-primary-container) 0%, var(--color-secondary-container) 100%);
+    border-radius: 15px;
+    padding: 50px;
+    color: var(--color-on-surface);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.baptism h3 {
+    color: var(--color-on-surface);
+    font-weight: 800;
+}
+
+.baptism p {
+    color: rgba(218, 226, 253, 0.9);
+    margin: 10px 0;
+}
+
+/* Footer */
+footer {
+    background: var(--color-surface-container-lowest, #060e20);
+    border-top: 1px solid var(--color-outline-variant);
+    color: var(--color-on-surface);
+    padding: 60px 0;
+    margin-top: 80px;
+}
+
+footer h3, footer h5 {
+    color: var(--color-on-surface);
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+footer a {
+    color: var(--color-on-surface-variant);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: var(--color-primary);
+}
+
+footer p {
+    color: var(--color-on-surface-variant);
+    margin-bottom: 10px;
+}
+
+.social-icons i {
+    font-size: 24px;
+    margin-right: 15px;
+    color: var(--color-secondary);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.social-icons i:hover {
+    transform: scale(1.2);
+}
+
+/* Container & Spacing */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.py-5 {
+    padding: 80px 0;
+}
+
+.pb-5 {
+    padding-bottom: 80px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero-box {
+        margin: 20px;
+        padding: 30px;
+    }
+
+    .btn-outline-custom {
+        margin-left: 0;
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    .btn-main {
+        width: 100%;
+    }
+
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+
+    .baptism {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    footer {
+        padding: 40px 0;
+    }
+}
+
+/* Input Fields */
+input, textarea, select {
+    background: var(--color-surface-container-highest);
+    border: 1px solid var(--color-outline-variant);
+    color: var(--color-on-surface);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(79, 219, 204, 0.1);
+}
+
+input::placeholder {
+    color: var(--color-on-surface-variant);
+    opacity: 0.7;
+}
+
+/* Material Symbols Icons */
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: var(--color-on-surface-variant);
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--color-on-surface);
+    font-weight: 600;
+}
+
+.form-control {
+    width: 100%;
+    background: var(--color-surface-container-highest);
+    border: 1px solid var(--color-outline-variant);
+    color: var(--color-on-surface);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(79, 219, 204, 0.1);
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.mt-3 {
+    margin-top: 1rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.fw-bold {
+    font-weight: 700;
+}
+
+.text-decoration-none {
+    text-decoration: none;
+}
+
+

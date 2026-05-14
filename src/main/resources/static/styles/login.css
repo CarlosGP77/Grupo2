@@ -1,0 +1,71 @@
+/* Login Custom Styles */
+
+:root {
+    --color-background: #0b1326;
+    --color-surface: #0b1326;
+    --color-surface-container: #171f33;
+    --color-surface-container-low: #131b2e;
+    --color-surface-container-high: #222a3d;
+    --color-surface-container-highest: #2d3449;
+    --color-on-surface: #dae2fd;
+    --color-on-surface-variant: #c2c7ce;
+    --color-primary: #a3cbf2;
+    --color-secondary: #4fdbcc;
+    --color-tertiary: #ffb59d;
+    --color-tertiary-container: #6c1e00;
+    --color-outline-variant: #42474e;
+    --color-outline: #8c9198;
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
+    font-family: 'Manrope', sans-serif;
+}
+
+/* Remove default Tailwind dark mode if needed */
+html.dark {
+    color-scheme: dark;
+}
+
+/* Custom input styles */
+input:focus {
+    border-color: var(--color-secondary) !important;
+    box-shadow: 0 0 0 1px var(--color-secondary) !important;
+}
+
+input::placeholder {
+    color: var(--color-on-surface-variant);
+    opacity: 0.7;
+}
+
+/* Button styles */
+button[type="submit"]:hover {
+    background-color: rgba(108, 30, 0, 0.9);
+    transition: background-color 0.2s ease;
+}
+
+/* Material Icons */
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+
