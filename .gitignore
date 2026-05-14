@@ -6,12 +6,10 @@ application-test.properties
 *.tmp
 target/
 
-# Local env containing secrets (do not commit)
 .env
 .env.*
 .secrets
 
-# Keystores
 *.p12
 certs/
 

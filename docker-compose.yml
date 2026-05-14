@@ -48,7 +48,6 @@ services:
       - "443:443"
 
     volumes:
-      # mount keystore from host (create ./certs/keystore.p12 on host or change path)
       - ./certs/keystore.p12:/app/keystore.p12:ro
 
     networks:
@@ -58,8 +57,6 @@ services:
       mariadb:
         condition: service_healthy
 
-    # App healthcheck removed (use container status + logs). If you want an https healthcheck,
-    # ensure the runtime image includes curl/wget and adjust the command to use --no-check-certificate.
 
 volumes:
   db_data:
