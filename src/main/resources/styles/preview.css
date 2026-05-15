@@ -92,8 +92,7 @@ body{
 }
 
 /* CARDS */
-.course-card,
-.card.course-card{
+.course-card{
   border: none;
   border-radius: 15px;
   overflow: hidden;
@@ -101,6 +100,13 @@ body{
   transition: 0.3s;
   height: 100%;
   color: var(--white);
+  border: none !important;
+}
+
+.card.course-card{
+  background: var(--sea-blue) !important;
+  border: none !important;
+  color: var(--white) !important;
 }
 
 .course-card:hover{
@@ -117,6 +123,7 @@ body{
 .course-card .card-text,
 .course-card a{
   color: var(--white);
+  background: transparent !important;
 }
 
 .course-card a:hover{
