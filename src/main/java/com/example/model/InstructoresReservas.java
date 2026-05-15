@@ -9,26 +9,35 @@ public class InstructoresReservas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_instructores_curso")
-    private Integer id_instructores_curso;
+    @Column(name = "id_instructor_reserva")
+    private Integer id_instructor_reserva;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "instructores_dni", referencedColumnName = "dni")
+    @JoinColumn(name = "instructor", referencedColumnName = "dni")
     private Instructor instructor;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "curso", referencedColumnName = "id_curso")
-    private Curso curso;
+    @JoinColumn(name = "reserva", referencedColumnName = "id_reserva")
+    private Reserva reserva;
+
+    @Column(name = "fecha_inicio")
     private LocalDateTime fecha_inicio;
+
+    @Column(name = "fecha_fin")
     private LocalDateTime fecha_fin;
 
-    public Integer getId_instructores_curso() { return id_instructores_curso; }
-    public void setId_instructores_curso(Integer id_instructores_curso) { this.id_instructores_curso = id_instructores_curso; }
+    public Integer getId_instructor_reserva() { return id_instructor_reserva; }
+    public void setId_instructor_reserva(Integer id_instructor_reserva) { this.id_instructor_reserva = id_instructor_reserva; }
+
     public Instructor getInstructor() { return instructor; }
     public void setInstructor(Instructor instructor) { this.instructor = instructor; }
-    public Curso getCurso() { return curso; }
-    public void setCurso(Curso curso) { this.curso = curso; }
+
+    public Reserva getReserva() { return reserva; }
+    public void setReserva(Reserva reserva) { this.reserva = reserva; }
+
     public LocalDateTime getFecha_inicio() { return fecha_inicio; }
     public void setFecha_inicio(LocalDateTime fecha_inicio) { this.fecha_inicio = fecha_inicio; }
+
     public LocalDateTime getFecha_fin() { return fecha_fin; }
     public void setFecha_fin(LocalDateTime fecha_fin) { this.fecha_fin = fecha_fin; }
 }

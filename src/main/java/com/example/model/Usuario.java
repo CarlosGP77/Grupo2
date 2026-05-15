@@ -41,8 +41,6 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reservas = new ArrayList<>();
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UsuariosCursos> usuariosCursos = new ArrayList<>();
 
     public String getDni() { return dni; }
     public void setDni(String dni) { this.dni = dni; }
@@ -68,9 +66,6 @@ public class Usuario {
     public Rol getRol() { return rol; }
     public void setRol(Rol rol) { this.rol = rol; }
 
-
     public List<Reserva> getReservas() { return reservas; }
     public void setReservas(List<Reserva> reservas) { this.reservas = reservas; }
-    public List<UsuariosCursos> getUsuariosCursos() { return usuariosCursos; }
-    public void setUsuariosCursos(List<UsuariosCursos> usuariosCursos) { this.usuariosCursos = usuariosCursos; }
 }

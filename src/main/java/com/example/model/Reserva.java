@@ -1,7 +1,10 @@
 package com.example.model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "reservas")
@@ -9,43 +12,64 @@ public class Reserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_reserva")
+    private Integer id_reserva;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dni", referencedColumnName = "dni")
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "curso", referencedColumnName = "id_curso")
-    private Curso curso;
+    @JoinColumn(name = "actividad", referencedColumnName = "id_actividad")
+    private Actividad actividad;
 
-    @Column(name = "estado", length = 50)
-    private String estado;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ubicacion", referencedColumnName = "id_ubicacion")
+    private Ubicacion ubicacion;
 
-    @Column(name = "fecha_hora")
-    private LocalDateTime fecha_hora;
+    @Column(precision = 6, scale = 2)
+    private BigDecimal precio;
+
+    @Column(name = "fecha_inicio")
+    private LocalDateTime fecha_inicio;
+
+    @Column(name = "fecha_fin")
+    private LocalDateTime fecha_fin;
+
+    @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InstructoresReservas> instructoresReservas = new ArrayList<>();
 
     // Constructores
     public Reserva() {}
 
-    public Reserva(Usuario usuario, Curso curso) {
+    public Reserva(Usuario usuario, Actividad actividad, Ubicacion ubicacion) {
         this.usuario = usuario;
-        this.curso = curso;
+        this.actividad = actividad;
+        this.ubicacion = ubicacion;
     }
 
     // Getters y Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Integer getId_reserva() { return id_reserva; }
+    public void setId_reserva(Integer id_reserva) { this.id_reserva = id_reserva; }
 
     public Usuario getUsuario() { return usuario; }
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
-    public Curso getCurso() { return curso; }
-    public void setCurso(Curso curso) { this.curso = curso; }
+    public Actividad getActividad() { return actividad; }
+    public void setActividad(Actividad actividad) { this.actividad = actividad; }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+    public Ubicacion getUbicacion() { return ubicacion; }
+    public void setUbicacion(Ubicacion ubicacion) { this.ubicacion = ubicacion; }
 
-    public LocalDateTime getFecha_hora() { return fecha_hora; }
-    public void setFecha_hora(LocalDateTime fecha_hora) { this.fecha_hora = fecha_hora; }
+    public BigDecimal getPrecio() { return precio; }
+    public void setPrecio(BigDecimal precio) { this.precio = precio; }
+
+    public LocalDateTime getFecha_inicio() { return fecha_inicio; }
+    public void setFecha_inicio(LocalDateTime fecha_inicio) { this.fecha_inicio = fecha_inicio; }
+
+    public LocalDateTime getFecha_fin() { return fecha_fin; }
+    public void setFecha_fin(LocalDateTime fecha_fin) { this.fecha_fin = fecha_fin; }
+
+    public List<InstructoresReservas> getInstructoresReservas() { return instructoresReservas; }
+    public void setInstructoresReservas(List<InstructoresReservas> instructoresReservas) { this.instructoresReservas = instructoresReservas; }
 }
