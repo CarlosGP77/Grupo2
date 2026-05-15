@@ -92,11 +92,12 @@ body{
 }
 
 /* CARDS */
-.course-card{
+.course-card,
+.card.course-card{
   border: none;
   border-radius: 15px;
   overflow: hidden;
-  background: var(--sea-blue);
+  background: var(--sea-blue) !important;
   transition: 0.3s;
   height: 100%;
   color: var(--white);
@@ -143,7 +144,7 @@ body{
 
 /* FOOTER */
 footer{
-  background: var(--color-surface-container);
+  background: var(--color-surface-container) !important;
   color: var(--white);
   padding: 60px 0;
 }
