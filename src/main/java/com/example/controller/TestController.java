@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
-import java.math.BigDecimal;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import java.util.List;
 
 @Controller
 public class TestController {
@@ -93,15 +91,10 @@ public class TestController {
     // UBICACION - Formulario
     @PostMapping("/test/ubicacion/crear")
     public String crearUbicacion(@RequestParam String nombre,
-                                 @RequestParam String descripcion,
-                                 @RequestParam(required = false) Integer actividad_id) {
+                                 @RequestParam String contenido) {
         Ubicacion u = new Ubicacion();
         u.setNombre(nombre);
-        u.setDescripcion(descripcion);
-        if (actividad_id != null && actividad_id > 0) {
-            Actividad a = actividadRepository.findById(actividad_id).orElse(null);
-            u.setActividad(a);
-        }
+        u.setContenido(contenido);
         ubicacionRepository.save(u);
         return "redirect:/test";
     }
@@ -124,14 +117,14 @@ public class TestController {
     // RESERVA - Formulario
     @PostMapping("/test/reserva/crear")
     public String crearReserva(@RequestParam String dni_usuario,
-                               @RequestParam Integer id_curso,
-                               @RequestParam String estado) {
+                               @RequestParam Integer actividad_id,
+                               @RequestParam Integer ubicacion_id) {
         Usuario u = usuarioRepository.findById(dni_usuario).orElse(null);
-        Curso c = cursoRepository.findById(id_curso).orElse(null);
-        if (u != null && c != null) {
-            Reserva r = new Reserva(u, c);
-            r.setEstado(estado);
-            r.setFecha_hora(LocalDateTime.now());
+        Actividad a = actividadRepository.findById(actividad_id).orElse(null);
+        Ubicacion loc = ubicacionRepository.findById(ubicacion_id).orElse(null);
+        if (u != null && a != null && loc != null) {
+            Reserva r = new Reserva(u, a, loc);
+            r.setFecha_inicio(LocalDateTime.now());
             reservaRepository.save(r);
         }
         return "redirect:/test";
