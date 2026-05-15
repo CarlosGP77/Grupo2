@@ -154,8 +154,8 @@ button:hover, .btn:hover {
 }
 
 .course-card {
-    background: var(--color-surface-container-high);
-    border: 1px solid var(--color-outline-variant);
+    background: var(--sea-blue);
+    border: none !important;
     border-radius: 15px;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -180,18 +180,19 @@ button:hover, .btn:hover {
 
 .course-card .card-title {
     color: var(--color-on-surface);
+    color: var(--white) !important;
     font-weight: 700;
     margin-bottom: 10px;
 }
 
 .course-card .card-text {
-    color: var(--color-on-surface-variant);
+    color: var(--white) !important;
     font-size: 0.95rem;
     margin-bottom: 15px;
 }
 
 .badge-custom {
-    position: absolute;
+    color: var(--white) !important;
     top: 15px;
     right: 15px;
     background: var(--color-tertiary-container);
