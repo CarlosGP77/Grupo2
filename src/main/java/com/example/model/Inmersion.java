@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "inmersiones")
+@SuppressWarnings("unused")
 public class Inmersion {
 
     public enum Dificultad {

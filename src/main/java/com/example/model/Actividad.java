@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "actividades")
+@SuppressWarnings("unused")
 public class Actividad {
 
     public enum Tipo {

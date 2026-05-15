@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "ubicaciones")
+@SuppressWarnings("unused")
 public class Ubicacion {
 
     @Id

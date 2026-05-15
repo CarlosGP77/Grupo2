@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
+@SuppressWarnings("unused")
 public class Usuario {
 
     public enum Rol {

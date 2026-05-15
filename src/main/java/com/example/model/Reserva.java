@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "reservas")
+@SuppressWarnings("unused")
 public class Reserva {
 
     @Id
