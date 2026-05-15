@@ -40,14 +40,14 @@
             <form method="post" action="/login" class="space-y-md">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-                <!-- Email/DNI Input -->
+                <!-- Email Input -->
                 <div>
-                    <label class="block font-label-md text-label-md text-on-surface mb-xs" for="username">DNI / Usuario</label>
+                    <label class="block font-label-md text-label-md text-on-surface mb-xs" for="email">Correo electrónico</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-sm">
-                            <span class="material-symbols-outlined text-outline">person</span>
+                            <span class="material-symbols-outlined text-outline">mail</span>
                         </span>
-                        <input class="w-full bg-surface-container-highest border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg py-sm pl-lg pr-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" id="username" name="username" placeholder="Tu DNI o usuario" type="text" required/>
+                        <input class="w-full bg-surface-container-highest border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg py-sm pl-lg pr-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" id="email" name="email" placeholder="tu@email.com" type="email" required/>
                     </div>
                 </div>
 

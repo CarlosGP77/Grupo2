@@ -36,7 +36,14 @@
                 <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
             </ul>
 
-            <a class="login-btn" th:href="@{/login}">Login</a>
+            <div class="d-flex align-items-center gap-2">
+                <a class="login-btn" th:href="@{/login}">Login</a>
+
+                <form th:action="@{/logout}" method="post" class="m-0">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <button type="submit" class="login-btn">Cerrar sesión</button>
+                </form>
+            </div>
         </div>
     </div>
 </nav>
