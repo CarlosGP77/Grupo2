@@ -61,7 +61,9 @@ public class Usuario {
     public void setTelefono_contacto(Integer telefono_contacto) { this.telefono_contacto = telefono_contacto; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean getVerificar_titulacion() { return verificar_titulacion; }
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public void setVerificar_titulacion(boolean verificar_titulacion) { this.verificar_titulacion = verificar_titulacion; }
 
     public Rol getRol() { return rol; }
