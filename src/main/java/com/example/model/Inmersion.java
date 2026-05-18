@@ -22,6 +22,9 @@ public class Inmersion {
     private String nombre;
 
     @Column(columnDefinition = "TEXT")
+    private String descripcion;
+
+    @Column(columnDefinition = "TEXT")
     private String contenido;
 
     @Column(columnDefinition = "TEXT")
@@ -40,6 +43,9 @@ public class Inmersion {
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
     public String getContenido() { return contenido; }
     public void setContenido(String contenido) { this.contenido = contenido; }
