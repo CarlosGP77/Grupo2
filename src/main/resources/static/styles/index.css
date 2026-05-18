@@ -1,32 +1,8 @@
-/* Estilos extraídos de preview.html, adaptados a la paleta */
+/* Estilos específicos para index.html */
 
 body{
   font-family: Arial, sans-serif;
   background: var(--bg-alt);
-}
-
-/* NAVBAR */
-.navbar{
-  background: rgba(15,23,42,0.6);
-  backdrop-filter: blur(6px);
-}
-
-.navbar-brand{
-  font-weight: bold;
-  color: var(--white) !important;
-}
-
-.nav-link{
-  color: var(--muted) !important;
-  margin: 0 10px;
-}
-
-.login-btn{
-  background: var(--accent-orange);
-  color: var(--white);
-  border: none;
-  padding: 8px 18px;
-  border-radius: 8px;
 }
 
 /* HERO */
@@ -41,6 +17,7 @@ body{
   text-align: center;
   color: var(--white);
   position: relative;
+  margin-top: 60px;
 }
 
 .hero-box{
@@ -127,30 +104,6 @@ body{
   border-radius: 15px;
   padding: 50px;
   color: var(--white);
-}
-
-/* FOOTER */
-footer{
-  background: var(--soft-black);
-  color: var(--white);
-  padding: 60px 0;
-}
-
-footer h5{
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-footer a{
-  color: rgba(215,215,215,0.95);
-  text-decoration: none;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.social-icons i{
-  font-size: 20px;
-  margin-right: 10px;
 }
 
 @media(max-width:768px){
