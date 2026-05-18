@@ -10,23 +10,30 @@ import java.util.List;
 public class Instructor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_instructor")
+    private Integer id_instructor;
+
     @Column(length = 9, unique = true)
     private String dni;
-    @Column(length = 100)
+    @Column(length = 150)
     private String nombre;
-    @Column(columnDefinition = "TINYINT(1)")
-    private Boolean disponibilidad;
+    @Column(columnDefinition = "BOOLEAN")
+    private Boolean disponibilidad = true;
     @Column(columnDefinition = "TEXT")
     private String titulaciones;
-    @Column(length = 100)
+    @Column(length = 100, unique = true)
     private String email;
-    @Column(name = "telefono_contacto")
-    private Integer telefono_contacto;
-    @Column(name = "telefono_personal")
-    private Integer telefono_personal;
+    @Column(length = 20)
+    private String telefono_contacto;
+    @Column(length = 20)
+    private String telefono_personal;
 
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InstructoresReservas> instructoresReservas = new ArrayList<>();
+
+    public Integer getId_instructor() { return id_instructor; }
+    public void setId_instructor(Integer id_instructor) { this.id_instructor = id_instructor; }
 
     public String getDni() { return dni; }
     public void setDni(String dni) { this.dni = dni; }
@@ -38,10 +45,10 @@ public class Instructor {
     public void setTitulaciones(String titulaciones) { this.titulaciones = titulaciones; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-    public Integer getTelefono_contacto() { return telefono_contacto; }
-    public void setTelefono_contacto(Integer telefono_contacto) { this.telefono_contacto = telefono_contacto; }
-    public Integer getTelefono_personal() { return telefono_personal; }
-    public void setTelefono_personal(Integer telefono_personal) { this.telefono_personal = telefono_personal; }
+    public String getTelefono_contacto() { return telefono_contacto; }
+    public void setTelefono_contacto(String telefono_contacto) { this.telefono_contacto = telefono_contacto; }
+    public String getTelefono_personal() { return telefono_personal; }
+    public void setTelefono_personal(String telefono_personal) { this.telefono_personal = telefono_personal; }
 
     public List<InstructoresReservas> getInstructoresReservas() { return instructoresReservas; }
     public void setInstructoresReservas(List<InstructoresReservas> instructoresReservas) { this.instructoresReservas = instructoresReservas; }

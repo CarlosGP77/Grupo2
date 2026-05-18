@@ -17,18 +17,18 @@ public class Reserva {
     private Integer id_reserva;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dni", referencedColumnName = "dni")
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "actividad", referencedColumnName = "id_actividad")
+    @JoinColumn(name = "id_actividad", referencedColumnName = "id_actividad")
     private Actividad actividad;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ubicacion", referencedColumnName = "id_ubicacion")
+    @JoinColumn(name = "id_ubicacion", referencedColumnName = "id_ubicacion")
     private Ubicacion ubicacion;
 
-    @Column(precision = 6, scale = 2)
+    @Column(precision = 8, scale = 2)
     private BigDecimal precio;
 
     @Column(name = "fecha_inicio")

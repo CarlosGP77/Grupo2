@@ -16,22 +16,26 @@ public class Usuario {
     }
 
     @Id
-    @Column(length = 9)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
+    private Integer id_usuario;
+
+    @Column(length = 9, unique = true)
     private String dni;
     @Column(length = 100)
     private String nombre_completo;
-    @Column(length = 100)
+    @Column(length = 100, unique = true)
     private String email;
-    @Column(length = 16)
+    @Column(length = 50)
     private String licencia;
     @Column(columnDefinition = "TEXT")
     private String titulaciones;
-    @Column(length = 15)
+    @Column(length = 50)
     private String poliza_seguro;
-    @Column
-    private Integer telefono;
-    @Column(name = "telefono_de_contacto")
-    private Integer telefono_contacto;
+    @Column(length = 20)
+    private String telefono;
+    @Column(length = 20)
+    private String telefono_contacto;
     private String password;
     @Column(name = "Verificar_titulacion")
     private Boolean verificar_titulacion = false;
@@ -42,6 +46,9 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reservas = new ArrayList<>();
+
+    public Integer getId_usuario() { return id_usuario; }
+    public void setId_usuario(Integer id_usuario) { this.id_usuario = id_usuario; }
 
     public String getDni() { return dni; }
     public void setDni(String dni) { this.dni = dni; }
@@ -55,10 +62,10 @@ public class Usuario {
     public void setTitulaciones(String titulaciones) { this.titulaciones = titulaciones; }
     public String getPoliza_seguro() { return poliza_seguro; }
     public void setPoliza_seguro(String poliza_seguro) { this.poliza_seguro = poliza_seguro; }
-    public Integer getTelefono() { return telefono; }
-    public void setTelefono(Integer telefono) { this.telefono = telefono; }
-    public Integer getTelefono_contacto() { return telefono_contacto; }
-    public void setTelefono_contacto(Integer telefono_contacto) { this.telefono_contacto = telefono_contacto; }
+    public String getTelefono() { return telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public String getTelefono_contacto() { return telefono_contacto; }
+    public void setTelefono_contacto(String telefono_contacto) { this.telefono_contacto = telefono_contacto; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
