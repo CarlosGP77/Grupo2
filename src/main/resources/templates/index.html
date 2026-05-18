@@ -11,14 +11,11 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Modern Theme Styles -->
-    <link rel="stylesheet" th:href="@{/styles/modern.css}">
+    <!-- Index Styles -->
+    <link rel="stylesheet" th:href="@{/styles/index.css}">
 
     <!-- Common Styles (Navbar & Footer) -->
     <link rel="stylesheet" th:href="@{/styles/common.css}">
-
-    <!-- Index Specific Styles -->
-    <link rel="stylesheet" th:href="@{/styles/index.css}">
 </head>
 <body>
 
@@ -182,32 +179,36 @@
         <div class="row">
 
             <div class="col-md-3 mb-4">
-                <h3>Mourosub</h3>
-                <p>Abyssal Elegance in Diving.</p>
-                <p><i class="bi bi-geo-alt"></i> Puerto Deportivo Marina del Cantábrico</p>
-                <p>©2024 Mourosub.</p>
+                <h3 th:text="${footerEmpresa}">Mourosub</h3>
+                <p th:text="${footerDescripcion}">Abyssal Elegance in Diving.</p>
+                <p><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del Cantábrico</span></p>
+                <p th:text="${footerCopyright}">©2024 Mourosub.</p>
             </div>
 
             <div class="col-md-3 mb-4">
                 <h5>Enlaces Legales</h5>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
+                <a href="#" th:each="enlace : ${footerEnlacesLegales}" th:text="${enlace}">Privacy Policy</a>
             </div>
 
             <div class="col-md-3 mb-4">
                 <h5>Empresa</h5>
-                <a href="#">Safety Protocols</a>
-                <a href="#">Careers</a>
-                <a href="#">Press Kit</a>
+                <a href="#" th:each="info : ${footerEmpresaInfo}" th:text="${info}">Safety Protocols</a>
             </div>
 
             <div class="col-md-3 mb-4">
                 <h5>Conecta</h5>
 
-                <div class="social-icons">
-                    <i class="bi bi-instagram"></i>
-                    <i class="bi bi-telegram"></i>
-                    <i class="bi bi-facebook"></i>
+                <div class="social-icons d-flex flex-wrap gap-3">
+                    <a th:each="red : ${footerRedesSociales}"
+                       th:href="${red}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="text-decoration-none">
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'facebook')}" class="bi bi-facebook"></i>
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'instagram')}" class="bi bi-instagram"></i>
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-twitter"></i>
+                        <i th:if="${!#strings.contains(#strings.toLowerCase(red), 'facebook') and !#strings.contains(#strings.toLowerCase(red), 'instagram') and !#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-link-45deg"></i>
+                    </a>
                 </div>
             </div>
 
