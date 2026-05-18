@@ -11,9 +11,9 @@ import java.util.List;
 public class Actividad {
 
     public enum Tipo {
-        CURSO,
-        PAQUETE,
-        ACTIVIDAD
+        Curso,
+        Paquete,
+        Actividad
     }
 
     @Id
@@ -21,7 +21,7 @@ public class Actividad {
     @Column(name = "id_actividad")
     private Integer id_actividad;
 
-    @Column(length = 150)
+    @Column(length = 100, nullable = false)
     private String nombre;
 
     @Column(columnDefinition = "TEXT")
@@ -29,9 +29,9 @@ public class Actividad {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private Tipo tipo = Tipo.ACTIVIDAD;
+    private Tipo tipo = Tipo.Actividad;
 
-    @Column(precision = 8, scale = 2)
+    @Column(precision = 6, scale = 2)
     private BigDecimal precio;
 
     @OneToMany(mappedBy = "actividad", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -55,4 +55,3 @@ public class Actividad {
     public List<Reserva> getReservas() { return reservas; }
     public void setReservas(List<Reserva> reservas) { this.reservas = reservas; }
 }
-
