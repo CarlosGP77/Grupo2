@@ -1,0 +1,100 @@
+/* Estilos específicos para test/index.html - Panel de Pruebas */
+
+.test-container {
+    padding: 20px;
+    background: var(--color-surface-container-low);
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.test-section {
+    margin-bottom: 30px;
+}
+
+.test-section h3 {
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.test-form {
+    background: var(--color-surface-container);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--color-outline-variant);
+}
+
+.test-form .form-group {
+    margin-bottom: 15px;
+}
+
+.test-form input, .test-form textarea {
+    width: 100%;
+}
+
+.test-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-surface-container);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.test-table thead {
+    background: var(--color-primary-container);
+}
+
+.test-table th {
+    color: var(--color-on-surface);
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.test-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--color-outline-variant);
+    color: var(--color-on-surface-variant);
+}
+
+.test-table tbody tr:hover {
+    background: var(--color-surface-container-high);
+}
+
+.test-btn {
+    background: var(--color-secondary);
+    color: var(--color-on-surface);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.test-btn:hover {
+    background: var(--color-tertiary);
+    transform: translateY(-2px);
+}
+
+.test-btn-danger {
+    background: var(--color-error);
+    color: var(--color-on-surface);
+}
+
+.test-btn-danger:hover {
+    background: var(--color-error-container);
+}
+
+@media (max-width: 768px) {
+    .test-table {
+        font-size: 0.9rem;
+    }
+
+    .test-table th, .test-table td {
+        padding: 8px 10px;
+    }
+}
+

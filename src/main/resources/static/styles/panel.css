@@ -1,0 +1,18 @@
+/* Estilos específicos para verificador/panel.html */
+.panel-container {
+    padding: 30px;
+    background: var(--color-surface-container-low);
+    border-radius: 12px;
+}
+.panel-header h2 {
+    color: var(--color-primary);
+}
+.stat-card {
+    background: var(--color-surface-container);
+    padding: 20px;
+}
+.panel-btn {
+    background: var(--color-primary);
+    color: var(--color-on-surface);
+    padding: 10px 20px;
+}
