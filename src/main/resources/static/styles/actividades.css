@@ -1,0 +1,70 @@
+/* actividades.css */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0f1a24;
+}
+
+.navbar-brand {
+  font-weight: 700;
+}
+
+.hero {
+  background-color: #172b3e;
+}
+
+.hero h1 {
+  color: #6ca9ff;
+}
+
+.hero p {
+  color: #adb5bd;
+}
+
+.filters {
+  background-color: #172b3e;
+}
+
+.filters label {
+  color: #fff;
+  font-weight: 600;
+}
+
+.filters select {
+  background-color: #0f1a24;
+  color: #fff;
+  border: none;
+}
+
+.card {
+  background-color: #172b3e;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title {
+  color: #6ca9ff;
+}
+
+.card-text {
+  color: #adb5bd;
+}
+
+.btn-primary {
+  background-color: #6ca9ff;
+  border-color: #6ca9ff;
+}
+
+.btn-primary:hover {
+  background-color: #4c8ddf;
+  border-color: #4c8ddf;
+}
+
+footer {
+  font-size: 0.9rem;
+}
