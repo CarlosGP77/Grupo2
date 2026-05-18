@@ -12,6 +12,7 @@
 
 <h2>Crear reserva</h2>
 <form method="post" action="/simple/reservas">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <div>
         <label for="usuario_id">Usuario</label>
         <select id="usuario_id" name="usuario_id" required>

@@ -54,17 +54,17 @@ public class SimpleWebController {
     public String crearReserva(@RequestParam Integer usuario_id,
                                @RequestParam Integer actividad_id,
                                @RequestParam Integer ubicacion_id) {
-        Usuario usuario = usuarioRepository.findById(usuario_id).orElse(null);
-        Actividad actividad = actividadRepository.findById(actividad_id).orElse(null);
-        Ubicacion ubicacion = ubicacionRepository.findById(ubicacion_id).orElse(null);
+        try {
+            Usuario usuario = usuarioRepository.getReferenceById(usuario_id);
+            Actividad actividad = actividadRepository.getReferenceById(actividad_id);
+            Ubicacion ubicacion = ubicacionRepository.getReferenceById(ubicacion_id);
 
-        if (usuario == null || actividad == null || ubicacion == null) {
-            return "redirect:/simple?error=datos_incorrectos";
+            Reserva reserva = new Reserva(usuario, actividad, ubicacion);
+            reservaService.crear(reserva);
+            return "redirect:/simple?creada=1";
+        } catch (Exception ex) {
+            return "redirect:/simple?error=error_creando_reserva";
         }
-
-        Reserva reserva = new Reserva(usuario, actividad, ubicacion);
-        reservaService.crear(reserva);
-        return "redirect:/simple?creada=1";
     }
 }
 
