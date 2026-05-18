@@ -8,9 +8,9 @@ import jakarta.persistence.*;
 public class Inmersion {
 
     public enum Dificultad {
-        BAJA,
-        MEDIA,
-        ALTA
+        Baja,
+        Media,
+        Alta
     }
 
     @Id
@@ -21,7 +21,8 @@ public class Inmersion {
     @Column(length = 150)
     private String nombre;
 
-    @Column(columnDefinition = "TEXT")
+    // Mapea a la columna "contenido"
+    @Column(name = "contenido", columnDefinition = "TEXT")
     private String descripcion;
 
     @Column(columnDefinition = "TEXT")
@@ -31,8 +32,9 @@ public class Inmersion {
     @Column(length = 20)
     private Dificultad dificultad;
 
+    // Mapea a la columna "ubicacion"
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_ubicacion", referencedColumnName = "id_ubicacion")
+    @JoinColumn(name = "ubicacion", referencedColumnName = "id_ubicacion")
     private Ubicacion ubicacion;
 
     public Integer getId_inmersion() { return id_inmersion; }
@@ -43,7 +45,6 @@ public class Inmersion {
 
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-
 
     public String getDatos() { return datos; }
     public void setDatos(String datos) { this.datos = datos; }
