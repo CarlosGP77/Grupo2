@@ -49,8 +49,8 @@ public class DatabaseBootstrapper implements ApplicationRunner {
                             String rawPassword,
                             Usuario.Rol rol,
                             boolean verificado) {
-        if (usuarioRepository.existsById(dni)) {
-            log.info("Usuario {} ya existe; se omite la creación automática.", dni);
+        if (usuarioRepository.findByEmail(email) != null) {
+            log.info("Usuario con email {} ya existe; se omite la creación automática.", email);
             return;
         }
 
@@ -63,7 +63,7 @@ public class DatabaseBootstrapper implements ApplicationRunner {
         usuario.setVerificar_titulacion(verificado);
         usuarioRepository.save(usuario);
 
-        log.info("Usuario {} creado automáticamente.", dni);
+        log.info("Usuario {} ({}) creado automáticamente.", nombreCompleto, email);
     }
 }
 
