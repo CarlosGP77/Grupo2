@@ -14,11 +14,11 @@ public class Ubicacion {
     @Column(name = "id_ubicacion")
     private Integer id_ubicacion;
 
-    @Column(length = 100)
+    @Column(length = 150)
     private String nombre;
 
     @Column(columnDefinition = "TEXT")
-    private String contenido;
+    private String descripcion;
 
     @OneToMany(mappedBy = "ubicacion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inmersion> inmersiones = new ArrayList<>();
@@ -32,8 +32,8 @@ public class Ubicacion {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getContenido() { return contenido; }
-    public void setContenido(String contenido) { this.contenido = contenido; }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
     public List<Inmersion> getInmersiones() { return inmersiones; }
     public void setInmersiones(List<Inmersion> inmersiones) { this.inmersiones = inmersiones; }

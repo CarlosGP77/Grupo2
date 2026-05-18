@@ -21,7 +21,7 @@ public class Actividad {
     @Column(name = "id_actividad")
     private Integer id_actividad;
 
-    @Column(length = 100)
+    @Column(length = 150)
     private String nombre;
 
     @Column(columnDefinition = "TEXT")
@@ -31,7 +31,7 @@ public class Actividad {
     @Column(length = 20)
     private Tipo tipo = Tipo.ACTIVIDAD;
 
-    @Column(precision = 6, scale = 2)
+    @Column(precision = 8, scale = 2)
     private BigDecimal precio;
 
     @OneToMany(mappedBy = "actividad", cascade = CascadeType.ALL, orphanRemoval = true)

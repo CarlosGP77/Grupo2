@@ -14,11 +14,11 @@ public class InstructoresReservas {
     private Integer id_instructor_reserva;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "instructor", referencedColumnName = "dni")
+    @JoinColumn(name = "id_instructor", referencedColumnName = "id_instructor")
     private Instructor instructor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reserva", referencedColumnName = "id_reserva")
+    @JoinColumn(name = "id_reserva", referencedColumnName = "id_reserva")
     private Reserva reserva;
 
     @Column(name = "fecha_inicio")

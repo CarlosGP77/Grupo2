@@ -25,9 +25,6 @@ public class Inmersion {
     private String descripcion;
 
     @Column(columnDefinition = "TEXT")
-    private String contenido;
-
-    @Column(columnDefinition = "TEXT")
     private String datos;
 
     @Enumerated(EnumType.STRING)
@@ -35,7 +32,7 @@ public class Inmersion {
     private Dificultad dificultad;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ubicacion", referencedColumnName = "id_ubicacion")
+    @JoinColumn(name = "id_ubicacion", referencedColumnName = "id_ubicacion")
     private Ubicacion ubicacion;
 
     public Integer getId_inmersion() { return id_inmersion; }
@@ -47,8 +44,6 @@ public class Inmersion {
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
-    public String getContenido() { return contenido; }
-    public void setContenido(String contenido) { this.contenido = contenido; }
 
     public String getDatos() { return datos; }
     public void setDatos(String datos) { this.datos = datos; }

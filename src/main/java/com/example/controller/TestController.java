@@ -91,10 +91,10 @@ public class TestController {
     // UBICACION - Formulario
     @PostMapping("/test/ubicacion/crear")
     public String crearUbicacion(@RequestParam String nombre,
-                                 @RequestParam String contenido) {
+                                 @RequestParam String descripcion) {
         Ubicacion u = new Ubicacion();
         u.setNombre(nombre);
-        u.setContenido(contenido);
+        u.setDescripcion(descripcion);
         ubicacionRepository.save(u);
         return "redirect:/test";
     }
@@ -116,10 +116,10 @@ public class TestController {
 
     // RESERVA - Formulario
     @PostMapping("/test/reserva/crear")
-    public String crearReserva(@RequestParam String dni_usuario,
+    public String crearReserva(@RequestParam Integer usuario_id,
                                @RequestParam Integer actividad_id,
                                @RequestParam Integer ubicacion_id) {
-        Usuario u = usuarioRepository.findById(dni_usuario).orElse(null);
+        Usuario u = usuarioRepository.findById(usuario_id).orElse(null);
         Actividad a = actividadRepository.findById(actividad_id).orElse(null);
         Ubicacion loc = ubicacionRepository.findById(ubicacion_id).orElse(null);
         if (u != null && a != null && loc != null) {
