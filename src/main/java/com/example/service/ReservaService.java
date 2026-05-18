@@ -48,6 +48,9 @@ public class ReservaService {
         if (reserva.getFecha_inicio() == null) {
             reserva.setFecha_inicio(LocalDateTime.now());
         }
+        if (reserva.getPrecio() == null && reserva.getActividad() != null) {
+            reserva.setPrecio(reserva.getActividad().getPrecio());
+        }
         return reservaRepository.save(reserva);
     }
 

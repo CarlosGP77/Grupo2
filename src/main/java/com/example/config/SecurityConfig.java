@@ -16,11 +16,11 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) {
         http
             .authorizeHttpRequests(auth -> auth
                 // Rutas públicas
-                .requestMatchers("/test/**", "/", "/login", "/styles/**", "/js/**", "/css/**").permitAll()
+                .requestMatchers("/test/**", "/simple/**", "/error", "/", "/login", "/styles/**", "/js/**", "/css/**").permitAll()
                 // Rutas ADMIN - solo administrador
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 // Rutas VERIFICADOR - admin o verificador

@@ -1,7 +1,11 @@
 package com.example.bootstrap;
 
+import com.example.model.Actividad;
+import com.example.model.Ubicacion;
 import com.example.model.Usuario;
 import com.example.model.WebFooter;
+import com.example.repository.ActividadRepository;
+import com.example.repository.UbicacionRepository;
 import com.example.repository.UsuarioRepository;
 import com.example.repository.WebFooterRepository;
 import org.slf4j.Logger;
@@ -21,13 +25,19 @@ public class DatabaseBootstrapper implements ApplicationRunner {
     private static final Logger log = LoggerFactory.getLogger(DatabaseBootstrapper.class);
 
     private final UsuarioRepository usuarioRepository;
+    private final ActividadRepository actividadRepository;
+    private final UbicacionRepository ubicacionRepository;
     private final WebFooterRepository webFooterRepository;
     private final PasswordEncoder passwordEncoder;
 
     public DatabaseBootstrapper(UsuarioRepository usuarioRepository,
+                                ActividadRepository actividadRepository,
+                                UbicacionRepository ubicacionRepository,
                                 WebFooterRepository webFooterRepository,
                                 PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.actividadRepository = actividadRepository;
+        this.ubicacionRepository = ubicacionRepository;
         this.webFooterRepository = webFooterRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -39,6 +49,8 @@ public class DatabaseBootstrapper implements ApplicationRunner {
                 new UserSeed("87654321B", "Verificador de Credenciales", "verificador@example.com", "Admin_123", Usuario.Rol.VERIFICADOR, true)
         ).forEach(this::ensureUser);
 
+        ensureActividadData();
+        ensureUbicacionData();
         ensureFooterData();
     }
 
@@ -89,6 +101,44 @@ public class DatabaseBootstrapper implements ApplicationRunner {
         ));
 
         log.info("Datos del footer creados automáticamente.");
+    }
+
+    private void ensureActividadData() {
+        if (actividadRepository.count() > 0) {
+            log.info("Actividades ya existentes; se omite la creación automática.");
+            return;
+        }
+
+        Actividad bautismo = new Actividad();
+        bautismo.setNombre("Bautismo de buceo");
+        bautismo.setDescripcion("Experiencia inicial para probar el buceo.");
+        bautismo.setPrecio(new java.math.BigDecimal("90.00"));
+
+        Actividad inmersionGuiada = new Actividad();
+        inmersionGuiada.setNombre("Inmersión guiada");
+        inmersionGuiada.setDescripcion("Salida guiada para buceadores con experiencia.");
+        inmersionGuiada.setPrecio(new java.math.BigDecimal("120.00"));
+
+        actividadRepository.saveAll(java.util.List.of(bautismo, inmersionGuiada));
+        log.info("Actividades de ejemplo creadas automáticamente.");
+    }
+
+    private void ensureUbicacionData() {
+        if (ubicacionRepository.count() > 0) {
+            log.info("Ubicaciones ya existentes; se omite la creación automática.");
+            return;
+        }
+
+        Ubicacion puerto = new Ubicacion();
+        puerto.setNombre("Puerto Deportivo Marina del Cantábrico");
+        puerto.setDescripcion("Punto de salida principal para las inmersiones.");
+
+        Ubicacion costa = new Ubicacion();
+        costa.setNombre("Costa Cantábrica");
+        costa.setDescripcion("Zona de inmersión para salidas guiadas.");
+
+        ubicacionRepository.saveAll(java.util.List.of(puerto, costa));
+        log.info("Ubicaciones de ejemplo creadas automáticamente.");
     }
 
     private WebFooter footer(String tipoInfo, String contenido) {
