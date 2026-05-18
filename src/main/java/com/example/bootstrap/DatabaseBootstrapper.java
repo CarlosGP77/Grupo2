@@ -1,7 +1,9 @@
 package com.example.bootstrap;
 
 import com.example.model.Usuario;
+import com.example.model.WebFooter;
 import com.example.repository.UsuarioRepository;
+import com.example.repository.WebFooterRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -9,46 +11,45 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+import org.jspecify.annotations.NonNull;
+
 @Component
 public class DatabaseBootstrapper implements ApplicationRunner {
 
     private static final Logger log = LoggerFactory.getLogger(DatabaseBootstrapper.class);
 
     private final UsuarioRepository usuarioRepository;
+    private final WebFooterRepository webFooterRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public DatabaseBootstrapper(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+    public DatabaseBootstrapper(UsuarioRepository usuarioRepository,
+                                WebFooterRepository webFooterRepository,
+                                PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.webFooterRepository = webFooterRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public void run(ApplicationArguments args) {
-        ensureUser(
-                "12345678A",
-                "Administrador del Sistema",
-                "admin@example.com",
-                "Admin_123",
-                Usuario.Rol.ADMIN,
-                true
-        );
+    public void run(@NonNull ApplicationArguments args) {
+        List.of(
+                new UserSeed("12345678A", "Administrador del Sistema", "admin@example.com", "Admin_123", Usuario.Rol.ADMIN, true),
+                new UserSeed("87654321B", "Verificador de Credenciales", "verificador@example.com", "Admin_123", Usuario.Rol.VERIFICADOR, true)
+        ).forEach(this::ensureUser);
 
-        ensureUser(
-                "87654321B",
-                "Verificador de Credenciales",
-                "verificador@example.com",
-                "Admin_123",
-                Usuario.Rol.VERIFICADOR,
-                true
-        );
+        ensureFooterData();
     }
 
-    private void ensureUser(String dni,
-                            String nombreCompleto,
-                            String email,
-                            String rawPassword,
-                            Usuario.Rol rol,
-                            boolean verificado) {
+    private void ensureUser(UserSeed seed) {
+        String dni = seed.dni();
+        String nombreCompleto = seed.nombreCompleto();
+        String email = seed.email();
+        String rawPassword = seed.rawPassword();
+        Usuario.Rol rol = seed.rol();
+        boolean verificado = seed.verificado();
+
         if (usuarioRepository.findByEmail(email) != null) {
             log.info("Usuario con email {} ya existe; se omite la creación automática.", email);
             return;
@@ -64,6 +65,45 @@ public class DatabaseBootstrapper implements ApplicationRunner {
         usuarioRepository.save(usuario);
 
         log.info("Usuario {} ({}) creado automáticamente.", nombreCompleto, email);
+    }
+
+    private void ensureFooterData() {
+        if (webFooterRepository.count() > 0) {
+            log.info("Datos del footer ya existentes; se omite la creación automática.");
+            return;
+        }
+
+        webFooterRepository.saveAll(java.util.List.of(
+                footer("empresa", "Mourosub"),
+                footer("descripcion", "Abyssal Elegance in Diving."),
+                footer("direccion", "Puerto Deportivo Marina del Cantábrico"),
+                footer("copyright", "©2024 Mourosub."),
+                footer("enlace_legal", "Privacy Policy"),
+                footer("enlace_legal", "Terms of Service"),
+                footer("empresa_info", "Safety Protocols"),
+                footer("empresa_info", "Careers"),
+                footer("empresa_info", "Press Kit"),
+                footer("red_social", "https://www.facebook.com/mourosub?fref=ts"),
+                footer("red_social", "https://www.instagram.com/mourosub/"),
+                footer("red_social", "https://x.com/mourosub")
+        ));
+
+        log.info("Datos del footer creados automáticamente.");
+    }
+
+    private WebFooter footer(String tipoInfo, String contenido) {
+        WebFooter webFooter = new WebFooter();
+        webFooter.setTipoInfo(tipoInfo);
+        webFooter.setContenido(contenido);
+        return webFooter;
+    }
+
+    private record UserSeed(String dni,
+                            String nombreCompleto,
+                            String email,
+                            String rawPassword,
+                            Usuario.Rol rol,
+                            boolean verificado) {
     }
 }
 

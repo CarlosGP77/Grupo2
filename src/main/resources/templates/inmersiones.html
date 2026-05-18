@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Inmersiones</title>
@@ -74,37 +74,38 @@
 
         <div class="row">
 
-            <!-- 🟦 Servicio al consumidor -->
+            <!-- 🟦 Enlaces legales -->
             <div class="col-12 col-md-3 mb-4">
-                <h5 class="text-uppercase mb-3">Servicio al consumidor</h5>
+                <h5 class="text-uppercase mb-3">Enlaces Legales</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration-none">Condiciones de venta</a></li>
-                    <li><a href="#" class="text-decoration-none">Devoluciones</a></li>
-                    <li><a href="#" class="text-decoration-none">Aviso legal</a></li>
-                    <li><a href="#" class="text-decoration-none">Política de privacidad</a></li>
+                    <li th:each="enlace : ${footerEnlacesLegales}">
+                        <a href="#" class="text-decoration-none" th:text="${enlace}">Privacy Policy</a>
+                    </li>
                 </ul>
             </div>
 
-            <!-- 🟦 Contacto -->
+            <!-- 🟦 Empresa -->
             <div class="col-12 col-md-4 mb-4">
-                <h5 class="text-uppercase mb-3">Contacta con nosotros</h5>
-                <p class="mb-1">Escuela de Buceo Mourosub</p>
-                <p class="mb-1">Bajos Edificio Capitanía</p>
-                <p class="mb-1">Avda. de la Tornada, s/n</p>
-                <p class="mb-1">39600 Maliaño - Cantabria - ES</p>
-                <p class="mb-1">📞 621 330 839</p>
-                <p class="mb-1">✉️ info@mourosub.com</p>
+                <h5 class="text-uppercase mb-3" th:text="${footerEmpresa}">Mourosub</h5>
+                <p class="mb-1" th:text="${footerDescripcion}">Abyssal Elegance in Diving.</p>
+                <p class="mb-1"><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del Cantábrico</span></p>
+                <p class="mb-1" th:text="${footerCopyright}">©2024 Mourosub.</p>
             </div>
 
             <!-- 🟦 Redes sociales -->
             <div class="col-12 col-md-3 mb-4">
                 <h5 class="text-uppercase mb-3">Redes sociales</h5>
                 <div class="d-flex flex-wrap gap-3 fs-4">
-                    <a href="https://www.facebook.com/mourosub?fref=ts" class="text-dark"><i class="bi bi-facebook"></i></a>
-                    <a href="https://x.com/mourosub" class="text-dark"><i class="bi bi-twitter"></i></a>
-                    <a href="https://www.youtube.com/@leomourosub/videos" class="text-dark"><i class="bi bi-youtube"></i></a>
-                    <a href="https://www.linkedin.com/company/escuela-de-buceo-mourosub-sicom-s.l.-?trk=ppro_cprof" class="text-dark"><i class="bi bi-linkedin"></i></a>
-                    <a href="https://www.instagram.com/mourosub/?__pwa=1" class="text-dark"><i class="bi bi-instagram"></i></a>
+                    <a th:each="red : ${footerRedesSociales}"
+                       th:href="${red}"
+                       class="text-dark"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'facebook')}" class="bi bi-facebook"></i>
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'instagram')}" class="bi bi-instagram"></i>
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-twitter"></i>
+                        <i th:if="${!#strings.contains(#strings.toLowerCase(red), 'facebook') and !#strings.contains(#strings.toLowerCase(red), 'instagram') and !#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-link-45deg"></i>
+                    </a>
                 </div>
             </div>
 
@@ -113,7 +114,7 @@
                 <h5 class="text-uppercase mb-3">Certificaciones</h5>
 
                 <div class="d-flex flex-column gap-2">
-                    <img src="./img/certificaciones-mourosub.png" class="bg-light p-1 rounded">
+                    <img src="./img/certificaciones-mourosub.png" alt="Certificaciones Mourosub" class="bg-light p-1 rounded">
                 </div>
 
             </div>
@@ -122,7 +123,7 @@
 
         <!-- Línea inferior -->
         <div class="border-top pt-3 mt-4 text-center">
-            <p class="mb-0">© 2026 Mourosub. Todos los derechos reservados.</p>
+            <p class="mb-0" th:text="${footerCopyright}">©2024 Mourosub.</p>
         </div>
 
     </div>
