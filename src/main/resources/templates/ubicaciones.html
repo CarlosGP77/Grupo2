@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" th:href="@{/static/styles/modern.css}">
     <link rel="stylesheet" th:href="@{/static/styles/preview.css}">
+    <link rel="stylesheet" th:href="@{/static/styles/common.css}">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top">
@@ -60,64 +61,47 @@
     </div>
 </main>
 
-    <footer class="pt-5 pb-4 mt-5">
-        <div class="container">
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="row">
 
-            <div class="row">
-
-                <!-- 🟦 Enlaces legales -->
-                <div class="col-12 col-md-3 mb-4">
-                    <h5 class="text-uppercase mb-3">Enlaces Legales</h5>
-                    <ul class="list-unstyled">
-                        <li th:each="enlace : ${footerEnlacesLegales}">
-                            <a href="#" class="text-decoration-none" th:text="${enlace}">Privacy Policy</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- 🟦 Empresa -->
-                <div class="col-12 col-md-4 mb-4">
-                    <h5 class="text-uppercase mb-3" th:text="${footerEmpresa}">Mourosub</h5>
-                    <p class="mb-1" th:text="${footerDescripcion}">Abyssal Elegance in Diving.</p>
-                    <p class="mb-1"><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del Cantábrico</span></p>
-                    <p class="mb-1" th:text="${footerCopyright}">©2024 Mourosub.</p>
-                </div>
-
-                <!-- 🟦 Redes sociales -->
-                <div class="col-12 col-md-3 mb-4">
-                    <h5 class="text-uppercase mb-3">Redes sociales</h5>
-                    <div class="d-flex flex-wrap gap-3 fs-4">
-                        <a th:each="red : ${footerRedesSociales}"
-                           th:href="${red}"
-                           class="text-dark"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            <i th:if="${#strings.contains(#strings.toLowerCase(red), 'facebook')}" class="bi bi-facebook"></i>
-                            <i th:if="${#strings.contains(#strings.toLowerCase(red), 'instagram')}" class="bi bi-instagram"></i>
-                            <i th:if="${#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-twitter"></i>
-                            <i th:if="${!#strings.contains(#strings.toLowerCase(red), 'facebook') and !#strings.contains(#strings.toLowerCase(red), 'instagram') and !#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-link-45deg"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 🟦 Certificaciones -->
-                <div class="col-12 col-md-2 mb-4">
-                    <h5 class="text-uppercase mb-3">Certificaciones</h5>
-
-                    <div class="d-flex flex-column gap-2">
-                        <img src="./img/certificaciones-mourosub.png" alt="Certificaciones Mourosub" class="bg-light p-1 rounded">
-                    </div>
-
-                </div>
-
+            <div class="col-md-3 mb-4">
+                <h3 th:text="${footerEmpresa}">Mourosub</h3>
+                <p th:text="${footerDescripcion}">Abyssal Elegance in Diving.</p>
+                <p><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del Cantábrico</span></p>
+                <p th:text="${footerCopyright}">©2024 Mourosub.</p>
             </div>
 
-            <!-- Línea inferior -->
-            <div class="border-top pt-3 mt-4 text-center">
-                <p class="mb-0" th:text="${footerCopyright}">©2024 Mourosub.</p>
+            <div class="col-md-3 mb-4">
+                <h5>Enlaces Legales</h5>
+                <a href="#" th:each="enlace : ${footerEnlacesLegales}" th:text="${enlace}">Privacy Policy</a>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <h5>Empresa</h5>
+                <a href="#" th:each="info : ${footerEmpresaInfo}" th:text="${info}">Safety Protocols</a>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <h5>Conecta</h5>
+
+                <div class="social-icons d-flex flex-wrap gap-3">
+                    <a th:each="red : ${footerRedesSociales}"
+                        th:href="${red}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-decoration-none">
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'facebook')}" class="bi bi-facebook"></i>
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'instagram')}" class="bi bi-instagram"></i>
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-twitter"></i>
+                        <i th:if="${!#strings.contains(#strings.toLowerCase(red), 'facebook') and !#strings.contains(#strings.toLowerCase(red), 'instagram') and !#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-link-45deg"></i>
+                    </a>
+                </div>
             </div>
 
         </div>
-    </footer>
-    </body>
+    </div>
+</footer>
+</body>
 </html>
