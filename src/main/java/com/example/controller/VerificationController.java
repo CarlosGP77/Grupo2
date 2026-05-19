@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Controlador para verificación de credenciales de usuarios.
  * Solo accesible a usuarios con rol ADMIN o VERIFICADOR.
- *
+ * 
  * Rutas protegidas en SecurityConfig:
  * - /verificador/** → requiere ADMIN o VERIFICADOR
  */
@@ -33,7 +33,7 @@ public class VerificationController {
                 .stream()
                 .filter(u -> !u.getVerificar_titulacion())
                 .toList();
-
+        
         model.addAttribute("usuariosNoVerificados", usuariosNoVerificados);
         model.addAttribute("totalNoVerificados", usuariosNoVerificados.size());
         return "verificador/panel";
