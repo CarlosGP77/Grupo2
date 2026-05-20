@@ -24,7 +24,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         String password = u.getPassword() == null ? "" : u.getPassword();
 
-        // Asignar rol basado en el campo rol de Usuario
         String role = u.getRol() != null ? u.getRol().name() : "USUARIO";
 
         return User.withUsername(u.getEmail())
