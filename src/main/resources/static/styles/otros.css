@@ -1,0 +1,274 @@
+:root {
+    --azul-profundo: #0B3C5D;
+    --azul-mar: #1E6F8C;
+    --turquesa: #2EC4B6;
+    --blanco: #FFFFFF;
+    --gris-claro: #F4F7F9;
+    --naranja-coral: #FF6B35;
+    --amarillo-suave: #FFD166;
+    --verde-agua: #62B6CB;
+    --verde-suave: #A7C957;
+    --arena: #F2E8CF;
+    --negro-suave: #0F172A;
+    --gris-medio: #6B7280;
+    --gris-borde: #E5E7EB;
+}
+
+html, body {
+    min-height: 100%;
+    background-color: var(--azul-profundo);
+    color: var(--blanco);
+}
+
+body {
+    font-family: 'Hanken Grotesk', sans-serif;
+    background-color: var(--azul-profundo);
+    color: var(--blanco);
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.gap-gutter {
+    gap: 2rem !important;
+}
+
+.space-y-4 > :where(:not([hidden]) ~ :not([hidden])) {
+    margin-top: 1.25rem !important;
+}
+
+.space-y-6 > :where(:not([hidden]) ~ :not([hidden])) {
+    margin-top: 1.75rem !important;
+}
+
+.bg-white {
+    background-color: var(--azul-mar) !important;
+}
+
+.bg-white\/10,
+.bg-white\/20,
+.bg-white\/30,
+.bg-white\/50,
+.bg-white\/70 {
+    background-color: rgba(30, 111, 140, 0.4) !important;
+}
+
+.bg-background,
+.bg-surface-container-lowest,
+.bg-surface-container-low,
+.bg-surface-container,
+.bg-surface,
+.bg-light,
+.bg-white,
+[class*="bg-surface-container-low"],
+[class*="bg-surface-container"],
+[class*="bg-background"],
+[class*="bg-primary/"],
+[class*="bg-secondary-container"],
+[class*="bg-primary-container"] {
+    background-color: var(--azul-mar) !important;
+}
+
+.bg-primary {
+    background-color: var(--azul-profundo) !important;
+}
+
+.btn-primary,
+.btn-secondary,
+button,
+.btn-outline-primary {
+    background-color: var(--naranja-coral) !important;
+    color: var(--blanco) !important;
+    border-color: var(--naranja-coral) !important;
+}
+
+.bg-secondary {
+    background-color: var(--naranja-coral) !important;
+}
+
+.bg-primary\/10,
+.bg-primary\/20,
+.bg-primary\/30 {
+    background-color: rgba(255, 107, 53, 0.12) !important;
+}
+
+.bg-surface-container-low\/30,
+.bg-surface-container-low\/50 {
+    background-color: rgba(30, 111, 140, 0.3) !important;
+}
+
+a,
+a:hover {
+    color: var(--blanco) !important;
+}
+
+button:hover,
+button:focus {
+    filter: brightness(0.92);
+}
+
+details {
+    background-color: transparent;
+}
+
+details summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+button {
+    transition: filter 0.2s ease;
+}
+
+.shadow-sm {
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.12);
+}
+
+.rounded-xl {
+    border-radius: 1rem;
+}
+
+/* Bootstrap overrides */
+.bg-light,
+.bg-white {
+    background-color: var(--azul-mar) !important;
+}
+
+.text-primary,
+.text-secondary,
+.text-muted,
+.navbar,
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-brand {
+    color: var(--blanco) !important;
+}
+
+.border,
+.table,
+.table-bordered,
+.card,
+.card-body,
+.card-header,
+.card-footer,
+.modal-content,
+.dropdown-menu {
+    border-color: var(--blanco) !important;
+}
+
+.card,
+.modal-content,
+.dropdown-menu,
+.btn,
+.form-control,
+.form-select,
+.form-check-input,
+.table {
+    background-color: var(--azul-mar) !important;
+    color: var(--blanco) !important;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-outline-primary,
+button {
+    background-color: var(--naranja-coral) !important;
+    border-color: var(--naranja-coral) !important;
+    color: var(--blanco) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+button:hover,
+button:focus {
+    background-color: #e16031 !important;
+    border-color: #e16031 !important;
+    filter: brightness(0.92);
+}
+
+.btn-outline-primary {
+    color: var(--blanco) !important;
+    border-color: var(--blanco) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    background-color: rgba(255, 107, 53, 0.15) !important;
+}
+
+.form-control,
+.form-select,
+.form-check-input {
+    color: var(--blanco) !important;
+    background-color: var(--azul-mar) !important;
+    border: 1px solid var(--gris-borde) !important;
+}
+
+.table,
+.table > :not(caption) > * > * {
+    border-color: var(--gris-borde) !important;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.navbar,
+.navbar-light,
+.navbar-dark {
+    background-color: var(--azul-mar) !important;
+}
+
+.alert-primary {
+    background-color: var(--azul-mar) !important;
+    color: var(--blanco) !important;
+    border-color: var(--azul-mar) !important;
+}
+
+.alert-secondary {
+    background-color: var(--naranja-coral) !important;
+    color: var(--blanco) !important;
+    border-color: var(--naranja-coral) !important;
+}
+
+.badge-primary {
+    background-color: var(--azul-profundo) !important;
+    color: var(--blanco) !important;
+}
+
+.badge-secondary {
+    background-color: var(--naranja-coral) !important;
+    color: var(--blanco) !important;
+}
+
+.dropdown-menu {
+    background-color: var(--azul-mar) !important;
+}
+
+.modal-content {
+    background-color: var(--azul-mar) !important;
+    color: var(--blanco) !important;
+}
+
+.btn-link {
+    color: var(--blanco) !important;
+}
+
+.btn-link:hover,
+.btn-link:focus {
+    color: var(--blanco) !important;
+}
+
+
