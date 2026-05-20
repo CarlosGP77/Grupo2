@@ -2,15 +2,14 @@ package com.example.repository;
 
 import com.example.model.Inmersion;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface InmersionRepository extends JpaRepository<Inmersion, Integer> {
 
-    // Buscar una inmersión por nombre exacto
+    @Query("select i from Inmersion i left join fetch i.ubicacion")
+    List<Inmersion> findAllWithUbicacion();
     Inmersion findByNombre(String nombre);
-
-    // Buscar inmersiones que contengan parte del nombre (más útil)
     List<Inmersion> findByNombreContainingIgnoreCase(String nombre);
 }
-

@@ -14,7 +14,7 @@ public class InmersionService {
         this.repo = repo;
     }
     public List<Inmersion> listarTodas() {
-        return repo.findAll();
+        return repo.findAllWithUbicacion();
     }
     public Inmersion buscarPorId(Integer id) {
         return repo.findById(id).orElse(null);
@@ -26,4 +26,3 @@ public class InmersionService {
         repo.deleteById(id);
     }
 }
-

@@ -12,7 +12,7 @@
 <body>
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Mourosub</a>
+        <a class="navbar-brand" th:href="@{/}">Mourosub</a>
 
         <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
             <span class="navbar-toggler-icon"></span>
@@ -24,6 +24,7 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{/actividades}">Actividades</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/inmersiones}">Inmersiones</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/otros}">Sobre Nosotros</a></li>
+            </ul>
 
             <div class="d-flex align-items-center gap-2">
                 <a class="login-btn" th:href="@{/login}">Login</a>
@@ -37,43 +38,32 @@
 </nav>
 
 <main class="container mt-5 pt-5">
-
     <h1 class="mb-4">Inmersiones</h1>
 
     <div class="row" th:each="i : ${listaInmersiones}">
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm h-100">
-
                 <div class="card-body">
                     <h5 class="card-title" th:text="${i.nombre}">Nombre</h5>
-
-                    <p class="card-text" th:text="${i.contenido}">
-                        Contenido de la inmersión
-                    </p>
-
+                    <p class="card-text" th:text="${i.descripcion}">Descripción de la inmersión</p>
                     <p class="text-muted">
                         <strong>Dificultad:</strong>
                         <span th:text="${i.dificultad}"></span>
                     </p>
-
                     <p class="text-muted">
                         <strong>Ubicación:</strong>
                         <span th:text="${i.ubicacion.nombre}"></span>
                     </p>
-
                 </div>
-
             </div>
         </div>
     </div>
-
 </main>
 
 <!-- FOOTER -->
 <footer>
     <div class="container">
         <div class="row">
-
             <div class="col-md-3 mb-4">
                 <h3 th:text="${footerEmpresa}">Mourosub</h3>
                 <p th:text="${footerDescripcion}">Abyssal Elegance in Diving.</p>
@@ -93,7 +83,6 @@
 
             <div class="col-md-3 mb-4">
                 <h5>Conecta</h5>
-
                 <div class="social-icons d-flex flex-wrap gap-3">
                     <a th:each="red : ${footerRedesSociales}"
                        th:href="${red}"
@@ -107,9 +96,9 @@
                     </a>
                 </div>
             </div>
-
         </div>
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
