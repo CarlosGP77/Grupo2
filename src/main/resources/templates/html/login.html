@@ -15,9 +15,8 @@
 </head>
 <body class="min-h-screen flex items-center justify-center font-body-md text-body-md">
 <div class="flex w-full min-h-screen bg-surface md:flex-row flex-col">
-    <!-- Left Side: Image/Quote -->
     <div class="relative hidden md:flex w-1/2 bg-surface-container-low items-center justify-center overflow-hidden">
-        <img alt="Scuba Diver" class="absolute inset-0 w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4ez0pksRKvM93kbNkZVNLT0e_u0U1hxjgXKur-sFUbDX9nguAeasgHXX9vaVhfUbzi4u9HuzpS4BWHXOCUUD8YUKKfFcWj0kN5s4BYYWuyPpTc0fzeAZlsy8t1mglUMxtSn6TtnzUTGGiRKMufSXEcEyewt1Q3j1lSv0hkK9p2nX7feOR6XRBB2xsKSSErgAdKNNlWbEYEIDdVUXWPgtxiClCor4lYz-uzCyZ2FBKdbEsT9dCGe12pl5udwukjaP8sHt704MA3Rk"/>
+        <img alt="Scuba Diver" class="absolute inset-0 w-full h-full object-cover opacity-60"  th:src="@{/img/img-log.webp}"/>
         <div class="absolute inset-0 bg-gradient-to-t from-surface-container-low/90 to-transparent"></div>
         <div class="relative z-10 px-xl max-w-lg text-center backdrop-blur-md bg-surface/15 border border-white/10 rounded-xl p-lg shadow-sm">
             <h1 class="font-display-lg text-display-lg text-on-surface mb-base tracking-tighter">Mourosub</h1>
@@ -25,11 +24,8 @@
             <p class="font-body-md text-body-md text-on-surface-variant">- Jacques Cousteau</p>
         </div>
     </div>
-
-    <!-- Right Side: Login Form -->
     <div class="w-full md:w-1/2 flex flex-col justify-center px-gutter md:px-xl py-xl bg-surface">
         <div class="max-w-md mx-auto w-full">
-            <!-- Mobile Header (Hidden on Desktop) -->
             <div class="md:hidden text-center mb-lg">
                 <h1 class="font-display-lg-mobile text-display-lg-mobile text-on-surface tracking-tighter">Mourosub</h1>
             </div>
@@ -41,7 +37,6 @@
             <form method="post" action="/login" class="space-y-md">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-                <!-- Email Input -->
                 <div>
                     <label class="block font-label-md text-label-md text-on-surface mb-xs" for="email">Correo electrónico</label>
                     <div class="relative">
@@ -52,7 +47,6 @@
                     </div>
                 </div>
 
-                <!-- Password Input -->
                 <div>
                     <div class="flex justify-between items-center mb-xs">
                         <label class="block font-label-md text-label-md text-on-surface" for="password">Contraseña</label>
@@ -66,7 +60,6 @@
                     </div>
                 </div>
 
-                <!-- Submit Button -->
                 <button class="w-full bg-tertiary-container hover:bg-tertiary-container/90 text-on-surface font-label-md text-label-md py-sm rounded-lg transition-colors flex justify-center items-center gap-xs" type="submit">
                     Iniciar Sesión
                     <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">login</span>

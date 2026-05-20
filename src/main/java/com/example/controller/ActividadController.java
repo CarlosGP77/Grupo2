@@ -14,7 +14,7 @@ public class ActividadController {
     @GetMapping("/actividades")
     public String listar(Model model){
         model.addAttribute("actividades", actividadService.obtenerTodos());
-        return "actividades";
+        return "html/actividades";
     }
 
 }

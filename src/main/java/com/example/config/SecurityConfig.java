@@ -20,9 +20,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 // Rutas públicas
-                .requestMatchers("/test/**", "/simple/**", "/error", "/", "/login", "/styles/**", "/js/**", "/css/**").permitAll()
-                // Rutas ADMIN - solo administrador
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/test/**", "/actividades", "/inmersiones", "/ubicaciones", "/otros", "/error", "/", "/login", "/styles/**", "/js/**", "/css/**", "/img/**").permitAll()
                 // Rutas VERIFICADOR - admin o verificador
                 .requestMatchers("/verificador/**").hasAnyRole("ADMIN", "VERIFICADOR")
                 // Cualquier otra ruta requiere autenticación

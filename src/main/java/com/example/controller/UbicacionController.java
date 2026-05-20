@@ -17,7 +17,6 @@ public class UbicacionController {
     @GetMapping("/ubicaciones")
     public String listarUbicaciones(Model model) {
         model.addAttribute("listaUbicaciones", servicio.listarTodas());
-        return "ubicaciones"; // ubicaciones.html
+        return "html/ubicaciones";
     }
 }
-

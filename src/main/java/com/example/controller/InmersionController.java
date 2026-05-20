@@ -17,7 +17,6 @@ public class InmersionController {
     @GetMapping("/inmersiones")
     public String listarInmersiones(Model model) {
         model.addAttribute("listaInmersiones", servicio.listarTodas());
-        return "inmersiones"; // inmersiones.html
+        return "html/inmersiones";
     }
 }
-
