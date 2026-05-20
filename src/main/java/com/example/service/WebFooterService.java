@@ -13,15 +13,12 @@ import java.util.stream.Collectors;
 public class WebFooterService {
 
     private final WebFooterRepository webFooterRepository;
-
     public WebFooterService(WebFooterRepository webFooterRepository) {
         this.webFooterRepository = webFooterRepository;
     }
-
     public List<WebFooter> obtenerTodos() {
         return webFooterRepository.findAllByOrderByIdFooterAsc();
     }
-
     public Map<String, List<String>> obtenerAgrupadoPorTipo() {
         return webFooterRepository.findAllByOrderByIdFooterAsc()
                 .stream()
@@ -35,7 +32,6 @@ public class WebFooterService {
     public List<String> obtenerContenidosPorTipo(String tipoInfo) {
         return obtenerAgrupadoPorTipo().getOrDefault(tipoInfo, List.of());
     }
-
     public String obtenerTextoPorTipo(String tipoInfo) {
         return obtenerContenidosPorTipo(tipoInfo)
                 .stream()

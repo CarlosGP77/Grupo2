@@ -20,7 +20,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 // Rutas públicas
-                .requestMatchers("/test/**", "/actividades", "/inmersiones", "/ubicaciones", "/otros", "/error", "/", "/login", "/styles/**", "/js/**", "/css/**", "/img/**").permitAll()
+                .requestMatchers("/actividades", "/inmersiones", "/ubicaciones", "/otros", "/error", "/", "/login", "/styles/**", "/js/**", "/css/**", "/img/**").permitAll()
                 // Rutas VERIFICADOR - admin o verificador
                 .requestMatchers("/verificador/**").hasAnyRole("ADMIN", "VERIFICADOR")
                 // Cualquier otra ruta requiere autenticación
@@ -29,7 +29,7 @@ public class SecurityConfig {
             .formLogin(form -> form
                 .loginPage("/login")
                 .usernameParameter("email")
-                .defaultSuccessUrl("/test", true)
+                .defaultSuccessUrl("/", true)
                 .permitAll()
             )
             .logout(logout -> logout

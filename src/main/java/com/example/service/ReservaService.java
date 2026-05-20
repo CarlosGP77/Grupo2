@@ -17,33 +17,21 @@ public class ReservaService {
 
     @Autowired
     private ReservaRepository reservaRepository;
-
-    // Obtener todas las reservas
     public List<Reserva> obtenerTodas() {
         return reservaRepository.findAll();
     }
-
-    // Obtener una reserva por ID
     public Optional<Reserva> obtenerPorId(Integer id) {
         return reservaRepository.findById(id);
     }
-
-    // Obtener reservas de un usuario
     public List<Reserva> obtenerPorUsuario(Usuario usuario) {
         return reservaRepository.findByUsuario(usuario);
     }
-
-    // Obtener reservas de una actividad
     public List<Reserva> obtenerPorActividad(Actividad actividad) {
         return reservaRepository.findByActividad(actividad);
     }
-
-    // Obtener reservas de una ubicación
     public List<Reserva> obtenerPorUbicacion(Ubicacion ubicacion) {
         return reservaRepository.findByUbicacion(ubicacion);
     }
-
-    // Crear una nueva reserva
     public Reserva crear(Reserva reserva) {
         if (reserva.getFecha_inicio() == null) {
             reserva.setFecha_inicio(LocalDateTime.now());
@@ -56,8 +44,6 @@ public class ReservaService {
         }
         return reservaRepository.save(reserva);
     }
-
-    // Actualizar una reserva
     public Reserva actualizar(Integer id, Reserva reservaActualizada) {
         Optional<Reserva> reserva = reservaRepository.findById(id);
         if (reserva.isPresent()) {
@@ -81,18 +67,12 @@ public class ReservaService {
         }
         return null;
     }
-
-    // Eliminar una reserva
     public void eliminar(Integer id) {
         reservaRepository.deleteById(id);
     }
-
-    // Contar total de reservas
     public long contar() {
         return reservaRepository.count();
     }
-
-    // Contar reservas de un usuario
     public long contarPorUsuario(Usuario usuario) {
         return reservaRepository.countByUsuario(usuario);
     }

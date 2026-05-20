@@ -47,7 +47,7 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="${i.nombre}">Nombre</h5>
 
-                    <p class="card-text" th:text="${i.descripcion}">
+                    <p class="card-text" th:text="${i.contenido}">
                         Contenido de la inmersión
                     </p>
 
@@ -58,7 +58,7 @@
 
                     <p class="text-muted">
                         <strong>Ubicación:</strong>
-                        <span th:text="${i.ubicacion?.nombre}">Sin ubicación</span>
+                        <span th:text="${i.ubicacion.nombre}"></span>
                     </p>
 
                 </div>
