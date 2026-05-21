@@ -44,17 +44,16 @@
 <main class="pt-32 pb-24 px-3 max-w-container-max mx-auto">
     <div class="container">
         <div class="row g-4">
-            <!-- LEFT COLUMN: Pronóstico + Mantenimiento -->
+            <!-- LEFT COLUMN: Pronóstico + Mantenimiento (side-by-side en desktop) -->
             <div class="col-12 col-md-6">
-                <!-- ESTADO DEL MAR -->
-                <section class="mb-4">
-                    <div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/30 shadow-sm">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <span class="material-symbols-outlined text-secondary fs-3">tsunami</span>
-                            <h2 class="h5 mb-0 font-headline-md text-primary">PRONOSTICO DEL TIEMPO</h2>
-                        </div>
-                        <div class="rounded-3xl border border-outline-variant/20 bg-background p-2">
-                            <h3 class="h6 mb-3 font-headline-sm text-primary">Pronóstico</h3>
+                <div class="row g-3">
+                    <!-- Meteo (left-top) -->
+                    <div class="col-12 col-lg-6">
+                        <div class="bg-surface-container-lowest p-3 rounded-xl border border-outline-variant/30 shadow-sm h-100">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="material-symbols-outlined text-secondary fs-4">tsunami</span>
+                                <h3 class="h6 mb-0 font-headline-sm text-primary">Pronóstico</h3>
+                            </div>
                             <div class="meteo-scale overflow-hidden rounded-3xl bg-surface-container-low" style="width:100%;">
                                 <div class="meteo-inner">
                                     <iframe src="https://www.meteoblue.com/en/weather/widget/daily/santander_spain_3109718?geoloc=fixed&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&days=4&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=0&precipitationprobability=1&spot=0&pressure=0&layout=light&user_key=7dbc1daa5533a97a&embed_key=e2fcfba9c1b1dbd6&sig=0b816d0b56e14f97cbdb0817e7492b8f380ef9f360a61695f8282f3adafcc3b1" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" style="width:100%;height:100%;border:0;overflow:hidden;"></iframe>
@@ -63,36 +62,26 @@
                             <div class="mt-2 text-center text-muted small"><a class="text-primary" href="https://www.meteoblue.com/en/weather/week/index" target="_blank" rel="noopener">meteoblue</a></div>
                         </div>
                     </div>
-                </section>
 
-                <!-- Servicio de Mantenimiento y Reparación -->
-                <section>
-                    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden shadow-sm p-3">
-                        <div class="row g-0">
-                            <div class="col-12 col-sm-5 position-relative mb-3 mb-sm-0" style="min-height:180px;">
-                                <img alt="Servicio técnico de buceo" class="w-100 h-100 rounded-3" src="https://contents.mediadecathlon.com/p2379282/k$8a1c389945cbf3a6bbd8aff9b0a2c44a/1920x0/3990pt2993/7980xcr5985/FAIRE-ENTRETENIR-ET-REPARER-MON-MATERIEL-DE-PLONGEE-PAR-UN-TECHNICIEN.jpg?format=auto" style="object-fit:cover;">
+                    <!-- Mantenimiento (right-top) -->
+                    <div class="col-12 col-lg-6">
+                        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden shadow-sm p-3 h-100 d-flex flex-column">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="material-symbols-outlined text-secondary">build_circle</span>
+                                <h3 class="h6 mb-0 font-headline-sm text-primary text-uppercase">Mantenimiento y Reparación</h3>
                             </div>
-                            <div class="col-12 col-sm-7 p-3 d-flex flex-column justify-content-center">
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="material-symbols-outlined text-secondary">build_circle</span>
-                                    <h2 class="h6 mb-0 font-headline-md text-primary text-uppercase">Mantenimiento y Reparación</h2>
+                            <div class="d-flex gap-3 mb-3">
+                                <img alt="Servicio técnico" src="https://contents.mediadecathlon.com/p2379282/k$8a1c389945cbf3a6bbd8aff9b0a2c44a/1920x0/3990pt2993/7980xcr5985/FAIRE-ENTRETENIR-ET-REPARER-MON-MATERIEL-DE-PLONGEE-PAR-UN-TECHNICIEN.jpg?format=auto" class="rounded-3" style="width:48%; object-fit:cover;">
+                                <div style="flex:1">
+                                    <p class="mb-2 text-on-surface-variant">Realizamos el mantenimiento y las reparaciones periódicas que necesita tu equipo. Servicio Técnico Autorizado y recambio de piezas originales.</p>
+                                    <details class="mb-2"><summary>Revisión y reparación de reguladores</summary><p class="mb-1">Cambio de juntas y calibración.</p></details>
+                                    <details class="mb-2"><summary>Revisión de chalecos (BCDs)</summary><p class="mb-1">Lavado, inspección y reparación.</p></details>
                                 </div>
-                                <p class="mb-3 text-on-surface-variant">En nuestro taller realizamos el mantenimiento y las reparaciones periódicas que necesita tu equipo de buceo. Somos Servicio Técnico Autorizado de las principales marcas y seguimos siempre las indicaciones de fabricante.</p>
-                                <div class="mb-3">
-                                    <details open>
-                                        <summary class="mb-2">Revisión y reparación de reguladores</summary>
-                                        <p class="mb-2">Revisamos presión intermedia, fugas, latiguillos y desmontamos 1ª y 2ª etapa. Cambiamos juntas tóricas, limpiamos y calibramos con el kit de mantenimiento recomendado por el fabricante.</p>
-                                    </details>
-                                    <details>
-                                        <summary class="mb-2">Revisión de chalecos (BCDs)</summary>
-                                        <p class="mb-2">Comprobamos válvula de inflado, tráquea, mando y buscamos fugas. Lavamos el interior para eliminar sal y entregamos el equipo con las piezas sustituidas.</p>
-                                    </details>
-                                </div>
-                                <a class="btn btn-main mt-2" href="#">Solicitar Revisión</a>
                             </div>
+                            <a class="btn btn-main mt-auto" href="#">Solicitar Revisión</a>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
 
             <!-- RIGHT COLUMN: Scuba Medic + Coverage -->

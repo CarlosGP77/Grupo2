@@ -42,8 +42,8 @@
 
 html, body {
     min-height: 100%;
-    background-color: var(--blanco); /* fondo blanco de la página */
-    color: var(--negro-suave); /* texto oscuro por defecto fuera de los bloques */
+    background-color: var(--blanco);
+    color: var(--negro-suave);
 }
 
 body {
@@ -249,6 +249,22 @@ button:focus {
 .table,
 .table > :not(caption) > * > * {
     border-color: var(--gris-borde) !important;
+}
+
+/* Dentro de bloques azules, las tablas deben ser transparentes y con texto claro */
+.bg-surface-container-lowest .table,
+.bg-primary-container .table,
+.bg-surface-container-low .table,
+.bg-primary .table {
+    background: transparent !important;
+    color: var(--blanco) !important;
+}
+
+.bg-surface-container-lowest .table td,
+.bg-surface-container-lowest .table th,
+.bg-primary-container .table td,
+.bg-primary-container .table th {
+    color: var(--blanco) !important;
 }
 
 .table-hover tbody tr:hover {
