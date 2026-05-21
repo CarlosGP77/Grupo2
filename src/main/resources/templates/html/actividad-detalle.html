@@ -46,7 +46,7 @@
 
             <!-- Imagen principal -->
             <div class="col-lg-8">
-                <img th:src="@{/img/HERO.webp}" class="img-fluid rounded shadow" alt="Imagen actividad">
+                <img th:src="@{/img/actividades/{id}.webp(id=${actividad.id_actividad})}" class="img-fluid rounded shadow" alt="Imagen actividad">
             </div>
 
             <!-- Panel de reserva -->
