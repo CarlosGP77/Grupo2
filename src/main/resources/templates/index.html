@@ -24,14 +24,15 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{/actividades}">Actividades</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/inmersiones}">Inmersiones</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/otros}">Sobre Nosotros</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/ubicaciones}">Ubicaciones</a></li>
 
                 <div class="d-flex align-items-center gap-2">
                     <a class="login-btn" th:href="@{/login}">Login</a>
-                <form th:action="@{/logout}" method="post" class="m-0">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                    <button type="submit" class="login-btn">Cerrar sesión</button>
-                </form>
-            </div>
+                    <form th:action="@{/logout}" method="post" class="m-0">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit" class="login-btn">Cerrar sesión</button>
+                    </form>
+                </div>
         </div>
     </div>
 </nav>
