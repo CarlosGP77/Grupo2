@@ -39,149 +39,53 @@
         </div>
     </div>
 </nav>
-<main class="pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-    <!-- Main Content Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
-        <!-- ESTADO DEL MAR -->
-        <section class="md:col-span-8 flex flex-col gap-6">
-            <div class="bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/30 shadow-[0px_4px_12px_0px_rgba(10,37,64,0.06)]">
-                <div class="flex items-center gap-3 mb-8">
-                    <span class="material-symbols-outlined text-secondary text-3xl">tsunami</span>
-                    <h2 class="font-headline-md text-headline-md text-primary">PRONOSTICO DEL TIEMPO</h2>
-                </div>
-                <div class="rounded-3xl border border-outline-variant/20 bg-background p-4 shadow-sm">
-                    <h3 class="font-headline-sm text-headline-sm text-primary mb-4">Pronóstico</h3>
-                    <div class="meteo-scale overflow-hidden rounded-3xl bg-surface-container-low" style="width:100%;max-height:546px;">
-                        <div class="meteo-inner">
-                            <iframe src="https://www.meteoblue.com/en/weather/widget/daily/santander_spain_3109718?geoloc=fixed&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&days=4&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=0&precipitationprobability=1&spot=0&pressure=0&layout=light&user_key=7dbc1daa5533a97a&embed_key=e2fcfba9c1b1dbd6&sig=0b816d0b56e14f97cbdb0817e7492b8f380ef9f360a61695f8282f3adafcc3b1" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" style="width:916px;height:1046px;border:0;overflow:hidden;"></iframe>
+
+<!-- Reestructuración: dos columnas con Bootstrap -->
+            <div class="col-12">
+                <div class="central-wrapper mx-auto">
+                    <div class="mosaic-frame">
+                        <div class="mosaic">
+                        <div class="block block-varemo">
+                            <div class="block-content">
+                                <h3 class="h5 block-title">Varemo</h3>
+                                <div class="meteo-scale">
+                                    <div class="meteo-inner">
+                                        <iframe src="https://www.meteoblue.com/en/weather/widget/daily/santander_spain_3109718?geoloc=fixed&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&days=4&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=0&precipitationprobability=1&spot=0&pressure=0&layout=light&user_key=7dbc1daa5533a97a&embed_key=e2fcfba9c1b1dbd6&sig=0b816d0b56e14f97cbdb0817e7492b8f380ef9f360a61695f8282f3adafcc3b1" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" style="width:100%;height:400px;border:0;overflow:hidden;"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block block-seguros">
+                            <div class="block-content">
+                                <h3 class="h5 block-title">Seguros</h3>
+                                <p>Scuba Medic es un seguro especializado en accidentes de buceo. Cubre rescate, transporte y gastos médicos internacionales.</p>
+                                <div class="coverage-table">
+                                    <table class="table table-borderless mb-0">
+                                        <tbody>
+                                        <tr><td>Gastos Médicos</td><td>€ 50.000</td></tr>
+                                        <tr><td>Tratamientos hiperbáricos</td><td>€ 50.000</td></tr>
+                                        <tr><td>Repatriación</td><td>€ 30.000</td></tr>
+                                        <tr><td>Responsabilidad civil</td><td>€ 150.000</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block block-reparaciones">
+                            <div class="block-content">
+                                <h3 class="h5 block-title">Reparaciones</h3>
+                                <p>Servicio técnico: revisión de reguladores, chalecos, cambio de baterías y retimbrado de botellas.</p>
+                                <a class="btn btn-main mt-3" href="#">Solicitar Revisión</a>
+                            </div>
+                        </div>
                         </div>
                     </div>
-                    <div class="mt-3 text-center text-xs text-on-surface-variant"><!-- DO NOT REMOVE THIS LINK --><a class="text-primary hover:underline" href="https://www.meteoblue.com/en/weather/week/index" target="_blank" rel="noopener">meteoblue</a></div>
                 </div>
             </div>
-            <!-- Servicio de Mantenimiento y Reparación -->
-            <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden shadow-[0px_4px_12px_0px_rgba(10,37,64,0.06)] flex flex-col md:flex-row">
-                <div class="md:w-1/2 relative min-h-[300px]">
-                    <img alt="Servicio técnico de buceo" class="absolute inset-0 w-full h-full object-cover" src="https://contents.mediadecathlon.com/p2379282/k$8a1c389945cbf3a6bbd8aff9b0a2c44a/1920x0/3990pt2993/7980xcr5985/FAIRE-ENTRETENIR-ET-REPARER-MON-MATERIEL-DE-PLONGEE-PAR-UN-TECHNICIEN.jpg?format=auto"/>
-                    <div class="absolute inset-0 bg-gradient-to-r from-primary/40 to-transparent"></div>
-                </div>
-                <div class="md:w-1/2 p-10 flex flex-col justify-center">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="material-symbols-outlined text-secondary">build_circle</span>
-                        <h2 class="font-headline-md text-headline-md text-primary uppercase tracking-wider">Mantenimiento y Reparación</h2>
-                    </div>
-                    <p class="font-body-md text-body-md text-on-surface-variant mb-6">En nuestro taller realizamos el mantenimiento y las reparaciones periódicas que necesita tu equipo de buceo. Somos Servicio Técnico Autorizado de las principales marcas y seguimos siempre las indicaciones de fabricante.</p>
-                    <div class="space-y-4 mb-8">
-                        <details class="group border border-outline-variant/30 rounded-3xl bg-white p-5 shadow-sm" open>
-                            <summary class="font-label-md text-label-md text-primary cursor-pointer flex items-center justify-between gap-4 list-none">
-                                <span>Revisión y reparación de reguladores</span>
-                                <span class="text-secondary font-bold">+</span>
-                            </summary>
-                            <p class="mt-4 text-on-surface-variant">Revisamos presión intermedia, fugas, latiguillos y desmontamos 1ª y 2ª etapa. Cambiamos juntas tóricas, limpiamos y calibramos con el kit de mantenimiento recomendado por el fabricante.</p>
-                        </details>
-                        <details class="group border border-outline-variant/30 rounded-3xl bg-white p-5 shadow-sm">
-                            <summary class="font-label-md text-label-md text-primary cursor-pointer flex items-center justify-between gap-4 list-none">
-                                <span>Revisión de chalecos (BCDs)</span>
-                                <span class="text-secondary font-bold">+</span>
-                            </summary>
-                            <p class="mt-4 text-on-surface-variant">Comprobamos válvula de inflado, tráquea, mando y buscamos fugas. Lavamos el interior para eliminar sal y entregamos el equipo con las piezas sustituidas.</p>
-                        </details>
-                        <details class="group border border-outline-variant/30 rounded-3xl bg-white p-5 shadow-sm">
-                            <summary class="font-label-md text-label-md text-primary cursor-pointer flex items-center justify-between gap-4 list-none">
-                                <span>Reparación de trajes</span>
-                                <span class="text-secondary font-bold">+</span>
-                            </summary>
-                            <p class="mt-4 text-on-surface-variant">Mantenemos tu neopreno en condiciones óptimas, cambiamos manguitos, cremalleras y piezas dañadas. También reparamos neoprenos de apnea o triatlón para alargar su vida útil.</p>
-                        </details>
-                        <details class="group border border-outline-variant/30 rounded-3xl bg-white p-5 shadow-sm">
-                            <summary class="font-label-md text-label-md text-primary cursor-pointer flex items-center justify-between gap-4 list-none">
-                                <span>Cambio de baterías y correas de ordenadores</span>
-                                <span class="text-secondary font-bold">+</span>
-                            </summary>
-                            <p class="mt-4 text-on-surface-variant">Realizamos el cambio de baterías y la revisión pertinente de todos los modelos, incluyendo equipos que requieren comprobación de estanqueidad o maquinaria especializada.</p>
-                        </details>
-                        <details class="group border border-outline-variant/30 rounded-3xl bg-white p-5 shadow-sm">
-                            <summary class="font-label-md text-label-md text-primary cursor-pointer flex items-center justify-between gap-4 list-none">
-                                <span>Retimbrado y revisión de botellas</span>
-                                <span class="text-secondary font-bold">+</span>
-                            </summary>
-                            <p class="mt-4 text-on-surface-variant">Gestionamos inspecciones visuales anuales y el retimbrado cada tres años con centros autorizados, para que tus botellas cumplan la normativa y estén seguras.</p>
-                        </details>
-                    </div>
-                    <div class="rounded-3xl border border-outline-variant/20 bg-background p-4 mb-8">
-                        <p class="font-label-md text-label-md text-primary mb-2">Información adicional</p>
-                        <p class="text-on-surface-variant text-sm mb-2">Precio: mano de obra fija + kit de mantenimiento y piezas según marca/modelo.</p>
-                        <p class="text-on-surface-variant text-sm mb-2">Servicio express 48h: +30€ sujeto a disponibilidad de material.</p>
-                        <p class="text-on-surface-variant text-sm">Recogida y entrega NACEX: desde 25€ según zona geográfica y volumen.</p>
-                    </div>
-                    <button class="w-full py-4 bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm hover:opacity-90 active:scale-95 transition-all">Solicitar Revisión</button>
-                </div>
-            </div>
-        </section>
-        <!-- Sidebar Content -->
-        <aside class="md:col-span-4 flex flex-col gap-gutter">
-            <!-- Scuba Medic Insurance Card -->
-            <div class="bg-primary-container p-6 rounded-xl text-on-primary-fixed shadow-xl overflow-hidden mb-4 border border-white">
-                <div class="grid gap-4 mb-6">
-                    <img src="https://estaticos-cdn.prensaiberica.es/clip/866417f3-7864-45ab-914b-7c9a6499c473_original-libre-aspect-ratio_default_0.jpg" alt="Buceador en inmersión" class="w-full h-76 rounded-3xl object-cover" />
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrhoIBuUIsdxAw3LBKj89ExH-AqHQWDAVXYg&s" alt="Tarjeta de seguro de buceo" class="w-full h-36 rounded-3xl object-cover" />
-                </div>
-                <div class="relative z-10">
-                    <h2 class="font-headline-lg text-headline-lg text-white mb-3">Accidente de Buceo</h2>
-                    <p class="font-body-md text-body-md text-on-primary-container mb-6">Scuba Medic es un seguro especializado en accidentes de buceo recreativo, técnico e instructor. Cubre rescate, transporte a centro médico o cámara hiperbárica, y gastos médicos internacionales.</p>
-                    <ul class="space-y-3 mb-8 text-sm text-on-primary-container">
-                        <li>Cobertura internacional anual desde la confirmación del pago.</li>
-                        <li>Cubre accidentes de buceo recreativo, rescate y transporte médico.</li>
-                        <li>Incluye responsabilidad civil privada exigida por la legislación española.</li>
-                        <li>Protege a buceadores OWD, técnicos, nitrox y trimix.</li>
-                    </ul>
-                    <button class="w-full py-4 bg-primary text-on-primary font-bold font-label-md text-label-md rounded-lg hover:opacity-90 active:scale-95 transition-all">Contratar Scuba Medic</button>
-                </div>
-            </div>
-            <!-- Coverage Details Table -->
-            <div class="bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/30 shadow-lg">
-                <h3 class="font-headline-md text-headline-md text-primary mb-6">Cobertura de Seguros</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
-                        <tbody class="divide-y divide-outline-variant/20">
-                        <tr class="hover:bg-surface-container-low transition-colors">
-                            <td class="py-4 font-label-md text-label-md text-on-surface-variant">1. Gastos Médicos</td>
-                            <td class="py-4 font-headline-md text-headline-md text-primary">€ 50.000</td>
-                        </tr>
-                        <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-low/30">
-                            <td class="py-4 font-label-md text-label-md text-on-surface-variant">2. Tratamientos hiperbáricos (ilimitado en centros concertados)</td>
-                            <td class="py-4 font-headline-md text-headline-md text-primary">€ 50.000</td>
-                        </tr>
-                        <tr class="hover:bg-surface-container-low transition-colors">
-                            <td class="py-4 font-label-md text-label-md text-on-surface-variant">3. Repatriación de emergencia y búsqueda</td>
-                            <td class="py-4 font-headline-md text-headline-md text-primary">€ 30.000</td>
-                        </tr>
-                        <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-low/30">
-                            <td class="py-4 font-label-md text-label-md text-on-surface-variant">4. Gastos razonables de alojamiento y transporte</td>
-                            <td class="py-4 font-headline-md text-headline-md text-primary">€ 5.000</td>
-                        </tr>
-                        <tr class="hover:bg-surface-container-low transition-colors">
-                            <td class="py-4 font-label-md text-label-md text-on-surface-variant">5. Gastos de búsqueda y rescate</td>
-                            <td class="py-4 font-headline-md text-headline-md text-primary">€ 30.000</td>
-                        </tr>
-                        <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-low/30">
-                            <td class="py-4 font-label-md text-label-md text-on-surface-variant">6. Muerte / Invalidez Permanente</td>
-                            <td class="py-4 font-body-md text-body-md text-primary">
-                                Muerte € 6.000<br/>
-                                Invalidez Permanente € 6.000
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-surface-container-low transition-colors">
-                            <td class="py-4 font-label-md text-label-md text-on-surface-variant">7. Responsabilidad civil (incluidos los costes de defensa)</td>
-                            <td class="py-4 font-headline-md text-headline-md text-primary">€ 150.000</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </aside>
+        </div>
     </div>
     </main>
+
 <!-- FOOTER -->
 <footer>
     <div class="container">

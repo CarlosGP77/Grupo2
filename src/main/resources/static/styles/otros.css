@@ -42,13 +42,13 @@
 
 html, body {
     min-height: 100%;
-    background-color: var(--azul-profundo);
+    background-color: var(--azul-mar);
     color: var(--blanco);
 }
 
 body {
     font-family: 'Hanken Grotesk', sans-serif;
-    background-color: var(--azul-profundo);
+    background-color: var(--azul-mar);
     color: var(--blanco);
 }
 
@@ -85,19 +85,19 @@ body {
 .bg-surface-container-low,
 .bg-surface-container,
 .bg-surface,
-.bg-light,
+.bg-primary-container,
+.bg-primary,
+.bg-primary-container,
 .bg-white,
-[class*="bg-surface-container-low"],
-[class*="bg-surface-container"],
-[class*="bg-background"],
-[class*="bg-primary/"],
-[class*="bg-secondary-container"],
-[class*="bg-primary-container"] {
+.bg-light {
+    /* Bloques en tonos azules */
     background-color: var(--azul-mar) !important;
+    color: var(--blanco) !important; /* texto claro dentro de bloques */
 }
 
 .bg-primary {
     background-color: var(--azul-profundo) !important;
+    color: var(--blanco) !important;
 }
 
 .btn-primary,
@@ -192,14 +192,18 @@ button {
 
 .card,
 .modal-content,
-.dropdown-menu,
-.btn,
+.dropdown-menu {
+    background-color: var(--azul-mar) !important;
+    color: var(--blanco) !important;
+}
+
+/* Inputs / tablas mantienen fondo blanco fuera de bloques */
 .form-control,
 .form-select,
 .form-check-input,
 .table {
-    background-color: var(--azul-mar) !important;
-    color: var(--blanco) !important;
+    background-color: var(--blanco) !important;
+    color: var(--negro-suave) !important;
 }
 
 .btn-primary,
@@ -247,6 +251,21 @@ button:focus {
     border-color: var(--gris-borde) !important;
 }
 
+.bg-surface-container-lowest .table,
+.bg-primary-container .table,
+.bg-surface-container-low .table,
+.bg-primary .table {
+    background: transparent !important;
+    color: var(--blanco) !important;
+}
+
+.bg-surface-container-lowest .table td,
+.bg-surface-container-lowest .table th,
+.bg-primary-container .table td,
+.bg-primary-container .table th {
+    color: var(--blanco) !important;
+}
+
 .table-hover tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.08) !important;
 }
@@ -255,6 +274,7 @@ button:focus {
 .navbar-light,
 .navbar-dark {
     background-color: var(--azul-mar) !important;
+    color: var(--blanco) !important;
 }
 
 .alert-primary {
@@ -295,6 +315,138 @@ button:focus {
 .btn-link:hover,
 .btn-link:focus {
     color: var(--blanco) !important;
+}
+
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.font-headline-md, h2 {
+    font-family: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 0.6px;
+    color: var(--blanco) !important;
+}
+
+.font-headline-lg, h1 {
+    font-family: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--blanco) !important;
+}
+
+.bg-surface-container-lowest,
+.bg-surface-container-low {
+    border-radius: 16px;
+    padding: 1rem;
+}
+
+.card, .bg-surface-container-lowest, .rounded-3xl {
+    box-shadow: 0 8px 24px rgba(3, 10, 22, 0.45);
+}
+
+.btn-main, .btn-primary, .btn-primary:hover {
+    background: linear-gradient(90deg, var(--naranja-coral), #e16031) !important;
+    border: none !important;
+    color: var(--blanco) !important;
+    padding: 0.8rem 1.2rem !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    box-shadow: 0 6px 18px rgba(14, 31, 50, 0.35);
+}
+
+.btn-outline-custom {
+    background: transparent !important;
+    color: var(--blanco) !important;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+}
+
+.md\:w-1\/2 img, .w-full {
+    border-radius: 14px;
+    object-fit: cover;
+}
+
+.meteo-scale {
+    /* Contenedor con ancho fijo para respetar tamaño del widget web; permite scroll horizontal en pantallas pequeñas */
+    max-width: 916px;
+    margin: 0 auto;
+    overflow-x: auto;
+}
+
+.meteo-inner iframe {
+    width: 916px !important;
+    height: 1046px !important;
+    max-width: none !important;
+    display: block;
+    border: 0;
+}
+
+.central-wrapper {
+    max-width: 920px;
+    margin: 40px auto;
+    background: transparent;
+    padding: 0;
+}
+
+.mosaic-frame {
+    background: var(--blanco);
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(3,10,22,0.08);
+}
+
+.mosaic {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: "a b" "c b";
+    gap: 18px;
+}
+
+.block {
+    background: var(--azul-mar);
+    color: var(--blanco);
+    padding: 20px;
+    min-height: 180px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(2,24,40,0.12);
+}
+
+.block-varemo { grid-area: a; }
+.block-seguros { grid-area: b; }
+.block-reparaciones { grid-area: c; }
+
+.block-title { color: var(--blanco); }
+
+.block .block-content { width: 100%; }
+
+.block .meteo-scale { max-width: 100%; overflow-x: auto; }
+
+.block .meteo-inner iframe { width: 100% !important; height: 100% !important; max-width: none !important; }
+
+.pt-32 { padding-top: 6.5rem !important; }
+.pb-24 { padding-bottom: 6rem !important; }
+
+p, .font-body-md, .text-on-surface-variant {
+    line-height: 1.6;
+    color: var(--color-on-surface-variant) !important;
+}
+
+details[open] { background: rgba(255,255,255,0.02); }
+
+footer { opacity: 0.95; }
+
+@media (max-width: 992px) {
+    .grid { gap: 1rem !important; }
+    /* On small screens allow horizontal scroll for the meteorological widget */
+    .meteo-scale { overflow-x: auto; }
+    .md\:w-1\/2 { width: 100% !important; }
 }
 
 
