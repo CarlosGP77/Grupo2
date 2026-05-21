@@ -42,14 +42,14 @@
 
 html, body {
     min-height: 100%;
-    background-color: var(--blanco);
-    color: var(--negro-suave);
+    background-color: var(--azul-mar);
+    color: var(--blanco);
 }
 
 body {
     font-family: 'Hanken Grotesk', sans-serif;
-    background-color: var(--blanco);
-    color: var(--negro-suave);
+    background-color: var(--azul-mar);
+    color: var(--blanco);
 }
 
 .material-symbols-outlined {
@@ -387,8 +387,13 @@ main {
 .central-wrapper {
     max-width: 920px;
     margin: 40px auto;
+    background: transparent;
+    padding: 0;
+}
+
+.mosaic-frame {
     background: var(--blanco);
-    padding: 28px;
+    padding: 22px;
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(3,10,22,0.08);
 }
