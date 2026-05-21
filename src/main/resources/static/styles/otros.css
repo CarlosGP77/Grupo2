@@ -298,3 +298,93 @@ button:focus {
 }
 
 
+
+/* --- Mejoras visuales específicas para la página `otros` --- */
+
+/* Contenedor principal: ajusta ancho y padding para mejor lectura */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* Títulos más destacados */
+.font-headline-md, h2 {
+    font-family: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 0.6px;
+    color: var(--blanco) !important;
+}
+
+.font-headline-lg, h1 {
+    font-family: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--blanco) !important;
+}
+
+/* Cards y secciones con fondo suave y sombra */
+.bg-surface-container-lowest,
+.bg-surface-container-low {
+    border-radius: 16px;
+    padding: 1rem;
+}
+
+.card, .bg-surface-container-lowest, .rounded-3xl {
+    box-shadow: 0 8px 24px rgba(3, 10, 22, 0.45);
+}
+
+/* Botones principales */
+.btn-main, .btn-primary, .btn-primary:hover {
+    background: linear-gradient(90deg, var(--naranja-coral), #e16031) !important;
+    border: none !important;
+    color: var(--blanco) !important;
+    padding: 0.8rem 1.2rem !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    box-shadow: 0 6px 18px rgba(14, 31, 50, 0.35);
+}
+
+.btn-outline-custom {
+    background: transparent !important;
+    color: var(--blanco) !important;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+}
+
+/* Mejora visual del aside: imágenes redondeadas y espaciado */
+.md\:w-1\/2 img, .w-full {
+    border-radius: 14px;
+    object-fit: cover;
+}
+
+/* Ajuste del iframe del pronóstico: responsive y centrado */
+.meteo-scale, .meteo-inner iframe {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 700px;
+}
+
+/* Espaciado y legibilidad del layout */
+.pt-32 { padding-top: 6.5rem !important; }
+.pb-24 { padding-bottom: 6rem !important; }
+
+/* Mejora tipográfica para párrafos */
+p, .font-body-md, .text-on-surface-variant {
+    line-height: 1.6;
+    color: var(--color-on-surface-variant) !important;
+}
+
+/* Detalles collapsibles más suaves */
+details[open] { background: rgba(255,255,255,0.02); }
+
+/* Footer menor para no competir con contenido */
+footer { opacity: 0.95; }
+
+/* Responsive tweaks */
+@media (max-width: 992px) {
+    .grid { gap: 1rem !important; }
+    .meteo-inner iframe { max-height: 600px; }
+    .md\:w-1\/2 { width: 100% !important; }
+}
+
+
