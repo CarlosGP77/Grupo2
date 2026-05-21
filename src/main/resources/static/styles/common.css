@@ -7,16 +7,41 @@
     border-bottom: 1px solid var(--color-outline-variant);
 }
 
+/* Ensure fixed navbar sits above page content */
+.navbar {
+    z-index: 1030;
+}
+
 .navbar-brand {
     font-weight: 800;
     color: var(--color-on-surface) !important;
     font-size: 1.5rem;
 }
 
+/* Toggler visibility on dark backgrounds */
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-light .navbar-toggler-icon {
+    /* White hamburger icon for dark navbar */
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255,255,255,0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
 .nav-link {
     color: var(--color-on-surface-variant) !important;
     margin: 0 15px;
     transition: color 0.2s ease;
+}
+
+/* Ensure navbar items are centered vertically and visible */
+.navbar .container {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav {
+    align-items: center;
 }
 
 .nav-link:hover {
