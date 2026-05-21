@@ -69,7 +69,7 @@
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <div class="col" th:each="actividad : ${actividades}">
                         <div class="card h-100">
-                            <img th:src="@{/img/HERO.webp}" class="card-img-top" alt="Imagen de la actividad">
+                            <img th:src="@{/img/actividades/{id}.webp(id=${actividad.id_actividad})}" class="card-img-top" alt="Imagen de la actividad">
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${actividad.nombre}">Nombre de la Actividad</h5>
                                 <p class="card-text" th:text="${actividad.descripcion}">Descripción de la actividad</p>

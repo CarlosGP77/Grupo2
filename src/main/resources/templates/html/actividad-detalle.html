@@ -25,7 +25,7 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{/inmersiones}">Inmersiones</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/otros}">Sobre Nosotros</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/ubicaciones}">Ubicaciones</a></li>
-            </ul>
+            </ul>-
 
             <div class="d-flex align-items-center gap-2">
                 <a class="login-btn" th:href="@{/login}">Login</a>
@@ -46,7 +46,7 @@
 
             <!-- Imagen principal -->
             <div class="col-lg-8">
-                <img th:src="@{/img/actividades/{id}.webp(id=${actividad.id_actividad})}" class="img-fluid rounded shadow" alt="Imagen actividad">
+                <img th:src="@{/img/actividades/{id}.webp(id=${actividad.id_actividad})}" class="img-fluid rounded shadow w-75" alt="Imagen actividad">
             </div>
 
             <!-- Panel de reserva -->
