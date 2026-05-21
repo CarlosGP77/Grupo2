@@ -36,45 +36,45 @@
         </div>
     </div>
 </nav>
-    <main>
-        <!-- TÍTULO -->
-        <section class="hero py-5">
-            <div class="container text-center">
-                <h1 class="display-4 mb-3">Explora nuestras actividades</h1>
-                <p class="lead">Elige tu aventura submarina.</p>
-            </div>
-        </section>
-        <!-- FILTRO -->
-        <section class="filters bg-secondary py-3">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-auto">
-                        <div class="d-flex align-items-center">
-                            <label for="category" class="me-2 fw-bold">Categoría:</label>
-                            <select class="form-select" id="category">
-                                <option value="">Todas</option>
-                                <option value="Curso">Cursos</option>
-                                <option value="Paquete">Paquetes</option>
-                                <option value="Actividad">Actividades</option>
-                            </select>
-                        </div>
+<main>
+    <!-- TÍTULO -->
+    <section class="hero py-5">
+        <div class="container text-center">
+            <h1 class="display-4 mb-3">Explora nuestras actividades</h1>
+            <p class="lead">Elige tu aventura submarina.</p>
+        </div>
+    </section>
+    <!-- FILTRO -->
+    <section class="filters bg-secondary py-3">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <div class="d-flex align-items-center">
+                        <label for="category" class="me-2 fw-bold">Categoría:</label>
+                        <select class="form-select" id="category">
+                            <option value="">Todas</option>
+                            <option value="Curso">Cursos</option>
+                            <option value="Paquete">Paquetes</option>
+                            <option value="Actividad">Actividades</option>
+                        </select>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- CARDS -->
-        <section class="activity-cards py-5">
-            <div class="container">
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                    <div class="col" th:each="actividad : ${actividades}">
-                        <a th:href="@{/actividades/{id}(id=${actividad.id_actividad})}"
-                           class="text-decoration-none text-white">
-                            <div class="card h-100">
+    <!-- CARDS -->
+    <section class="activity-cards py-5">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <div class="col" th:each="actividad : ${actividades}">
+                    <a th:href="@{/actividades/{id}(id=${actividad.id_actividad})}"
+                       class="text-decoration-none text-white">
+                        <div class="card h-100">
                             <img th:src="@{/img/actividades/{id}.webp(id=${actividad.id_actividad})}" class="card-img-top" alt="Imagen de la actividad">
                             <div class="card-body">
+                                <span th:text="${actividad.tipo}"></span></p>
                                 <h5 class="card-title" th:text="${actividad.nombre}">Nombre de la Actividad</h5>
-                                <p class="card-text" th:text="${actividad.descripcion}">Descripción de la actividad</p>
                                 <p class="card-text fw-bold text-primary" th:text="'€ ' + ${actividad.precio}">Precio</p>
                                 <a th:href="@{/actividades/{id}(id=${actividad.id_actividad})}"
                                    class="btn btn-primary">
@@ -82,54 +82,54 @@
                                 </a>
                             </div>
                         </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-3 mb-4">
-                    <h3 th:text="${footerEmpresa}">Mourosub</h3>
-                    <p th:text="${footerDescripcion}">Abyssal Elegance in Diving.</p>
-                    <p><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del Cantábrico</span></p>
-                    <p th:text="${footerCopyright}">©2024 Mourosub.</p>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <h5>Enlaces Legales</h5>
-                    <a href="#" th:each="enlace : ${footerEnlacesLegales}" th:text="${enlace}">Privacy Policy</a>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <h5>Empresa</h5>
-                    <a href="#" th:each="info : ${footerEmpresaInfo}" th:text="${info}">Safety Protocols</a>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <h5>Conecta</h5>
-
-                    <div class="social-icons d-flex flex-wrap gap-3">
-                        <a th:each="red : ${footerRedesSociales}"
-                           th:href="${red}"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="text-decoration-none">
-                            <i th:if="${#strings.contains(#strings.toLowerCase(red), 'facebook')}" class="bi bi-facebook"></i>
-                            <i th:if="${#strings.contains(#strings.toLowerCase(red), 'instagram')}" class="bi bi-instagram"></i>
-                            <i th:if="${#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-twitter"></i>
-                            <i th:if="${!#strings.contains(#strings.toLowerCase(red), 'facebook') and !#strings.contains(#strings.toLowerCase(red), 'instagram') and !#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-link-45deg"></i>
-                        </a>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
-    </footer>
-    <!-- SCRIPT -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </section>
+</main>
+<footer>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-3 mb-4">
+                <h3 th:text="${footerEmpresa}">Mourosub</h3>
+                <p th:text="${footerDescripcion}">Abyssal Elegance in Diving.</p>
+                <p><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del Cantábrico</span></p>
+                <p th:text="${footerCopyright}">©2024 Mourosub.</p>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <h5>Enlaces Legales</h5>
+                <a href="#" th:each="enlace : ${footerEnlacesLegales}" th:text="${enlace}">Privacy Policy</a>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <h5>Empresa</h5>
+                <a href="#" th:each="info : ${footerEmpresaInfo}" th:text="${info}">Safety Protocols</a>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <h5>Conecta</h5>
+
+                <div class="social-icons d-flex flex-wrap gap-3">
+                    <a th:each="red : ${footerRedesSociales}"
+                       th:href="${red}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="text-decoration-none">
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'facebook')}" class="bi bi-facebook"></i>
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'instagram')}" class="bi bi-instagram"></i>
+                        <i th:if="${#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-twitter"></i>
+                        <i th:if="${!#strings.contains(#strings.toLowerCase(red), 'facebook') and !#strings.contains(#strings.toLowerCase(red), 'instagram') and !#strings.contains(#strings.toLowerCase(red), 'x.com')}" class="bi bi-link-45deg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- SCRIPT -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
