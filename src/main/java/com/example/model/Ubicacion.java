@@ -1,8 +1,10 @@
 package com.example.model;
 
 import jakarta.persistence.*;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 @Table(name = "ubicaciones")
@@ -40,5 +42,20 @@ public class Ubicacion {
 
     public List<Reserva> getReservas() { return reservas; }
     public void setReservas(List<Reserva> reservas) { this.reservas = reservas; }
+
+    @Transient
+    public String getNombreArchivoWebp() {
+        if (nombre == null || nombre.isBlank()) {
+            return "default";
+        }
+
+        String normalizado = Normalizer.normalize(nombre, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .toLowerCase(Locale.ROOT)
+                .replaceAll("[^a-z0-9]+", "-")
+                .replaceAll("(^-|-$)", "");
+
+        return normalizado.isBlank() ? "default" : normalizado;
+    }
 }
 

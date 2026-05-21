@@ -47,9 +47,9 @@
         <div class="col" th:each="i : ${listaInmersiones}">
             <div class="card shadow-sm h-100">
                 <img th:if="${i.ubicacion != null}"
-                     th:src="@{/img/ubicaciones/{id}.webp(id=${i.ubicacion.id_ubicacion})}"
+                     th:src="@{/img/ubicaciones/{file}.webp(file=${i.ubicacion.nombreArchivoWebp})}"
                      class="card-img-top"
-                     alt="Imagen de la ubicación">
+                     th:alt="${'Imagen de ' + i.ubicacion.nombre}">
                 <img th:if="${i.ubicacion == null}"
                      th:src="@{/img/HERO.webp}"
                      class="card-img-top"
