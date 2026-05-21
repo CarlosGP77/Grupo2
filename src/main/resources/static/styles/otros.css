@@ -42,14 +42,14 @@
 
 html, body {
     min-height: 100%;
-    background-color: var(--azul-profundo);
-    color: var(--blanco);
+    background-color: var(--blanco); /* fondo blanco de la página */
+    color: var(--negro-suave); /* texto oscuro por defecto fuera de los bloques */
 }
 
 body {
     font-family: 'Hanken Grotesk', sans-serif;
-    background-color: var(--azul-profundo);
-    color: var(--blanco);
+    background-color: var(--blanco);
+    color: var(--negro-suave);
 }
 
 .material-symbols-outlined {
@@ -85,19 +85,19 @@ body {
 .bg-surface-container-low,
 .bg-surface-container,
 .bg-surface,
-.bg-light,
+.bg-primary-container,
+.bg-primary,
+.bg-primary-container,
 .bg-white,
-[class*="bg-surface-container-low"],
-[class*="bg-surface-container"],
-[class*="bg-background"],
-[class*="bg-primary/"],
-[class*="bg-secondary-container"],
-[class*="bg-primary-container"] {
+.bg-light {
+    /* Bloques en tonos azules */
     background-color: var(--azul-mar) !important;
+    color: var(--blanco) !important; /* texto claro dentro de bloques */
 }
 
 .bg-primary {
     background-color: var(--azul-profundo) !important;
+    color: var(--blanco) !important;
 }
 
 .btn-primary,
@@ -192,14 +192,18 @@ button {
 
 .card,
 .modal-content,
-.dropdown-menu,
-.btn,
+.dropdown-menu {
+    background-color: var(--azul-mar) !important;
+    color: var(--blanco) !important;
+}
+
+/* Inputs / tablas mantienen fondo blanco fuera de bloques */
 .form-control,
 .form-select,
 .form-check-input,
 .table {
-    background-color: var(--azul-mar) !important;
-    color: var(--blanco) !important;
+    background-color: var(--blanco) !important;
+    color: var(--negro-suave) !important;
 }
 
 .btn-primary,
@@ -255,6 +259,7 @@ button:focus {
 .navbar-light,
 .navbar-dark {
     background-color: var(--azul-mar) !important;
+    color: var(--blanco) !important;
 }
 
 .alert-primary {
@@ -298,10 +303,6 @@ button:focus {
 }
 
 
-
-/* --- Mejoras visuales específicas para la página `otros` --- */
-
-/* Contenedor principal: ajusta ancho y padding para mejor lectura */
 main {
     max-width: 1200px;
     margin: 0 auto;
@@ -309,7 +310,6 @@ main {
     padding-right: 1rem;
 }
 
-/* Títulos más destacados */
 .font-headline-md, h2 {
     font-family: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
     letter-spacing: 0.6px;
@@ -321,7 +321,6 @@ main {
     color: var(--blanco) !important;
 }
 
-/* Cards y secciones con fondo suave y sombra */
 .bg-surface-container-lowest,
 .bg-surface-container-low {
     border-radius: 16px;
@@ -332,7 +331,6 @@ main {
     box-shadow: 0 8px 24px rgba(3, 10, 22, 0.45);
 }
 
-/* Botones principales */
 .btn-main, .btn-primary, .btn-primary:hover {
     background: linear-gradient(90deg, var(--naranja-coral), #e16031) !important;
     border: none !important;
@@ -351,39 +349,42 @@ main {
     border-radius: 10px;
 }
 
-/* Mejora visual del aside: imágenes redondeadas y espaciado */
 .md\:w-1\/2 img, .w-full {
     border-radius: 14px;
     object-fit: cover;
 }
 
-/* Ajuste del iframe del pronóstico: responsive y centrado */
-.meteo-scale, .meteo-inner iframe {
-    width: 100% !important;
-    height: auto !important;
-    max-height: 700px;
+.meteo-scale {
+    /* Contenedor con ancho fijo para respetar tamaño del widget web; permite scroll horizontal en pantallas pequeñas */
+    max-width: 916px;
+    margin: 0 auto;
+    overflow-x: auto;
 }
 
-/* Espaciado y legibilidad del layout */
+.meteo-inner iframe {
+    width: 916px !important;
+    height: 1046px !important;
+    max-width: none !important;
+    display: block;
+    border: 0;
+}
+
 .pt-32 { padding-top: 6.5rem !important; }
 .pb-24 { padding-bottom: 6rem !important; }
 
-/* Mejora tipográfica para párrafos */
 p, .font-body-md, .text-on-surface-variant {
     line-height: 1.6;
     color: var(--color-on-surface-variant) !important;
 }
 
-/* Detalles collapsibles más suaves */
 details[open] { background: rgba(255,255,255,0.02); }
 
-/* Footer menor para no competir con contenido */
 footer { opacity: 0.95; }
 
-/* Responsive tweaks */
 @media (max-width: 992px) {
     .grid { gap: 1rem !important; }
-    .meteo-inner iframe { max-height: 600px; }
+    /* On small screens allow horizontal scroll for the meteorological widget */
+    .meteo-scale { overflow-x: auto; }
     .md\:w-1\/2 { width: 100% !important; }
 }
 
