@@ -74,7 +74,10 @@
                                 <h5 class="card-title" th:text="${actividad.nombre}">Nombre de la Actividad</h5>
                                 <p class="card-text" th:text="${actividad.descripcion}">Descripción de la actividad</p>
                                 <p class="card-text fw-bold text-primary" th:text="'€ ' + ${actividad.precio}">Precio</p>
-                                <a th:href="@{/actividades}" class="btn btn-primary">Volver a actividades</a>
+                                <a th:href="@{/actividades/{id}(id=${actividad.id_actividad})}"
+                                   class="btn btn-primary">
+                                    Ver detalles
+                                </a>
                             </div>
                         </div>
                     </div>

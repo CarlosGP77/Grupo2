@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${actividad.nombre}">Detalle Actividad</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/styles/common.css}">
+</head>
+
+<body class="theme-dark">
+
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Mourosub</a>
+
+        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/actividades}">Actividades</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/inmersiones}">Inmersiones</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/otros}">Sobre Nosotros</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/ubicaciones}">Ubicaciones</a></li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-2">
+                <a class="login-btn" th:href="@{/login}">Login</a>
+                <form th:action="@{/logout}" method="post" class="m-0">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <button type="submit" class="login-btn">Cerrar sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="pt-5 mt-5">
+
+    <!-- HERO -->
+    <section class="container py-4">
+        <div class="row g-4">
+
+            <!-- Imagen principal -->
+            <div class="col-lg-8">
+                <img th:src="@{/img/HERO.webp}" class="img-fluid rounded shadow" alt="Imagen actividad">
+            </div>
+
+            <!-- Panel de reserva -->
+            <div class="col-lg-4">
+                <div class="p-4 rounded shadow bg-surface">
+
+                    <h2 class="mb-3" th:text="${actividad.nombre}">Nombre</h2>
+
+                    <p class="fs-4 fw-bold text-primary">
+                        € <span th:text="${actividad.precio}">0</span> / persona
+                    </p>
+
+                    <p class="text-warning fw-bold">Alta demanda</p>
+
+                    <label class="fw-bold mt-3">Selecciona fecha</label>
+                    <input type="date" class="form-control mb-3">
+
+                    <button class="btn btn-primary w-100">Reservar ahora</button>
+
+                    <p class="small mt-3 text-muted">
+                        Cancelación gratuita hasta 48h antes
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DESCRIPCIÓN -->
+    <section class="container py-4">
+        <h3>Descripción</h3>
+        <p th:text="${actividad.descripcion}">
+            Texto de descripción
+        </p>
+    </section>
+
+    <!-- INCLUIDO Y REQUISITOS -->
+    <section class="container py-4">
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <div class="p-4 rounded shadow bg-surface">
+                    <h4>Qué incluye</h4>
+                    <ul>
+                        <li>Equipo básico</li>
+                        <li>Instructor certificado</li>
+                        <li>Seguro</li>
+                        <li>Barco al punto de inmersión</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="p-4 rounded shadow bg-surface">
+                    <h4>Requisitos</h4>
+                    <ul>
+                        <li>Certificación básica</li>
+                        <li>Buena condición física</li>
+                        <li>Mayor de 16 años</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="py-4 text-center">
+    <p>© 2026 Mourosub</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
