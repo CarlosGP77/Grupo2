@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface InmersionRepository extends JpaRepository<Inmersion, Integer> {
 
-    @Query("select i from Inmersion i left join fetch i.ubicacion")
+    @Query("select distinct i from Inmersion i left join fetch i.ubicacion")
     List<Inmersion> findAllWithUbicacion();
     Inmersion findByNombre(String nombre);
     List<Inmersion> findByNombreContainingIgnoreCase(String nombre);
