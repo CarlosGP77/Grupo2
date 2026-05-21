@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ssh *)",
+      "Bash(sshpass *)",
+      "PowerShell(Get-Command *)",
+      "Bash(python3 -c \"import paramiko; print\\('paramiko OK'\\)\")",
+      "Bash(python -c \"import paramiko; print\\('paramiko OK'\\)\")",
+      "Bash(pacman -S sshpass --noconfirm)",
+      "Bash(winget install *)",
+      "Bash(node -e \"require\\('child_process'\\)\")",
+      "Bash(cat)",
+      "Bash(chmod +x /tmp/ssh_pass.sh)",
+      "Bash(export SSH_ASKPASS=/tmp/ssh_pass.sh)",
+      "Bash(export SSH_ASKPASS_REQUIRE=force)",
+      "Bash(export DISPLAY=:0)",
+      "Bash(chmod +x /tmp/ssh_pass_root.sh)",
+      "Bash(export SSH_ASKPASS=/tmp/ssh_pass_root.sh)"
+    ]
+  }
+}

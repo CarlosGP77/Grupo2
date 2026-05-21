@@ -1,6 +1,8 @@
 package com.example.model;
 
 import jakarta.persistence.*;
+import java.text.Normalizer;
+import java.util.Locale;
 
 @Entity
 @Table(name = "inmersiones")
@@ -54,5 +56,20 @@ public class Inmersion {
 
     public Ubicacion getUbicacion() { return ubicacion; }
     public void setUbicacion(Ubicacion ubicacion) { this.ubicacion = ubicacion; }
+
+    @Transient
+    public String getNombreArchivoWebp() {
+        if (nombre == null || nombre.isBlank()) {
+            return "default";
+        }
+
+        String normalizado = Normalizer.normalize(nombre, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .toLowerCase(Locale.ROOT)
+                .replaceAll("[^a-z0-9]+", "-")
+                .replaceAll("(^-|-$)", "");
+
+        return normalizado.isBlank() ? "default" : normalizado;
+    }
 }
 

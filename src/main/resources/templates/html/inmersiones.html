@@ -6,8 +6,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" th:href="@{/styles/inmersiones.css}">
-    <link rel="stylesheet" th:href="@{/styles/modern.css}">
-    <link rel="stylesheet" th:href="@{/styles/preview.css}">
     <link rel="stylesheet" th:href="@{/styles/common.css}">
 </head>
 <body>
@@ -44,16 +42,11 @@
     <h1 class="mb-4">Inmersiones</h1>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <div class="col" th:each="i : ${listaInmersiones}">
+         <div class="col" th:each="i : ${listaInmersiones}">
             <div class="card shadow-sm h-100">
-                <img th:if="${i.ubicacion != null}"
-                     th:src="@{/img/ubicaciones/{file}.webp(file=${i.ubicacion.nombreArchivoWebp})}"
+                <img th:src="@{/img/inmersiones/{file}.webp(file=${i.nombreArchivoWebp})}"
                      class="card-img-top"
-                     th:alt="${'Imagen de ' + i.ubicacion.nombre}">
-                <img th:if="${i.ubicacion == null}"
-                     th:src="@{/img/HERO.webp}"
-                     class="card-img-top"
-                     alt="Imagen por defecto">
+                     th:alt="${'Imagen de ' + i.nombre}">
 
                 <div class="card-body">
                     <h5 class="card-title" th:text="${i.nombre}">Nombre</h5>
