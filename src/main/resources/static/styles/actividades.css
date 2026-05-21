@@ -1,4 +1,15 @@
 /* actividades.css */
+:root {
+    --azul-profundo: #0B3C5D;
+    --azul-mar: #1E6F8C;
+    --turquesa: #2EC4B6;
+    --blanco: #FFFFFF;
+    --gris-claro: #F4F7F9;
+    --naranja-coral: #FF6B35;
+    --negro-suave: #0F172A;
+    --gris-borde: #E5E7EB;
+}
+
 
 body {
   font-family: 'Poppins', sans-serif;
@@ -65,4 +76,8 @@ body {
 
 footer {
   font-size: 0.9rem;
+}
+
+span {
+   color: var(--naranja-coral);
 }
