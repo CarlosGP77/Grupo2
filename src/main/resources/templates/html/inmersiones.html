@@ -43,9 +43,17 @@
 
     <h1 class="mb-4">Inmersiones</h1>
 
-    <div class="row" th:each="i : ${listaInmersiones}">
-        <div class="col-md-4 mb-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col" th:each="i : ${listaInmersiones}">
             <div class="card shadow-sm h-100">
+                <img th:if="${i.ubicacion != null}"
+                     th:src="@{/img/ubicaciones/{id}.webp(id=${i.ubicacion.id_ubicacion})}"
+                     class="card-img-top"
+                     alt="Imagen de la ubicación">
+                <img th:if="${i.ubicacion == null}"
+                     th:src="@{/img/HERO.webp}"
+                     class="card-img-top"
+                     alt="Imagen por defecto">
 
                 <div class="card-body">
                     <h5 class="card-title" th:text="${i.nombre}">Nombre</h5>
