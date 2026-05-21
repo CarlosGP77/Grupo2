@@ -40,51 +40,70 @@
     </div>
 </nav>
 
-<!-- Reestructuración: dos columnas con Bootstrap -->
-            <div class="col-12">
-                <div class="central-wrapper mx-auto">
-                    <div class="mosaic-frame">
-                        <div class="mosaic">
-                        <div class="block block-varemo">
-                            <div class="block-content">
-                                <h3 class="h5 block-title">Varemo</h3>
-                                <div class="meteo-scale">
-                                    <div class="meteo-inner">
-                                        <iframe src="https://www.meteoblue.com/en/weather/widget/daily/santander_spain_3109718?geoloc=fixed&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&days=4&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=0&precipitationprobability=1&spot=0&pressure=0&layout=light&user_key=7dbc1daa5533a97a&embed_key=e2fcfba9c1b1dbd6&sig=0b816d0b56e14f97cbdb0817e7492b8f380ef9f360a61695f8282f3adafcc3b1" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" style="width:100%;height:400px;border:0;overflow:hidden;"></iframe>
-                                    </div>
-                                </div>
+<main>
+    <div class="central-wrapper mx-auto">
+        <div class="mosaic-frame">
+            <div class="mosaic">
+                <div class="block block-varemo">
+                    <div class="block-content">
+                        <h3 class="h5 block-title">Varemo</h3>
+                        <div class="meteo-scale">
+                            <div class="meteo-inner">
+                                <iframe src="https://www.meteoblue.com/en/weather/widget/daily/santander_spain_3109718?geoloc=fixed&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&days=4&coloured=coloured&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&windgust=0&winddirection=1&uv=0&humidity=0&precipitation=0&precipitationprobability=1&spot=0&pressure=0&layout=light&user_key=7dbc1daa5533a97a&embed_key=e2fcfba9c1b1dbd6&sig=0b816d0b56e14f97cbdb0817e7492b8f380ef9f360a61695f8282f3adafcc3b1" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" style="width:100%;height:400px;border:0;overflow:hidden;"></iframe>
                             </div>
                         </div>
-                        <div class="block block-seguros">
-                            <div class="block-content">
-                                <h3 class="h5 block-title">Seguros</h3>
-                                <p>Scuba Medic es un seguro especializado en accidentes de buceo. Cubre rescate, transporte y gastos médicos internacionales.</p>
-                                <div class="coverage-table">
-                                    <table class="table table-borderless mb-0">
-                                        <tbody>
-                                        <tr><td>Gastos Médicos</td><td>€ 50.000</td></tr>
-                                        <tr><td>Tratamientos hiperbáricos</td><td>€ 50.000</td></tr>
-                                        <tr><td>Repatriación</td><td>€ 30.000</td></tr>
-                                        <tr><td>Responsabilidad civil</td><td>€ 150.000</td></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+
+                <div class="block block-seguros">
+                    <div class="block-content">
+                        <h3 class="h5 block-title">Seguros</h3>
+                        <p>Scuba Medic es un seguro especializado en accidentes de buceo. Cubre rescate, transporte y gastos médicos internacionales.</p>
+                        <div class="coverage-table">
+                            <table class="table table-borderless mb-0">
+                                <tbody>
+                                <tr><td>1. Gastos Médicos</td><td>€ 50.000</td></tr>
+                                <tr><td>2. Tratamientos hiperbáricos</td><td>€ 50.000</td></tr>
+                                <tr>
+                                    <td>3. Repatriación de emergencia y búsqueda</td>
+                                    <td>€ 30.000</td>
+                                </tr>
+                                <tr>
+                                    <td>4. Gastos razonables de alojamiento y transporte</td>
+                                    <td>€ 5.000</td>
+                                </tr>
+                                <tr>
+                                    <td>5. Gastos de búsqueda y rescate</td>
+                                    <td>€ 30.000</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        6. Cobertura en caso de invalidez permanente o de muerte durante la práctica del buceo deportivo:
+                                        <div class="mt-1 ms-3 small">i. Muerte € 6.000</div>
+                                        <div class="ms-3 small">ii. Invalidez Permanente € 6.000</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>7. Responsabilidad civil (incluidos los costes de defensa)</td>
+                                    <td>€ 150.000</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="block block-reparaciones">
-                            <div class="block-content">
-                                <h3 class="h5 block-title">Reparaciones</h3>
-                                <p>Servicio técnico: revisión de reguladores, chalecos, cambio de baterías y retimbrado de botellas.</p>
-                                <a class="btn btn-main mt-3" href="#">Solicitar Revisión</a>
-                            </div>
-                        </div>
-                        </div>
+                    </div>
+                </div>
+
+                <div class="block block-reparaciones">
+                    <div class="block-content">
+                        <h3 class="h5 block-title">Reparaciones</h3>
+                        <p>Servicio técnico: revisión de reguladores, chalecos, cambio de baterías y retimbrado de botellas.</p>
+                        <a class="btn btn-main mt-3" href="mailto:info@mourosub.com?subject=Solicitud%20de%20revisi%C3%B3n&body=Hola,%20quiero%20solicitar%20una%20revisi%C3%B3n.%0A%0ANombre:%0ATel%C3%A9fono:%0AEquipo:%0ADetalle%20de%20la%20consulta:">Solicitar Revisión</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </main>
+</main>
 
 <!-- FOOTER -->
 <footer>
