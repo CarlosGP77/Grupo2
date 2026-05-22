@@ -15,10 +15,10 @@ public class UbicacionService {
         this.repo = repo;
     }
     public List<Ubicacion> listarTodas() {
-        return repo.findAll();
+        return repo.findAllWithInmersiones();
     }
     public Ubicacion buscarPorId(Integer id) {
-        return repo.findById(id).orElse(null);
+        return repo.findByIdWithInmersiones(id).orElse(null);
     }
     public Ubicacion guardar(Ubicacion ubicacion) {
         return repo.save(ubicacion);

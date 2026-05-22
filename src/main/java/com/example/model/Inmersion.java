@@ -34,9 +34,8 @@ public class Inmersion {
     @Column(length = 20)
     private Dificultad dificultad;
 
-    // Mapea a la columna "ubicacion"
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ubicacion", referencedColumnName = "id_ubicacion")
+    @JoinColumn(name = "id_ubicacion", referencedColumnName = "id_ubicacion")
     private Ubicacion ubicacion;
 
     public Integer getId_inmersion() { return id_inmersion; }
