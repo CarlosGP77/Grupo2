@@ -32,5 +32,6 @@ public class UbicacionService {
     public List<Ubicacion> buscarPorNombreParcial(String nombre) {
         return repo.findByNombreContainingIgnoreCase(nombre);
     }
+
 }
 

@@ -61,7 +61,10 @@
 
                     <p class="text-warning fw-bold">Alta demanda</p>
 
-                    <button class="btn btn-primary w-100">Reservar ahora</button>
+                    <form th:action="@{'/actividades/' + ${actividad.id_actividad} + '/reservar'}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button type="submit" class="btn btn-primary w-100">Reservar ahora</button>
+                    </form>
 
                     <p class="small mt-3 text-muted">
                         Cancelación gratuita hasta 48h antes

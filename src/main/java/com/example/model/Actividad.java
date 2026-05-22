@@ -10,6 +10,8 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class Actividad {
 
+
+
     public enum Tipo {
         Curso,
         Paquete,
