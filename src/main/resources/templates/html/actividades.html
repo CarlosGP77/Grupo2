@@ -18,8 +18,11 @@
         </button>
 
         <div class="collapse navbar-collapse" id="menu">
-            <!-- Menu reducido: solo Ubicaciones -->
+            <!-- Menú: restaurado (todo menos Inmersiones) -->
             <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/actividades}" href="/actividades">Actividades</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/otros}" href="/otros">Otros</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/ubicaciones}" href="/ubicaciones">Ubicaciones</a></li>
             </ul>
 
