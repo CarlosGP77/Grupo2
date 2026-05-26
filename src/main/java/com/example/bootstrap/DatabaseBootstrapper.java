@@ -20,7 +20,7 @@ import java.util.List;
 import org.jspecify.annotations.NonNull;
 
 @Component
-public class DatabaseBootstrapper implements ApplicationRunner {
+public classDatabaseBootstrapper implements ApplicationRunner {
 
     private static final Logger log = LoggerFactory.getLogger(DatabaseBootstrapper.class);
 
@@ -62,13 +62,19 @@ public class DatabaseBootstrapper implements ApplicationRunner {
         Usuario.Rol rol = seed.rol();
         boolean verificado = seed.verificado();
 
-        if (usuarioRepository.findByEmail(email) != null) {
-            log.info("Usuario con email {} ya existe; se omite la creación automática.", email);
-            return;
+p        Usuario usuario = usuarioRepository.findByDni(dni);
+        if (usuario == null) {
+            usuario = usuarioRepository.findByEmail(email);
         }
 
-        Usuario usuario = new Usuario();
-        usuario.setDni(dni);
+        if (usuario == null) {
+            usuario = new Usuario();
+            usuario.setDni(dni);
+            log.info("Usuario semilla {} no existía; se creará.", email);
+        } else {
+            log.info("Usuario semilla {} ya existía; se actualizará.", email);
+        }
+
         usuario.setNombre_completo(nombreCompleto);
         usuario.setEmail(email);
         usuario.setPassword(passwordEncoder.encode(rawPassword));
@@ -76,7 +82,7 @@ public class DatabaseBootstrapper implements ApplicationRunner {
         usuario.setVerificar_titulacion(verificado);
         usuarioRepository.save(usuario);
 
-        log.info("Usuario {} ({}) creado automáticamente.", nombreCompleto, email);
+        log.info("Usuario {} ({}) asegurado automáticamente.", nombreCompleto, email);
     }
 
     private void ensureFooterData() {
