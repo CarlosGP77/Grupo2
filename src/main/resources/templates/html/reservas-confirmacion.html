@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Reserva confirmada</title>
@@ -21,9 +21,9 @@
 
     <!-- HERO -->
     <section class="container text-center py-5">
-        <h1 class="fw-bold text-success">¡Reserva confirmada!</h1>
+        <h1 class="fw-bold text-success">Â¡Reserva confirmada!</h1>
         <p class="lead mt-3">
-            Tu aventura submarina ya está lista.
+            Tu aventura submarina ya estÃ¡ lista.
             Hemos registrado tu reserva correctamente.
         </p>
 
@@ -44,22 +44,22 @@
 
                         <li class="list-group-item bg-surface">
                             <strong>Actividad:</strong>
-                            <span th:text="${actividad != null ? actividad.nombre : '—'}">—</span>
+                            <span th:text="${actividad != null ? actividad.nombre : 'â€”'}">â€”</span>
                         </li>
 
                         <li class="list-group-item bg-surface">
                             <strong>Precio:</strong>
-                            € <span th:text="${precio != null ? precio : '—'}">—</span>
+                            â‚¬ <span th:text="${precio != null ? precio : 'â€”'}">â€”</span>
                         </li>
 
                         <li class="list-group-item bg-surface">
-                            <strong>Ubicación:</strong>
-                            <span th:text="${ubicacion != null ? ubicacion.nombre : '—'}">—</span>
+                            <strong>UbicaciÃ³n:</strong>
+                            <span th:text="${ubicacion != null ? ubicacion.nombre : 'â€”'}">â€”</span>
                         </li>
 
                         <li class="list-group-item bg-surface">
                             <strong>Fecha de inicio:</strong>
-                            <span th:text="${fechaInicio != null ? fechaInicio : '—'}">—</span>
+                            <span th:text="${fechaInicio != null ? fechaInicio : 'â€”'}">â€”</span>
                         </li>
 
                     </ul>
@@ -77,11 +77,9 @@
 </main>
 
 <footer class="py-4 text-center">
-    <p>© 2026 Mourosub</p>
+    <p>Â© 2026 Mourosub</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-

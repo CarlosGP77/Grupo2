@@ -1,14 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Ruta no encontrada</title>
 </head>
     <body>
-        <h1>Página no encontrada</h1>
-        <p th:if="${status != null}">Código: <span th:text="${status}">404</span></p>
+        <h1>PÃ¡gina no encontrada</h1>
+        <p th:if="${status != null}">CÃ³digo: <span th:text="${status}">404</span></p>
         <p th:if="${error != null}">Error: <span th:text="${error}">No se encotro la pagina</span></p>
         <p th:if="${message != null}">Mensaje: <span th:text="${message}">No existe</span></p>
     </body>
 </html>
-

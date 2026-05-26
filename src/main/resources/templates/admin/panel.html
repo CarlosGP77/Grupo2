@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -33,38 +33,30 @@
             </ul>
 
             <div class="d-flex align-items-center gap-2">
-                <sec:authorize access="isAnonymous()">
-                    <a class="login-btn text-decoration-none" th:href="@{/login}">Iniciar sesión</a>
-                </sec:authorize>
-                <sec:authorize access="isAuthenticated()">
-                    <div class="dropdown">
-                        <button class="login-btn dropdown-toggle d-flex align-items-center gap-2" type="button"
-                                id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle"></i>
-                            <span sec:authentication="name"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li>
-                                <a class="dropdown-item" th:href="@{/img/img-log.webp}" target="_blank" rel="noopener">
-                                    <i class="bi bi-image me-2"></i>Img
-                                </a>
-                            </li>
-                            <sec:authorize access="hasRole('ADMIN')">
-                                <li><a class="dropdown-item" th:href="@{/admin/panel}">Panel Admin</a></li>
-                            </sec:authorize>
-                            <sec:authorize access="hasAnyRole('ADMIN', 'VERIFICADOR')">
-                                <li><a class="dropdown-item" th:href="@{/verificador/panel}">Panel Verificador</a></li>
-                            </sec:authorize>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form th:action="@{/logout}" method="post" class="m-0">
-                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                    <button type="submit" class="dropdown-item">Cerrar sesion</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                </sec:authorize>
+                <a class="login-btn text-decoration-none" th:if="${!usuarioAutenticado}" th:href="@{/login}">Iniciar sesión</a>
+                <div class="dropdown" th:if="${usuarioAutenticado}">
+                    <button class="login-btn dropdown-toggle d-flex align-items-center gap-2" type="button"
+                            id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle"></i>
+                        <span th:text="${nombreUsuario}"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/img/img-log.webp}" target="_blank" rel="noopener">
+                                <i class="bi bi-image me-2"></i>Img
+                            </a>
+                        </li>
+                        <li th:if="${usuarioEsAdmin}"><a class="dropdown-item" th:href="@{/admin/panel}">Panel Admin</a></li>
+                        <li th:if="${usuarioEsAdmin or usuarioEsVerificador}"><a class="dropdown-item" th:href="@{/verificador/panel}">Panel Verificador</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form th:action="@{/logout}" method="post" class="m-0">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

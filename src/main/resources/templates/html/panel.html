@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Panel de Verificación</title>
+    <title>Panel de VerificaciÃ³n</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/styles/modern.css}">
     <link rel="stylesheet" th:href="@{/styles/common.css}">
@@ -16,8 +16,8 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mb-4">Panel de Verificación de Credenciales</h1>
-        <a th:href="@{/}" class="btn btn-secondary mb-3">← Volver al inicio</a>
+        <h1 class="mb-4">Panel de VerificaciÃ³n de Credenciales</h1>
+        <a th:href="@{/}" class="btn btn-secondary mb-3">â† Volver al inicio</a>
         <h3>Usuarios sin Verificar</h3>
         <div th:if="${usuariosNoVerificados.size() > 0}">
             <div th:each="u : ${usuariosNoVerificados}" class="usuario-card">
@@ -28,21 +28,21 @@
                         <p class="mb-1"><strong>Email:</strong> <span th:text="${u.email}"></span></p>
                         <p class="mb-1"><strong>Licencia:</strong> <span th:text="${u.licencia}"></span></p>
                         <p class="mb-1"><strong>Titulaciones:</strong> <span th:text="${u.titulaciones ?: 'No especificadas'}"></span></p>
-                        <p class="mb-0"><strong>Estado de Verificación:</strong> <span style="color: red;">✗ No Verificado</span></p>
+                        <p class="mb-0"><strong>Estado de VerificaciÃ³n:</strong> <span style="color: red;">âœ— No Verificado</span></p>
                     </div>
                     <div class="col-md-4">
                         <form method="POST" action="/verificador/cambiar-verificacion" class="d-inline">
                             <input type="hidden" name="dni" th:value="${u.dni}">
                             <input type="hidden" name="verificado" value="true">
-                            <button type="submit" class="btn btn-success btn-sm w-100 mb-2">✓ Verificar Usuario</button>
+                            <button type="submit" class="btn btn-success btn-sm w-100 mb-2">âœ“ Verificar Usuario</button>
                         </form>
-                        <a th:href="@{/verificador/usuario(dni=${u.dni})}" class="btn btn-info btn-sm w-100">Más detalles</a>
+                        <a th:href="@{/verificador/usuario(dni=${u.dni})}" class="btn btn-info btn-sm w-100">MÃ¡s detalles</a>
                     </div>
                 </div>
             </div>
         </div>
         <div th:if="${usuariosNoVerificados.size() == 0}" class="alert alert-success">
-            ✓ Todos los usuarios han sido verificados
+            âœ“ Todos los usuarios han sido verificados
         </div>
 
         <hr>
@@ -58,7 +58,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Aquí irían los usuarios verificados (no lo implementé en el controlador, pero puedes agregarlo) -->
+                <!-- AquÃ­ irÃ­an los usuarios verificados (no lo implementÃ© en el controlador, pero puedes agregarlo) -->
             </tbody>
         </table>
     </div>
@@ -67,4 +67,3 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         </body>
 </html>
-

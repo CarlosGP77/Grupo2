@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+ï»¿<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -30,7 +30,7 @@
             </div>
             <div class="mb-lg">
                 <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Crear cuenta</h2>
-                <p class="font-body-lg text-body-lg text-on-surface-variant">Rellena tus datos y deja la titulación indicada si quieres que se revise.</p>
+                <p class="font-body-lg text-body-lg text-on-surface-variant">Rellena tus datos y deja la titulaciÃ³n indicada si quieres que se revise.</p>
             </div>
             <div th:if="${error}" class="mb-md rounded-lg border border-red-500/30 bg-red-500/10 px-md py-sm text-red-200" th:text="${error}"></div>
             <form method="post" action="/register" class="space-y-md" th:object="${usuario}">
@@ -43,7 +43,7 @@
                     <input id="nombre_completo" th:field="*{nombre_completo}" type="text" required class="w-full bg-surface-container-highest border border-outline-variant text-on-surface rounded-lg py-sm px-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" placeholder="Tu nombre y apellidos"/>
                 </div>
                 <div>
-                    <label class="block font-label-md text-label-md text-on-surface mb-xs" for="email">Correo electrónico</label>
+                    <label class="block font-label-md text-label-md text-on-surface mb-xs" for="email">Correo electrÃ³nico</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-sm"><span class="material-symbols-outlined text-outline">mail</span></span>
                         <input id="email" th:field="*{email}" type="email" required class="w-full bg-surface-container-highest border border-outline-variant text-on-surface rounded-lg py-sm pl-lg pr-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" placeholder="tu@email.com"/>
@@ -51,20 +51,20 @@
                 </div>
                 <div>
                     <label class="block font-label-md text-label-md text-on-surface mb-xs" for="titulaciones">Titulaciones</label>
-                    <textarea id="titulaciones" th:field="*{titulaciones}" rows="4" class="w-full bg-surface-container-highest border border-outline-variant text-on-surface rounded-lg py-sm px-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" placeholder="Escribe aquí tu titulación si quieres que la revisen"></textarea>
+                    <textarea id="titulaciones" th:field="*{titulaciones}" rows="4" class="w-full bg-surface-container-highest border border-outline-variant text-on-surface rounded-lg py-sm px-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" placeholder="Escribe aquÃ­ tu titulaciÃ³n si quieres que la revisen"></textarea>
                 </div>
                 <div>
-                    <label class="block font-label-md text-label-md text-on-surface mb-xs" for="password">Contraseña</label>
+                    <label class="block font-label-md text-label-md text-on-surface mb-xs" for="password">ContraseÃ±a</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-sm"><span class="material-symbols-outlined text-outline">lock</span></span>
-                        <input id="password" name="password" type="password" required class="w-full bg-surface-container-highest border border-outline-variant text-on-surface rounded-lg py-sm pl-lg pr-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" placeholder="••••••••"/>
+                        <input id="password" name="password" type="password" required class="w-full bg-surface-container-highest border border-outline-variant text-on-surface rounded-lg py-sm pl-lg pr-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"/>
                     </div>
                 </div>
                 <div>
-                    <label class="block font-label-md text-label-md text-on-surface mb-xs" for="confirmPassword">Confirmar contraseña</label>
+                    <label class="block font-label-md text-label-md text-on-surface mb-xs" for="confirmPassword">Confirmar contraseÃ±a</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-sm"><span class="material-symbols-outlined text-outline">lock</span></span>
-                        <input id="confirmPassword" name="confirmPassword" type="password" required class="w-full bg-surface-container-highest border border-outline-variant text-on-surface rounded-lg py-sm pl-lg pr-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" placeholder="••••••••"/>
+                        <input id="confirmPassword" name="confirmPassword" type="password" required class="w-full bg-surface-container-highest border border-outline-variant text-on-surface rounded-lg py-sm pl-lg pr-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"/>
                     </div>
                 </div>
                 <button type="submit" class="w-full bg-tertiary-container hover:bg-tertiary-container/90 text-on-surface font-label-md text-label-md py-sm rounded-lg transition-colors flex justify-center items-center gap-xs">
@@ -73,7 +73,7 @@
                 </button>
             </form>
             <div class="mt-lg text-center">
-                <p class="font-body-md text-body-md text-on-surface-variant mb-sm">¿Ya tienes cuenta?</p>
+                <p class="font-body-md text-body-md text-on-surface-variant mb-sm">Â¿Ya tienes cuenta?</p>
                 <a th:href="@{/login}" class="inline-flex items-center justify-center w-full rounded-lg border border-outline-variant px-md py-sm text-on-surface font-label-md text-label-md hover:border-secondary hover:text-secondary transition-colors">
                     Volver al login
                 </a>
@@ -83,4 +83,3 @@
 </div>
 </body>
 </html>
-
