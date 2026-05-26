@@ -36,6 +36,11 @@
                             <span sec:authentication="name"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" th:href="@{/img/img-log.webp}" target="_blank" rel="noopener">
+                                    <i class="bi bi-image me-2"></i>Img
+                                </a>
+                            </li>
                             <sec:authorize access="hasRole('ADMIN')">
                                 <li><a class="dropdown-item" th:href="@{/admin/panel}">Panel Admin</a></li>
                             </sec:authorize>
@@ -47,12 +52,6 @@
                                 <form th:action="@{/logout}" method="post" class="m-0">
                                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                     <button type="submit" class="dropdown-item">Cerrar sesion</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                </sec:authorize>
-            </div>
                                 </form>
                             </li>
                         </ul>
