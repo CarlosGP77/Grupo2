@@ -5,10 +5,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.example.model.Usuario;
+import com.example.repository.UsuarioRepository;
 
 @ControllerAdvice
 @SuppressWarnings("unused")
 public class NavbarViewAdvice {
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @ModelAttribute("usuarioAutenticado")
     public boolean usuarioAutenticado() {
@@ -29,6 +35,18 @@ public class NavbarViewAdvice {
     public String nombreUsuario() {
         Authentication authentication = authenticationNoAnon();
         return authentication != null ? authentication.getName() : "";
+    }
+
+    @ModelAttribute("usuario")
+    public Usuario usuario() {
+        Authentication authentication = authenticationNoAnon();
+        if (authentication == null) return null;
+        String email = authentication.getName();
+        try {
+            return usuarioRepository.findByEmail(email);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private Authentication authenticationNoAnon() {
