@@ -9,12 +9,13 @@
   <link rel="stylesheet" th:href="@{/styles/common.css}"/>
   <link rel="stylesheet" th:href="@{/styles/modern.css}"/>
   <style>
-    body { background: #0b1326; color: #dae2fd; }
+    /* Use global variables so background is consistent with common.css */
+    body { background: var(--color-background); color: var(--color-on-surface); }
     .panel-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; }
-    .table-darkish { --bs-table-bg: rgba(255,255,255,.03); --bs-table-striped-bg: rgba(255,255,255,.05); --bs-table-color: #dae2fd; --bs-table-border-color: rgba(255,255,255,.10); }
-    .form-control, .form-select { background: #2d3449; color: #dae2fd; border-color: #42474e; }
-    .form-control:focus, .form-select:focus { background: #2d3449; color: #dae2fd; }
-    .section-title { color: #ffffff; font-weight: 700; }
+    .table-darkish { --bs-table-bg: rgba(255,255,255,.03); --bs-table-striped-bg: rgba(255,255,255,.05); --bs-table-color: var(--color-on-surface); --bs-table-border-color: rgba(255,255,255,.10); }
+    .form-control, .form-select { background: #2d3449; color: var(--color-on-surface); border-color: #42474e; }
+    .form-control:focus, .form-select:focus { background: #2d3449; color: var(--color-on-surface); }
+    .section-title { color: var(--color-on-surface); font-weight: 700; }
   </style>
 </head>
 <body>

@@ -17,11 +17,8 @@
         </button>
 
         <div class="collapse navbar-collapse" id="menu">
+            <!-- Menu reducido: solo Ubicaciones -->
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" th:href="@{/}" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/actividades}" href="/actividades">Actividades</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/inmersiones}" href="/inmersiones">Inmersiones</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/otros}" href="/otros">Sobre Nosotros</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/ubicaciones}" href="/ubicaciones">Ubicaciones</a></li>
             </ul>
 
@@ -30,7 +27,8 @@
                 <div class="dropdown" th:if="${usuarioAutenticado}">
                     <button class="login-btn dropdown-toggle d-flex align-items-center gap-2" type="button"
                             id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i>
+                        <img th:if="${usuarioAutenticado}" th:src="@{${usuario.imagenUrl}}" src="/img/img-log.webp" alt="avatar" class="user-avatar" onerror="this.src='/img/img-log.webp'" />
+                        <i th:if="${!usuarioAutenticado}" class="bi bi-person-circle"></i>
                         <span th:text="${nombreUsuario}"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
@@ -71,7 +69,7 @@
                     <h5 class="card-title" th:text="${#strings.length(u.nombre) > 50 ? u.nombre.substring(0, 50) + '...' : u.nombre}">Nombre</h5>
 
                     <p class="card-text" th:text="${#strings.length(u.descripcion) > 50 ? u.descripcion.substring(0, 50) + '...' : u.descripcion}">
-                        DescripciÃ³n de la ubicaciÃ³n
+                        Descripción de la ubicación
                     </p>
 
                     <p class="text-muted">
@@ -96,8 +94,8 @@
             <div class="col-md-3 mb-4">
                 <h3 th:text="${footerEmpresa}">Mourosub</h3>
                 <p th:text="${footerDescripcion}">Abyssal Elegance in Diving.</p>
-                <p><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del CantÃ¡brico</span></p>
-                <p th:text="${footerCopyright}">Â©2024 Mourosub.</p>
+                <p><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del Cantábrico</span></p>
+                <p th:text="${footerCopyright}">©2024 Mourosub.</p>
             </div>
 
             <div class="col-md-3 mb-4">

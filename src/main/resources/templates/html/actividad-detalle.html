@@ -19,11 +19,8 @@
         </button>
 
         <div class="collapse navbar-collapse" id="menu">
+            <!-- Menu reducido: solo Ubicaciones -->
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" th:href="@{/}" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/actividades}" href="/actividades">Actividades</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/inmersiones}" href="/inmersiones">Inmersiones</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/otros}" href="/otros">Sobre Nosotros</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/ubicaciones}" href="/ubicaciones">Ubicaciones</a></li>
             </ul>
 
@@ -32,7 +29,8 @@
                 <div class="dropdown" th:if="${usuarioAutenticado}">
                     <button class="login-btn dropdown-toggle d-flex align-items-center gap-2" type="button"
                             id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i>
+                        <img th:if="${usuarioAutenticado}" th:src="@{${usuario.imagenUrl}}" src="/img/img-log.webp" alt="avatar" class="user-avatar" onerror="this.src='/img/img-log.webp'" />
+                        <i th:if="${!usuarioAutenticado}" class="bi bi-person-circle"></i>
                         <span th:text="${nombreUsuario}"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
@@ -74,8 +72,8 @@
 
                     <h2 class="mb-3" th:text="${actividad.nombre}">Nombre</h2>
 
-                    <p class="fs-4 fw-bold text-primary">
-                        â‚¬ <span th:text="${actividad.precio}">0</span> / persona
+                        <p class="fs-4 fw-bold text-primary">
+                        € <span th:text="${actividad.precio}">0</span> / persona
                     </p>
 
                     <p class="text-warning fw-bold">Alta demanda</p>
@@ -86,7 +84,7 @@
                     </form>
 
                     <p class="small mt-3 text-muted">
-                        CancelaciÃ³n gratuita hasta 48h antes
+                        Cancelación gratuita hasta 48h antes
                     </p>
                 </div>
             </div>
@@ -94,18 +92,18 @@
         </div>
     </section>
 
-    <!-- DESCRIPCIÃ“N -->
+    <!-- DESCRIPCIÓN -->
     <section class="container py-4">
-        <h3>DescripciÃ³n</h3>
+        <h3>Descripción</h3>
         <p th:text="${actividad.descripcion}">
-            Texto de descripciÃ³n
+            Texto de descripción
         </p>
     </section>
 </main>
 
-<footer class="py-4 text-center">
-    <p>Â© 2026 Mourosub</p>
-</footer>
+    <footer class="py-4 text-center">
+    <p>© 2026 Mourosub</p>
+    </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

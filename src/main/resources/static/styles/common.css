@@ -5,14 +5,16 @@
    ======================================== */
 :root {
     /* Dark Ocean Theme */
-    --color-background: #0b1326;
+    /* Background changed to a consistent blue per request */
+    --color-background: #0b3c5d; /* deep ocean blue */
     --color-surface: #0b1326;
     --color-surface-container: #171f33;
     --color-surface-container-low: #131b2e;
     --color-surface-container-high: #222a3d;
     --color-surface-container-highest: #2d3449;
     --color-surface-container-lowest: #060e20;
-    --color-on-surface: #dae2fd;
+    /* Ensure high contrast on blue background */
+    --color-on-surface: #ffffff;
     --color-on-surface-variant: #c2c7ce;
 
     /* Primary Colors */
@@ -88,10 +90,13 @@ a:hover {
     color: var(--color-secondary);
 }
 
-/* Buttons Base */
+/* Buttons Base
+   - button text set to black when using the green/turquoise primary (var--color-secondary)
+     so buttons on light/green backgrounds appear with dark text as requested. Login
+     and special buttons keep their explicit color rules below. */
 button, .btn {
     background: var(--color-secondary);
-    color: var(--color-on-surface);
+    color: #000000; /* black text on green buttons per request */
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -354,6 +359,15 @@ footer p {
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;
+}
+
+/* User avatar inside navbar */
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.15);
 }
 
 .login-btn.dropdown-toggle:hover {

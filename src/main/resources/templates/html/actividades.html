@@ -18,11 +18,8 @@
         </button>
 
         <div class="collapse navbar-collapse" id="menu">
+            <!-- Menu reducido: solo Ubicaciones -->
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" th:href="@{/}" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/actividades}" href="/actividades">Actividades</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/inmersiones}" href="/inmersiones">Inmersiones</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/otros}" href="/otros">Sobre Nosotros</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/ubicaciones}" href="/ubicaciones">Ubicaciones</a></li>
             </ul>
 
@@ -31,7 +28,8 @@
                 <div class="dropdown" th:if="${usuarioAutenticado}">
                     <button class="login-btn dropdown-toggle d-flex align-items-center gap-2" type="button"
                             id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i>
+                        <img th:if="${usuarioAutenticado}" th:src="@{${usuario.imagenUrl}}" src="/img/img-log.webp" alt="avatar" class="user-avatar" onerror="this.src='/img/img-log.webp'" />
+                        <i th:if="${!usuarioAutenticado}" class="bi bi-person-circle"></i>
                         <span th:text="${nombreUsuario}"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">

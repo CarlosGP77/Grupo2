@@ -21,11 +21,8 @@
         </button>
 
         <div class="collapse navbar-collapse" id="menu">
+            <!-- Menu reducido: solo Ubicaciones -->
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" th:href="@{/}" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/actividades}" href="/actividades">Actividades</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/inmersiones}" href="/inmersiones">Inmersiones</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/otros}" href="/otros">Sobre Nosotros</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/ubicaciones}" href="/ubicaciones">Ubicaciones</a></li>
             </ul>
 
@@ -34,7 +31,8 @@
                 <div class="dropdown" th:if="${usuarioAutenticado}">
                     <button class="login-btn dropdown-toggle d-flex align-items-center gap-2" type="button"
                             id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i>
+                        <img th:if="${usuarioAutenticado}" th:src="@{${usuario.imagenUrl}}" src="/img/img-log.webp" alt="avatar" class="user-avatar" onerror="this.src='/img/img-log.webp'" />
+                        <i th:if="${!usuarioAutenticado}" class="bi bi-person-circle"></i>
                         <span th:text="${nombreUsuario}"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
@@ -77,34 +75,34 @@
                 <div class="block block-seguros">
                     <div class="block-content">
                         <h3 class="h5 block-title">Seguros</h3>
-                        <p>Scuba Medic es un seguro especializado en accidentes de buceo. Cubre rescate, transporte y gastos mÃ©dicos internacionales.</p>
+                        <p>Scuba Medic es un seguro especializado en accidentes de buceo. Cubre rescate, transporte y gastos médicos internacionales.</p>
                         <div class="coverage-table">
                             <table class="table table-borderless mb-0">
                                 <tbody>
-                                <tr><td>1. Gastos MÃ©dicos</td><td>â‚¬ 50.000</td></tr>
-                                <tr><td>2. Tratamientos hiperbÃ¡ricos</td><td>â‚¬ 50.000</td></tr>
+                                <tr><td>1. Gastos Médicos</td><td>€ 50.000</td></tr>
+                                <tr><td>2. Tratamientos hiperbáricos</td><td>€ 50.000</td></tr>
                                 <tr>
-                                    <td>3. RepatriaciÃ³n de emergencia y bÃºsqueda</td>
-                                    <td>â‚¬ 30.000</td>
+                                    <td>3. Repatriación de emergencia y búsqueda</td>
+                                    <td>€ 30.000</td>
                                 </tr>
                                 <tr>
                                     <td>4. Gastos razonables de alojamiento y transporte</td>
-                                    <td>â‚¬ 5.000</td>
+                                    <td>€ 5.000</td>
                                 </tr>
                                 <tr>
-                                    <td>5. Gastos de bÃºsqueda y rescate</td>
-                                    <td>â‚¬ 30.000</td>
+                                    <td>5. Gastos de búsqueda y rescate</td>
+                                    <td>€ 30.000</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        6. Cobertura en caso de invalidez permanente o de muerte durante la prÃ¡ctica del buceo deportivo:
-                                        <div class="mt-1 ms-3 small">i. Muerte â‚¬ 6.000</div>
-                                        <div class="ms-3 small">ii. Invalidez Permanente â‚¬ 6.000</div>
+                                        6. Cobertura en caso de invalidez permanente o de muerte durante la práctica del buceo deportivo:
+                                        <div class="mt-1 ms-3 small">i. Muerte € 6.000</div>
+                                        <div class="ms-3 small">ii. Invalidez Permanente € 6.000</div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>7. Responsabilidad civil (incluidos los costes de defensa)</td>
-                                    <td>â‚¬ 150.000</td>
+                                    <td>€ 150.000</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -115,8 +113,8 @@
                 <div class="block block-reparaciones">
                     <div class="block-content">
                         <h3 class="h5 block-title">Reparaciones</h3>
-                        <p>Servicio tÃ©cnico: revisiÃ³n de reguladores, chalecos, cambio de baterÃ­as y retimbrado de botellas.</p>
-                        <a class="btn btn-main mt-3" href="mailto:info@mourosub.com?subject=Solicitud%20de%20revisi%C3%B3n&body=Hola,%20quiero%20solicitar%20una%20revisi%C3%B3n.%0A%0ANombre:%0ATel%C3%A9fono:%0AEquipo:%0ADetalle%20de%20la%20consulta:">Solicitar RevisiÃ³n</a>
+                        <p>Servicio técnico: revisión de reguladores, chalecos, cambio de baterías y retimbrado de botellas.</p>
+                        <a class="btn btn-main mt-3" href="mailto:info@mourosub.com?subject=Solicitud%20de%20revisi%C3%B3n&body=Hola,%20quiero%20solicitar%20una%20revisi%C3%B3n.%0A%0ANombre:%0ATel%C3%A9fono:%0AEquipo:%0ADetalle%20de%20la%20consulta:">Solicitar Revisión</a>
                     </div>
                 </div>
             </div>
@@ -132,8 +130,8 @@
             <div class="col-md-3 mb-4">
                 <h3 th:text="${footerEmpresa}">Mourosub</h3>
                 <p th:text="${footerDescripcion}">Abyssal Elegance in Diving.</p>
-                <p><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del CantÃ¡brico</span></p>
-                <p th:text="${footerCopyright}">Â©2024 Mourosub.</p>
+                <p><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del Cantábrico</span></p>
+                <p th:text="${footerCopyright}">©2024 Mourosub.</p>
             </div>
 
             <div class="col-md-3 mb-4">
