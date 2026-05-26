@@ -31,8 +31,8 @@
                 <div class="dropdown" th:if="${usuarioAutenticado}">
                     <button class="login-btn dropdown-toggle d-flex align-items-center gap-2" type="button"
                             id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img th:if="${usuarioAutenticado}" th:src="@{${usuario.imagenUrl}}" src="/img/img-log.webp" alt="avatar" class="user-avatar" onerror="this.src='/img/img-log.webp'" />
-                        <i th:if="${!usuarioAutenticado}" class="bi bi-person-circle"></i>
+                        <img th:if="${usuarioAutenticado} and ${usuario} != null and ${usuario.imagenUrl} != null" th:src="${usuario.imagenUrl}" src="/img/img-log.webp" alt="avatar" class="user-avatar" onerror="this.src='/img/img-log.webp'" />
+                        <i th:if="${!usuarioAutenticado} or ${usuario} == null or ${usuario.imagenUrl} == null" class="bi bi-person-circle"></i>
                         <span th:text="${nombreUsuario}"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
