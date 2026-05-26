@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -34,6 +34,14 @@
                 <p class="font-body-lg text-body-lg text-on-surface-variant">Ingresa tus credenciales para acceder a tu cuenta.</p>
             </div>
 
+            <div th:if="${param.registered}" class="mb-md rounded-lg border border-green-500/30 bg-green-500/10 px-md py-sm text-green-200">
+                Cuenta creada correctamente. Ya puedes iniciar sesión.
+            </div>
+
+            <div th:if="${param.error}" class="mb-md rounded-lg border border-red-500/30 bg-red-500/10 px-md py-sm text-red-200">
+                No se ha podido iniciar sesión. Revisa tus credenciales.
+            </div>
+
             <form method="post" action="/login" class="space-y-md">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
@@ -65,9 +73,17 @@
                     <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">login</span>
                 </button>
             </form>
+
+            <div class="mt-lg text-center">
+                <p class="font-body-md text-body-md text-on-surface-variant mb-sm">¿Todavía no tienes cuenta?</p>
+                <a class="inline-flex items-center justify-center w-full rounded-lg border border-outline-variant px-md py-sm text-on-surface font-label-md text-label-md hover:border-secondary hover:text-secondary transition-colors" th:href="@{/register}">
+                    Crear cuenta
+                </a>
+            </div>
         </div>
     </div>
 </div>
 </body>
 </html>
+
 

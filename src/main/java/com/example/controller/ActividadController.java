@@ -78,7 +78,7 @@ public class ActividadController {
 
         reservaService.crear(reserva);
 
-        // 🔥 ENVIAR DATOS AL HTML
+        // ENVIAR DATOS AL HTML
         model.addAttribute("actividad", actividad);
         model.addAttribute("precio", reserva.getPrecio());
         model.addAttribute("ubicacion", ubicacionRandom);

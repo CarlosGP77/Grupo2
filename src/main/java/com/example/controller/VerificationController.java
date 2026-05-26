@@ -20,6 +20,7 @@ public class VerificationController {
     public String panel(Model model) {
         List<Usuario> usuariosNoVerificados = usuarioRepository.findAll()
                 .stream()
+                .filter(u -> u.getTitulaciones() != null && !u.getTitulaciones().isBlank())
                 .filter(u -> !u.getVerificar_titulacion())
                 .toList();
         
@@ -33,6 +34,7 @@ public class VerificationController {
     public List<Usuario> usuariosSinVerificar() {
         return usuarioRepository.findAll()
                 .stream()
+                .filter(u -> u.getTitulaciones() != null && !u.getTitulaciones().isBlank())
                 .filter(u -> !u.getVerificar_titulacion())
                 .toList();
     }
