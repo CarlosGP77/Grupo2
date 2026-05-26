@@ -56,7 +56,7 @@
     </div>
 </nav>
 <main>
-    <!-- TÃTULO -->
+    <!-- TÍTULO -->
     <section class="hero py-5">
         <div class="container text-center">
             <h1 class="display-4 mb-3">Explora nuestras actividades</h1>
@@ -69,7 +69,7 @@
             <div class="row justify-content-center">
                 <div class="col-auto">
                     <div class="d-flex align-items-center">
-                        <label for="category" class="me-2 fw-bold">CategorÃ­a:</label>
+                        <label for="category" class="me-2 fw-bold">Categoría:</label>
                         <select class="form-select" id="category">
                             <option value="">Todas</option>
                             <option value="Curso">Cursos</option>
@@ -96,10 +96,10 @@
                                 <h5 class="card-title" th:text="${actividad.nombre}">Nombre de la Actividad</h5>
                                 <p class="card-text"
                                     th:text="${#strings.length(actividad.descripcion) > 120} ?
-                                    ${#strings.substring(actividad.descripcion, 0, 120)} + 'â€¦' :
+                                    ${#strings.substring(actividad.descripcion, 0, 120)} + '…' :
                                     ${actividad.descripcion}">
                                 </p>
-                                <p class="card-text fw-bold text-primary" th:text="'â‚¬ ' + ${actividad.precio}">Precio</p>
+                                <p class="card-text fw-bold text-primary" th:text="'€ ' + ${actividad.precio}">Precio</p>
                                 <a th:href="@{/actividades/{id}(id=${actividad.id_actividad})}"
                                    class="btn btn-primary">
                                     Ver detalles
@@ -119,8 +119,8 @@
             <div class="col-md-3 mb-4">
                 <h3 th:text="${footerEmpresa}">Mourosub</h3>
                 <p th:text="${footerDescripcion}">Abyssal Elegance in Diving.</p>
-                <p><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del CantÃ¡brico</span></p>
-                <p th:text="${footerCopyright}">Â©2024 Mourosub.</p>
+                <p><i class="bi bi-geo-alt"></i> <span th:text="${footerDireccion}">Puerto Deportivo Marina del Cantábrico</span></p>
+                <p th:text="${footerCopyright}">©2024 Mourosub.</p>
             </div>
 
             <div class="col-md-3 mb-4">
