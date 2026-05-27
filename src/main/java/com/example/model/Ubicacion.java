@@ -49,11 +49,12 @@ public class Ubicacion {
             return "default";
         }
 
+        // Normaliza el nombre: "Isa de Mouro" → "isla-de-mouro"
         String normalizado = Normalizer.normalize(nombre, Normalizer.Form.NFD)
-                .replaceAll("\\p{M}", "")
+                .replaceAll("\\p{M}", "")  // Quita acentos
                 .toLowerCase(Locale.ROOT)
-                .replaceAll("[^a-z0-9]+", "-")
-                .replaceAll("(^-|-$)", "");
+                .replaceAll("[^a-z0-9]+", "-")  // Reemplaza espacios/caracteres por guiones
+                .replaceAll("(^-|-$)", "");  // Quita guiones al inicio/final
 
         return normalizado.isBlank() ? "default" : normalizado;
     }

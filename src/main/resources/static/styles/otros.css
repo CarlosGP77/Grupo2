@@ -18,14 +18,14 @@ body {
 body.bg-background {
     font-family: 'Hanken Grotesk', sans-serif;
     background:
-        radial-gradient(circle at top left, rgba(46, 196, 182, 0.10), transparent 30%),
-        radial-gradient(circle at top right, rgba(255, 107, 53, 0.10), transparent 28%),
-        linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%) !important;
-    color: var(--negro-suave) !important;
+        radial-gradient(circle at top left, rgba(163, 203, 242, 0.16), transparent 30%),
+        radial-gradient(circle at top right, rgba(46, 196, 182, 0.10), transparent 28%),
+        linear-gradient(180deg, #07121f 0%, #0b3c5d 48%, #103a57 100%) !important;
+    color: #eaf4ff !important;
 }
 
 .text-on-background {
-    color: var(--negro-suave) !important;
+    color: #eaf4ff !important;
 }
 
 main {

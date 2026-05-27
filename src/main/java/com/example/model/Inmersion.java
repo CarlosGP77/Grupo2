@@ -1,8 +1,6 @@
 package com.example.model;
 
 import jakarta.persistence.*;
-import java.text.Normalizer;
-import java.util.Locale;
 
 @Entity
 @Table(name = "inmersiones")
@@ -59,16 +57,44 @@ public class Inmersion {
     @Transient
     public String getNombreArchivoWebp() {
         if (nombre == null || nombre.isBlank()) {
-            return "default";
+            return String.valueOf(id_inmersion != null ? id_inmersion : "default");
         }
 
-        String normalizado = Normalizer.normalize(nombre, Normalizer.Form.NFD)
-                .replaceAll("\\p{M}", "")
-                .toLowerCase(Locale.ROOT)
-                .replaceAll("[^a-z0-9]+", "-")
-                .replaceAll("(^-|-$)", "");
+        // Mapeo explícito basado en palabras clave del nombre
+        String nombreLower = nombre.toLowerCase();
+        if (nombreLower.contains("costa") && nombreLower.contains("cantabrica")) {
+            return "costa-cantabrica";
+        }
+        if (nombreLower.contains("bajo") && nombreLower.contains("jose")) {
+            return "el-bajo-de-jose";
+        }
+        if (nombreLower.contains("calo") || nombreLower.contains("caló")) {
+            return "el-calo";
+        }
+        if (nombreLower.contains("camello")) {
+            return "el-camello";
+        }
+        if (nombreLower.contains("faro") && nombreLower.contains("cerda")) {
+            return "faro-de-la-cerda";
+        }
+        if (nombreLower.contains("cala")) {
+            return "la-cala";
+        }
+        if (nombreLower.contains("norte")) {
+            return "la-norte";
+        }
+        if (nombreLower.contains("cuevas")) {
+            return "las-cuevas";
+        }
+        if (nombreLower.contains("lastras") || nombreLower.contains("palacio")) {
+            return "las-lastras-del-palacio";
+        }
+        if (nombreLower.contains("puerto") && nombreLower.contains("deportivo")) {
+            return "puerto-deportivo-marina-del-cantabrico";
+        }
 
-        return normalizado.isBlank() ? "default" : normalizado;
+        // Fallback: usar el ID como nombre de archivo
+        return String.valueOf(id_inmersion != null ? id_inmersion : "default");
     }
 }
 

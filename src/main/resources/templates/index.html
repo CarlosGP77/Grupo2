@@ -10,52 +10,7 @@
     <link rel="stylesheet" th:href="@{/styles/common.css}">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/}">Mourosub</a>
-
-        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="menu">
-            <!-- Mostrar solo 'Ubicaciones' en el menú principal por petición -->
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" th:href="@{/ubicaciones}" href="/ubicaciones">Ubicaciones</a></li>
-            </ul>
-
-            <div class="d-flex align-items-center gap-2">
-                <a class="login-btn text-decoration-none" th:if="${!usuarioAutenticado}" th:href="@{/login}">Iniciar sesión</a>
-                <div class="dropdown" th:if="${usuarioAutenticado}">
-                    <button class="login-btn dropdown-toggle d-flex align-items-center gap-2" type="button"
-                            id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <!-- Mostrar avatar del usuario si existe, si no mostrar icono por defecto -->
-                        <!-- Mostrar avatar solo si existe objeto 'usuario' con imagenUrl, si no mostrar icono -->
-                        <img th:if="${usuarioAutenticado} and ${usuario} != null and ${usuario.imagenUrl} != null" th:src="${usuario.imagenUrl}" src="/img/img-log.webp" alt="avatar" class="user-avatar" onerror="this.src='/img/img-log.webp'" />
-                        <i th:if="${!usuarioAutenticado} or ${usuario} == null or ${usuario.imagenUrl} == null" class="bi bi-person-circle"></i>
-                        <span th:text="${nombreUsuario}"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li>
-                            <a class="dropdown-item" th:href="@{/img/img-log.webp}" target="_blank" rel="noopener">
-                                <i class="bi bi-image me-2"></i>Img
-                            </a>
-                        </li>
-                        <li th:if="${usuarioEsAdmin}"><a class="dropdown-item" th:href="@{/admin/panel}">Panel Admin</a></li>
-                        <li th:if="${usuarioEsAdmin or usuarioEsVerificador}"><a class="dropdown-item" th:href="@{/verificador/panel}">Panel Verificador</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <form th:action="@{/logout}" method="post" class="m-0">
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                <button type="submit" class="dropdown-item">Cerrar sesión</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
+<div th:replace="fragments/navbar :: navbar"></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -100,9 +55,9 @@
                             Tu primer contacto para explorar el mundo submarino.
                         </p>
 
-                        <h6 class="text-success">Desde 350€</h6>
+                        <h6 class="text-success">Desde 90€</h6>
 
-                        <a href="#" class="text-decoration-none fw-bold">
+                        <a th:href="@{/actividades}" href="/actividades" class="text-decoration-none fw-bold">
                             Saber más →
                         </a>
                     </div>
@@ -123,9 +78,9 @@
                             Perfecciona tus habilidades y desciende hasta 30 metros de profundidad.
                         </p>
 
-                        <h6 class="text-success">Desde 450€</h6>
+                        <h6 class="text-success">Desde 250€</h6>
 
-                        <a href="#" class="text-decoration-none fw-bold">
+                        <a th:href="@{/actividades}" href="/actividades" class="text-decoration-none fw-bold">
                             Saber más →
                         </a>
                     </div>
@@ -146,9 +101,9 @@
                             Aprende a prevenir y gestionar problemas en el agua de manera efectiva.
                         </p>
 
-                        <h6 class="text-success">Desde 520€</h6>
+                        <h6 class="text-success">Desde 300€</h6>
 
-                        <a href="#" class="text-decoration-none fw-bold">
+                        <a th:href="@{/actividades}" href="/actividades" class="text-decoration-none fw-bold">
                             Saber más →
                         </a>
                     </div>
@@ -173,9 +128,9 @@
                 <h5 class="text-success">Desde 90€</h5>
             </div>
 
-            <button class="btn-main mt-3 mt-md-0">
+            <a th:href="@{/actividades}" href="/actividades" class="btn-main mt-3 mt-md-0 text-decoration-none d-inline-flex align-items-center justify-content-center">
                 Reservar Bautismo
-            </button>
+            </a>
         </div>
     </div>
 </section>
