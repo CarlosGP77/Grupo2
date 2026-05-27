@@ -1,0 +1,186 @@
+╔════════════════════════════════════════════════════════════════════╗
+║              INSTRUCCIONES PARA EJECUTAR EL DESPLIEGUE             ║
+║              Grupo2 App - Servidor 192.168.35.132                  ║
+╚════════════════════════════════════════════════════════════════════╝
+
+PASO 1: ABRE COMMAND PROMPT
+════════════════════════════════════════════════════════════════════
+
+Windows: Win+R → escribe 'cmd' → Enter
+Mac/Linux: Abre Terminal
+
+
+PASO 2: CONECTA AL SERVIDOR POR SSH
+════════════════════════════════════════════════════════════════════
+
+Copia y pega esto en Command Prompt/Terminal:
+
+    ssh dario@192.168.35.132
+
+Cuando pida contraseña, escribe: 1234
+
+(No verás los caracteres mientras escribes, es normal)
+
+
+PASO 3: YA EN EL SERVIDOR - NAVEGA AL PROYECTO
+════════════════════════════════════════════════════════════════════
+
+Copia y pega:
+
+    cd /home/dario/grupo2
+
+
+PASO 4: EJECUTA LOS COMANDOS DE DESPLIEGUE
+════════════════════════════════════════════════════════════════════
+
+Opción A - Todo en UN comando (más fácil):
+
+    git pull origin main && docker-compose down && docker-compose up -d --build
+
+
+Opción B - Paso a paso (si quieres ver cada paso):
+
+    git pull origin main
+
+    docker-compose down
+
+    docker-compose up -d --build
+
+
+PASO 5: ESPERA LA INICIALIZACIÓN
+════════════════════════════════════════════════════════════════════
+
+El despliegue toma ~40 segundos.
+
+Verás algo como:
+  ✓ Pulling...
+  ✓ Building...
+  ✓ Starting containers...
+
+
+PASO 6: VERIFICA QUE TODO FUNCIONA
+════════════════════════════════════════════════════════════════════
+
+Ejecuta (aún en el servidor):
+
+    docker-compose ps
+
+Debe mostrar 3 servicios con estado UP:
+  ✓ grupo2-mariadb    UP
+  ✓ grupo2-nextcloud  UP
+  ✓ grupo2-app        UP
+
+
+PASO 7: VER LOGS (OPCIONAL - para troubleshooting)
+════════════════════════════════════════════════════════════════════
+
+Ver logs de la aplicación:
+
+    docker-compose logs --tail=20 grupo2-app
+
+Ver logs en tiempo real (presiona Ctrl+C para salir):
+
+    docker-compose logs -f grupo2-app
+
+
+════════════════════════════════════════════════════════════════════
+ACCEDER A LA APLICACIÓN DESDE TU NAVEGADOR
+════════════════════════════════════════════════════════════════════
+
+Abre tu navegador y ve a:
+
+Verificador de Imágenes:
+    http://192.168.35.132:8080/verificador.html
+
+Aplicación completa:
+    http://192.168.35.132:8080
+
+API REST (test):
+    http://192.168.35.132:8080/api/verificador/health
+
+Nextcloud (almacenamiento):
+    http://192.168.35.132:8888
+    Usuario: admin
+    Contraseña: admin_123
+
+
+════════════════════════════════════════════════════════════════════
+COMANDOS ÚTILES DESPUÉS DE DESPLEGAR
+════════════════════════════════════════════════════════════════════
+
+Ver estado de servicios:
+    docker-compose ps
+
+Ver logs en tiempo real:
+    docker-compose logs -f grupo2-app
+
+Detener todo (sin eliminar datos):
+    docker-compose down
+
+Reiniciar un servicio específico:
+    docker-compose restart grupo2-app
+
+Ver primeros 50 logs:
+    docker-compose logs --tail=50 grupo2-app
+
+Ejecutar comandos dentro de un container:
+    docker-compose exec grupo2-app bash
+
+
+════════════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+════════════════════════════════════════════════════════════════════
+
+❌ "Connection refused"
+   Espera más tiempo (40-60 segundos) a que inicie
+
+❌ "docker: command not found"
+   Docker no está instalado. Instala con:
+   sudo apt-get install docker.io docker-compose
+
+❌ "Permission denied"
+   Algunos comandos necesitan sudo:
+   sudo docker-compose up -d --build
+
+❌ "Port already in use"
+   Otro servicio está usando el puerto 8080
+   Cambia en docker-compose.yml: "8081:8080"
+
+❌ "git pull" muestra conflictos
+   Contacta con el administrador del repositorio
+
+
+════════════════════════════════════════════════════════════════════
+IMPORTANTE
+════════════════════════════════════════════════════════════════════
+
+✓ Guarda el archivo SSH_DEPLOY_INSTRUCCIONES.md para referencia
+✓ Los datos persisten en volúmenes de Docker (no se pierden)
+✓ Para salir del servidor, escribe: exit
+
+
+════════════════════════════════════════════════════════════════════
+¿NECESITAS AYUDA?
+════════════════════════════════════════════════════════════════════
+
+Ver documentación completa:
+    SSH_DEPLOY_INSTRUCCIONES.md
+
+Ver estado de todo:
+    docker-compose ps && docker-compose logs --tail=50
+
+Verificar conectividad:
+    ping 192.168.35.132
+
+
+════════════════════════════════════════════════════════════════════
+¡LISTO PARA DESPLEGAR!
+════════════════════════════════════════════════════════════════════
+
+Siguiente paso:
+  1. Abre Command Prompt (Win+R → cmd)
+  2. Escribe: ssh dario@192.168.35.132
+  3. Contraseña: 1234
+  4. Copia los comandos de PASO 3 en adelante
+
+¡Éxito! 🚀
