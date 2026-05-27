@@ -1,31 +1,5 @@
 
 services:
-  dnsmasq:
-    image: jpillora/dnsmasq:latest
-    container_name: grupo2-dnsmasq
-    restart: unless-stopped
-
-    environment:
-      HTTP_USER: admin
-      HTTP_PASS: admin_123
-
-    volumes:
-      - ./dnsmasq.conf:/etc/dnsmasq.conf
-
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-
-    networks:
-      - grupo2-network
-
-    healthcheck:
-      test: ["CMD", "nslookup", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
-
   mariadb:
     image: mariadb:11
     container_name: grupo2-mariadb
@@ -71,8 +45,6 @@ services:
     depends_on:
       app:
         condition: service_started
-      nextcloud_app:
-        condition: service_started
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/health"]
@@ -80,35 +52,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
-
-  nextcloud_app:
-    image: nextcloud:latest
-    container_name: grupo2-nextcloud
-    restart: unless-stopped
-
-    environment:
-      NEXTCLOUD_ADMIN_USER: admin
-      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_PASSWORD:-admin_123}
-      NEXTCLOUD_TRUSTED_DOMAINS: "localhost 127.0.0.1 nextcloud_app"
-      OVERWRITEPROTOCOL: http
-      OVERWRITEHOST: nextcloud_app:80
-
-    volumes:
-      - nextcloud_data:/var/www/html
-      - nextcloud_config:/var/www/html/config
-
-    ports:
-      - "8888:80"
-
-    networks:
-      - grupo2-network
-
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/status.php"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
   app:
     build:
@@ -131,12 +74,6 @@ services:
       SERVER_PORT: 8081
       SERVER_SSL_ENABLED: false
 
-      # Nextcloud Integration (Verificador de Imágenes)
-      NEXTCLOUD_URL: http://nextcloud_app
-      NEXTCLOUD_USERNAME: admin
-      NEXTCLOUD_PASSWORD: ${NEXTCLOUD_PASSWORD:-}
-      NEXTCLOUD_IMAGES_PATH: /Verificador/imagenes/
-
       # File Upload Settings
       MAX_FILE_SIZE: 10MB
       MAX_REQUEST_SIZE: 10MB
@@ -157,10 +94,6 @@ services:
 
 volumes:
   db_data:
-    driver: local
-  nextcloud_data:
-    driver: local
-  nextcloud_config:
     driver: local
 
 networks:
