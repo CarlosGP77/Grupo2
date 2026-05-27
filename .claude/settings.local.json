@@ -15,7 +15,10 @@
       "Bash(export SSH_ASKPASS_REQUIRE=force)",
       "Bash(export DISPLAY=:0)",
       "Bash(chmod +x /tmp/ssh_pass_root.sh)",
-      "Bash(export SSH_ASKPASS=/tmp/ssh_pass_root.sh)"
+      "Bash(export SSH_ASKPASS=/tmp/ssh_pass_root.sh)",
+      "PowerShell(New-Item *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

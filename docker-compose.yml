@@ -26,6 +26,35 @@ services:
       retries: 5
       start_period: 30s
 
+  nextcloud_app:
+    image: nextcloud:latest
+    container_name: grupo2-nextcloud
+    restart: unless-stopped
+
+    environment:
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_PASSWORD:-admin_123}
+      NEXTCLOUD_TRUSTED_DOMAINS: "localhost 127.0.0.1 nextcloud_app"
+      OVERWRITEPROTOCOL: http
+      OVERWRITEHOST: nextcloud_app:80
+
+    volumes:
+      - nextcloud_data:/var/www/html
+      - nextcloud_config:/var/www/html/config
+
+    ports:
+      - "8888:80"
+
+    networks:
+      - grupo2-network
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/status.php"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
   app:
     build:
       context: .
@@ -35,20 +64,33 @@ services:
     restart: unless-stopped
 
     environment:
-      DB_URL: jdbc:mariadb://mariadb:3306/mourosub
-      DB_USER: root
+      # Database Configuration
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_NAME: mourosub
+      DB_USERNAME: root
       DB_PASSWORD: admin_123
-      JPA_DDL_AUTO: create-drop
-      SERVER_PORT: 443
-      SERVER_SSL_ENABLED: true
-      SERVER_KEYSTORE: /app/keystore.p12
-      SERVER_KEYSTORE_PASSWORD: Admin_123
+      JPA_DDL_AUTO: update
+
+      # Server Configuration
+      SERVER_PORT: 8080
+      SERVER_SSL_ENABLED: false
+
+      # Nextcloud Integration (Verificador de Imágenes)
+      NEXTCLOUD_URL: http://nextcloud_app
+      NEXTCLOUD_USERNAME: admin
+      NEXTCLOUD_PASSWORD: ${NEXTCLOUD_PASSWORD:-}
+      NEXTCLOUD_IMAGES_PATH: /Verificador/imagenes/
+
+      # File Upload Settings
+      MAX_FILE_SIZE: 10MB
+      MAX_REQUEST_SIZE: 10MB
+
+      # Java Options
+      JAVA_OPTS: -Xms512m -Xmx1024m
 
     ports:
-      - "443:443"
-
-    volumes:
-      - ./certs/keystore.p12:/app/keystore.p12:ro
+      - "8080:8080"
 
     networks:
       - grupo2-network
@@ -56,10 +98,16 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+      nextcloud_app:
+        condition: service_started
 
 
 volumes:
   db_data:
+    driver: local
+  nextcloud_data:
+    driver: local
+  nextcloud_config:
     driver: local
 
 networks:

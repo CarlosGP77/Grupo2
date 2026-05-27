@@ -11,6 +11,11 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 COPY --from=builder /build/target/*.jar app.jar
-EXPOSE 443
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD java -cp app.jar org.springframework.boot.loader.JarLauncher \
+  || exit 1
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
