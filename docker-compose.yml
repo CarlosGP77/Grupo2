@@ -128,7 +128,7 @@ services:
       JPA_DDL_AUTO: update
 
       # Server Configuration
-      SERVER_PORT: 8080
+      SERVER_PORT: 8081
       SERVER_SSL_ENABLED: false
 
       # Nextcloud Integration (Verificador de Imágenes)
@@ -145,7 +145,7 @@ services:
       JAVA_OPTS: -Xms512m -Xmx1024m
 
     ports:
-      - "8080:8080"
+      - "8081:8081"
 
     networks:
       - grupo2-network
