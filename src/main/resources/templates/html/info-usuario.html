@@ -81,72 +81,78 @@
         </div>
 
         <div class="col-12 col-lg-4">
-            <div class="info-panel mb-4">
-                <h2 class="panel-title"><i class="bi bi-patch-check me-2"></i>Mis Certificados</h2>
+            <div class="row g-4">
+                <div class="col-12 col-md-6">
+                    <div class="info-panel mb-4">
+                        <h2 class="panel-title"><i class="bi bi-patch-check me-2"></i>Mis Certificados</h2>
 
-                <div th:if="${#lists.isEmpty(certificacionesUsuario)}" class="empty-state">
-                    No tienes titulaciones informadas por el momento.
-                </div>
-
-                <div th:if="${!#lists.isEmpty(certificacionesUsuario)}" class="certification-list">
-                    <div class="certification-item" th:each="cert : ${certificacionesUsuario}">
-                        <div>
-                            <p class="certification-title" th:text="${cert}">Certificación</p>
-                            <p class="certification-meta mb-0">Incluida en tu perfil de usuario</p>
+                        <div th:if="${#lists.isEmpty(certificacionesUsuario)}" class="empty-state">
+                            No tienes titulaciones informadas por el momento.
                         </div>
-                        <span class="certification-chip">Activa</span>
-                    </div>
-                </div>
-            </div>
 
-            <div class="info-panel mb-4">
-                <h2 class="panel-title"><i class="bi bi-cloud-arrow-up me-2"></i>Subir Certificados</h2>
-                <form id="uploadForm" class="certificate-upload-form">
-                    <div class="upload-area" id="uploadArea">
-                        <i class="bi bi-cloud-upload fs-1 text-muted"></i>
-                        <p class="text-muted mb-2">Arrastra tus archivos aquí o</p>
-                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="document.getElementById('fileInput').click()">
-                            Selecciona archivos
-                        </button>
-                        <input type="file" id="fileInput" hidden accept=".pdf,.jpg,.jpeg,.png,.gif,.webp" />
-                        <p class="small text-muted mt-2">Formatos: PDF, JPG, PNG, GIF, WebP (máx. 10MB)</p>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-3" id="submitBtn">Subir Certificado</button>
-                </form>
-
-                <div id="uploadProgress" class="mt-3" style="display: none;">
-                    <div class="progress">
-                        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
-                    </div>
-                    <p class="small text-muted">Subiendo...</p>
-                </div>
-
-                <div id="uploadStatus" class="mt-3" style="display: none;">
-                    <div id="successMessage" class="alert alert-success" role="alert" style="display: none;">
-                        <i class="bi bi-check-circle me-2"></i><span id="successText"></span>
-                    </div>
-                    <div id="errorMessage" class="alert alert-danger" role="alert" style="display: none;">
-                        <i class="bi bi-exclamation-circle me-2"></i><span id="errorText"></span>
-                    </div>
-                </div>
-
-                <div th:if="${!#lists.isEmpty(certificadosSubidos)}" class="uploaded-certificates mt-4">
-                    <h5 class="mb-3">Certificados Subidos</h5>
-                    <div class="certificate-list">
-                        <div class="certificate-item" th:each="cert : ${certificadosSubidos}">
-                            <div class="d-flex justify-content-between align-items-start">
+                        <div th:if="${!#lists.isEmpty(certificacionesUsuario)}" class="certification-list">
+                            <div class="certification-item" th:each="cert : ${certificacionesUsuario}">
                                 <div>
-                                    <p class="certificate-name mb-1" th:text="${cert.filename}">Nombre archivo</p>
-                                    <p class="small text-muted mb-0">
-                                        Subido: <span th:text="${#dates.format(cert.uploadDate, 'dd/MM/yyyy HH:mm')}">fecha</span>
-                                    </p>
+                                    <p class="certification-title" th:text="${cert}">Certificación</p>
+                                    <p class="certification-meta mb-0">Incluida en tu perfil de usuario</p>
                                 </div>
-                                <span class="badge" th:classappend="${cert.status == 'PENDING' ? 'bg-warning' : (cert.status == 'APPROVED' ? 'bg-success' : 'bg-danger')}"
-                                      th:text="${cert.status == 'PENDING' ? 'Pendiente' : (cert.status == 'APPROVED' ? 'Aprobado' : (cert.status == 'REJECTED' ? 'Rechazado' : 'Revisión'))}">
-                                    Estado
-                                </span>
+                                <span class="certification-chip">Activa</span>
                             </div>
-                            <p class="small text-muted mt-2" th:if="${cert.comment}" th:text="'Comentario: ' + ${cert.comment}">Comentario</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="info-panel mb-4">
+                        <h2 class="panel-title"><i class="bi bi-cloud-arrow-up me-2"></i>Subir Certificados</h2>
+                        <form id="uploadForm" class="certificate-upload-form">
+                            <div class="upload-area" id="uploadArea">
+                                <i class="bi bi-cloud-upload fs-1 text-muted"></i>
+                                <p class="text-muted mb-2">Arrastra tus archivos aquí o</p>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="document.getElementById('fileInput').click()">
+                                    Selecciona archivos
+                                </button>
+                                <input type="file" id="fileInput" hidden accept=".pdf,.jpg,.jpeg,.png,.gif,.webp" />
+                                <p class="small text-muted mt-2">Formatos: PDF, JPG, PNG, GIF, WebP (máx. 10MB)</p>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-3" id="submitBtn">Subir Certificado</button>
+                        </form>
+
+                        <div id="uploadProgress" class="mt-3" style="display: none;">
+                            <div class="progress">
+                                <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <p class="small text-muted">Subiendo...</p>
+                        </div>
+
+                        <div id="uploadStatus" class="mt-3" style="display: none;">
+                            <div id="successMessage" class="alert alert-success" role="alert" style="display: none;">
+                                <i class="bi bi-check-circle me-2"></i><span id="successText"></span>
+                            </div>
+                            <div id="errorMessage" class="alert alert-danger" role="alert" style="display: none;">
+                                <i class="bi bi-exclamation-circle me-2"></i><span id="errorText"></span>
+                            </div>
+                        </div>
+
+                        <div th:if="${!#lists.isEmpty(certificadosSubidos)}" class="uploaded-certificates mt-4">
+                            <h5 class="mb-3">Certificados Subidos</h5>
+                            <div class="certificate-list">
+                                <div class="certificate-item" th:each="cert : ${certificadosSubidos}">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <p class="certificate-name mb-1" th:text="${cert.filename}">Nombre archivo</p>
+                                            <p class="small text-muted mb-0">
+                                                Subido: <span th:text="${#dates.format(cert.uploadDate, 'dd/MM/yyyy HH:mm')}">fecha</span>
+                                            </p>
+                                        </div>
+                                        <span class="badge" th:classappend="${cert.status == 'PENDING' ? 'bg-warning' : (cert.status == 'APPROVED' ? 'bg-success' : 'bg-danger')}"
+                                              th:text="${cert.status == 'PENDING' ? 'Pendiente' : (cert.status == 'APPROVED' ? 'Aprobado' : (cert.status == 'REJECTED' ? 'Rechazado' : 'Revisión'))}">
+                                            Estado
+                                        </span>
+                                    </div>
+                                    <p class="small text-muted mt-2" th:if="${cert.comment}" th:text="'Comentario: ' + ${cert.comment}">Comentario</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
