@@ -43,7 +43,7 @@
         </div>
     </section>
 
-    <div th:if="${usuario != null}" class="row g-4 mt-1">
+    <div th:if="${usuario != null}" class="row g-4 mt-1 align-items-start">
         <div class="col-12 col-lg-8">
 
             <div class="info-panel">
@@ -172,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const uploadArea = document.getElementById('uploadArea');
     const fileInput = document.getElementById('fileInput');
     const uploadProgress = document.getElementById('uploadProgress');
-    const progressBar = document.getElementById('progressBar');
     const uploadStatus = document.getElementById('uploadStatus');
     const successMessage = document.getElementById('successMessage');
     const errorMessage = document.getElementById('errorMessage');
