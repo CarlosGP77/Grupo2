@@ -34,6 +34,8 @@
             </div>
             <div th:if="${error}" class="mb-md rounded-lg border border-red-500/30 bg-red-500/10 px-md py-sm text-red-200" th:text="${error}"></div>
             <form method="post" th:action="@{/register}" class="space-y-md" th:object="${usuario}">
+                <!-- Token CSRF necesario para solicitudes POST cuando Spring Security está habilitado -->
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <div>
                     <label class="block font-label-md text-label-md text-on-surface mb-xs" for="dni">DNI</label>
                     <input id="dni" th:field="*{dni}" type="text" required class="w-full bg-surface-container-highest border border-outline-variant text-on-surface rounded-lg py-sm px-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" placeholder="12345678A"/>
