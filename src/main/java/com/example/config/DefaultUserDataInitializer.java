@@ -35,20 +35,32 @@ public class DefaultUserDataInitializer implements CommandLineRunner {
     }
 
     private void upsertDefaultUser(String dni, String nombreCompleto, String email, Usuario.Rol rol) {
-        Usuario usuario = usuarioRepository.findByDni(dni);
-        if (usuario == null) {
-            usuario = new Usuario();
-            usuario.setDni(dni);
+        try {
+            // Buscar primero por email (es unique y lo más probable)
+            Usuario usuario = usuarioRepository.findByEmail(email);
+
+            // Si no existe por email, buscar por DNI
+            if (usuario == null) {
+                usuario = usuarioRepository.findByDni(dni);
+            }
+
+            // Si no existe en absoluto, crear nuevo
+            if (usuario == null) {
+                usuario = new Usuario();
+                usuario.setDni(dni);
+            }
+
+            usuario.setNombre_completo(nombreCompleto);
+            usuario.setEmail(email);
+            usuario.setPassword(resolvePasswordHash());
+            usuario.setRol(rol);
+            usuario.setVerificar_titulacion(true);
+
+            usuarioRepository.save(usuario);
+            log.info("Usuario por defecto asegurado: {} ({})", email, rol);
+        } catch (Exception e) {
+            log.warn("No se pudo asegurar usuario por defecto {}: {}", email, e.getMessage());
         }
-
-        usuario.setNombre_completo(nombreCompleto);
-        usuario.setEmail(email);
-        usuario.setPassword(resolvePasswordHash());
-        usuario.setRol(rol);
-        usuario.setVerificar_titulacion(true);
-
-        usuarioRepository.save(usuario);
-        log.info("Usuario por defecto asegurado: {} ({})", email, rol);
     }
 
     private String resolvePasswordHash() {
