@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -28,9 +27,6 @@ public class VerificadorWebController {
 
     @Autowired
     private VerificationService verificationService;
-
-    @Autowired
-    private VerifiedImageRepository verifiedImageRepository;
 
     @GetMapping("/certificados")
     public String certificados(Model model) {
@@ -54,8 +50,10 @@ public class VerificadorWebController {
     public String certificadosUsuario(@PathVariable String dni, Model model) {
         Usuario usuario = usuarioRepository.findByDni(dni);
         if (usuario == null) {
+            model.addAttribute("status", 404);
+            model.addAttribute("message", "Usuario no encontrado");
             model.addAttribute("error", "Usuario no encontrado");
-            return "error";
+            return "html/error";
         }
 
         List<VerifiedImage> certificados = verificationService.getCertificatesByUsuario(usuario);
@@ -78,7 +76,7 @@ public class VerificadorWebController {
             @RequestParam(required = false) String comment,
             @RequestParam String verifiedBy) {
         try {
-            VerifiedImage certificado = verificationService.verifyImage(id, status, comment, verifiedBy);
+            verificationService.verifyImage(id, status, comment, verifiedBy);
             log.info("Certificado {} verificado como {}", id, status);
             return ResponseEntity.ok(Map.of(
                 "success", true,
@@ -101,7 +99,7 @@ public class VerificadorWebController {
             @RequestParam(required = false) String razon,
             @RequestParam String verifiedBy) {
         try {
-            VerifiedImage certificado = verificationService.verifyImage(
+            verificationService.verifyImage(
                 id,
                 VerifiedImage.VerificationStatus.REJECTED,
                 razon,

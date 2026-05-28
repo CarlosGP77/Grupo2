@@ -3,7 +3,6 @@ package com.example.service;
 import com.example.model.VerifiedImage;
 import com.example.model.Usuario;
 import com.example.repository.VerifiedImageRepository;
-import com.example.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +29,6 @@ public class VerificationService {
     @Autowired
     private VerifiedImageRepository repository;
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private FileStorageService fileStorageService;
@@ -86,6 +83,9 @@ public class VerificationService {
         if (usuario == null) {
             throw new IllegalArgumentException("Usuario no autenticado");
         }
+        if (usuario.getDni() == null || usuario.getDni().isBlank()) {
+            throw new IllegalArgumentException("El usuario no tiene DNI válido");
+        }
 
         if (file.isEmpty()) {
             throw new IllegalArgumentException("El archivo está vacío");
@@ -125,10 +125,16 @@ public class VerificationService {
     }
 
     public List<VerifiedImage> getCertificatesByUsuario(Usuario usuario) {
+        if (usuario == null) {
+            return List.of();
+        }
         return repository.findByUsuarioOrderByUploadDateDesc(usuario);
     }
 
     public List<VerifiedImage> getPendingCertificatesByUsuario(Usuario usuario) {
+        if (usuario == null) {
+            return List.of();
+        }
         return repository.findByUsuarioAndStatus(usuario, VerifiedImage.VerificationStatus.PENDING);
     }
 

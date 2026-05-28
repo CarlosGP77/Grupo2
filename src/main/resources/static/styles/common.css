@@ -258,6 +258,21 @@ input::placeholder {
     font-size: 1.5rem !important;
 }
 
+.navbar-brand img {
+    height: 52px;
+    width: auto;
+    max-width: 180px;
+    object-fit: contain;
+    display: block;
+}
+
+@media (max-width: 576px) {
+    .navbar-brand img {
+        height: 40px;
+        max-width: 140px;
+    }
+}
+
 .navbar-toggler {
     border: none !important;
 }
