@@ -34,7 +34,7 @@ public class VerificationService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private NextcloudService nextcloudService;
+    private FileStorageService fileStorageService;
 
     public VerifiedImage uploadImage(MultipartFile file) throws IOException {
         // Validaciones
@@ -64,9 +64,9 @@ public class VerificationService {
         // Generar nombre único
         String uniqueFilename = generateUniqueFilename(filename);
 
-        // Subir a Nextcloud
-        if (!nextcloudService.uploadFile(file.getBytes(), uniqueFilename)) {
-            throw new RuntimeException("Error al subir el archivo a Nextcloud");
+        // Guardar en almacenamiento local
+        if (!fileStorageService.uploadFile(file.getBytes(), "/Verificador/imagenes/" + uniqueFilename)) {
+            throw new RuntimeException("Error al guardar el archivo");
         }
 
         // Guardar en BD
@@ -112,13 +112,13 @@ public class VerificationService {
 
         String uniqueFilename = generateUniqueFilename(filename);
         String dniFolder = usuario.getDni();
-        String nextcloudPath = "/Certificados/" + dniFolder + "/" + uniqueFilename;
+        String filePath = "Certificados/" + dniFolder + "/" + uniqueFilename;
 
-        if (!nextcloudService.uploadFile(file.getBytes(), nextcloudPath)) {
-            throw new RuntimeException("Error al subir el certificado a Nextcloud");
+        if (!fileStorageService.uploadFile(file.getBytes(), filePath)) {
+            throw new RuntimeException("Error al guardar el certificado");
         }
 
-        VerifiedImage certificate = new VerifiedImage(usuario, uniqueFilename, nextcloudPath, file.getSize(), mimeType);
+        VerifiedImage certificate = new VerifiedImage(usuario, uniqueFilename, filePath, file.getSize(), mimeType);
         VerifiedImage saved = repository.save(certificate);
         log.info("Certificado subido para usuario {}: {}", usuario.getDni(), uniqueFilename);
         return saved;
@@ -166,7 +166,7 @@ public class VerificationService {
         VerifiedImage image = repository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Imagen no encontrada"));
 
-        return nextcloudService.downloadFile(image.getFilename());
+        return fileStorageService.downloadFile(image.getNextcloudPath());
     }
 
     public byte[] downloadImage(Long id) {
@@ -177,9 +177,9 @@ public class VerificationService {
         VerifiedImage image = repository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Imagen no encontrada"));
 
-        // Eliminar de Nextcloud
-        if (!nextcloudService.deleteFile(image.getFilename())) {
-            log.warn("Error al eliminar archivo de Nextcloud: {}", image.getFilename());
+        // Eliminar del almacenamiento
+        if (!fileStorageService.deleteFile(image.getNextcloudPath())) {
+            log.warn("Error al eliminar archivo: {}", image.getNextcloudPath());
         }
 
         // Eliminar de BD

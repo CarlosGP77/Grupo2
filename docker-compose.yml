@@ -77,12 +77,16 @@ services:
       # File Upload Settings
       MAX_FILE_SIZE: 10MB
       MAX_REQUEST_SIZE: 10MB
+      FILE_STORAGE_PATH: /data/uploads
 
       # Java Options
       JAVA_OPTS: -Xms512m -Xmx1024m
 
     ports:
       - "8081:8081"
+
+    volumes:
+      - uploads_data:/data/uploads
 
     networks:
       - grupo2-network
@@ -94,6 +98,8 @@ services:
 
 volumes:
   db_data:
+    driver: local
+  uploads_data:
     driver: local
 
 networks:

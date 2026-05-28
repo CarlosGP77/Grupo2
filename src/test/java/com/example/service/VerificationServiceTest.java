@@ -22,7 +22,7 @@ class VerificationServiceTest {
     private VerifiedImageRepository repository;
 
     @Mock
-    private NextcloudService nextcloudService;
+    private FileStorageService fileStorageService;
 
     @InjectMocks
     private VerificationService verificationService;
@@ -38,7 +38,7 @@ class VerificationServiceTest {
             "file", "test.jpg", "image/jpeg", "test content".getBytes()
         );
 
-        when(nextcloudService.uploadFile(any(), any())).thenReturn(true);
+        when(fileStorageService.uploadFile(any(), any())).thenReturn(true);
         when(repository.save(any())).thenReturn(new VerifiedImage("test.jpg", "/path", 100L, "image/jpeg"));
 
         VerifiedImage result = verificationService.uploadImage(file);
@@ -88,7 +88,7 @@ class VerificationServiceTest {
         image.setId(1L);
 
         when(repository.findById(1L)).thenReturn(Optional.of(image));
-        when(nextcloudService.deleteFile("test.jpg")).thenReturn(true);
+        when(fileStorageService.deleteFile("/path")).thenReturn(true);
 
         verificationService.deleteImage(1L);
 
