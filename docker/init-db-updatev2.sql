@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS usuarios_cursos (
 
 -- Usuarios por defecto (idempotente)
 INSERT INTO usuarios (id_usuario, dni, nombre_completo, email, password, rol, verificar_titulacion)
-VALUES (1, 'admin', 'Administrador del Sistema', 'admin@example.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'ADMIN', TRUE)
+VALUES (1, 'admin', 'Administrador del Sistema', 'admin@mourosub.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'ADMIN', TRUE)
 ON DUPLICATE KEY UPDATE
     nombre_completo = VALUES(nombre_completo),
     email = VALUES(email),
@@ -203,7 +203,7 @@ ON DUPLICATE KEY UPDATE
     verificar_titulacion = VALUES(verificar_titulacion);
 
 INSERT INTO usuarios (id_usuario, dni, nombre_completo, email, password, rol, verificar_titulacion)
-VALUES (2, 'verificador', 'Verificador de Credenciales', 'verificador@example.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'VERIFICADOR', TRUE)
+VALUES (2, 'verificador', 'Verificador de Credenciales', 'verificador@mourosub.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'VERIFICADOR', TRUE)
 ON DUPLICATE KEY UPDATE
     nombre_completo = VALUES(nombre_completo),
     email = VALUES(email),

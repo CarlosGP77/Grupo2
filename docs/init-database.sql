@@ -128,11 +128,11 @@ INSERT INTO usuarios (dni, nombre_completo, email, licencia, titulaciones, poliz
 
 -- Insertar usuario ADMIN
 INSERT INTO usuarios (dni, nombre_completo, email, password, rol, Verificar_titulacion) VALUES
-('admin', 'Administrador del Sistema', 'admin@example.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'ADMIN', 1);
+('admin', 'Administrador del Sistema', 'admin@mourosub.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'ADMIN', 1);
 
 -- Insertar usuario VERIFICADOR
 INSERT INTO usuarios (dni, nombre_completo, email, password, rol, Verificar_titulacion) VALUES
-('verificador', 'Verificador de Credenciales', 'verificador@example.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'VERIFICADOR', 1);
+('verificador', 'Verificador de Credenciales', 'verificador@mourosub.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'VERIFICADOR', 1);
 
 -- Insertar instructores
 INSERT INTO instructores (dni, nombre, disponibilidad, titulaciones, email, telefono_contacto, telefono_personal) VALUES

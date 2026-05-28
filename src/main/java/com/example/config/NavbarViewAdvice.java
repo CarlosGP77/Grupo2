@@ -18,7 +18,7 @@ public class NavbarViewAdvice {
 
     @ModelAttribute("usuarioAutenticado")
     public boolean usuarioAutenticado() {
-        return authenticationNoAnon() != null;
+        return currentUsuario() != null;
     }
 
     @ModelAttribute("usuarioEsAdmin")
@@ -34,16 +34,27 @@ public class NavbarViewAdvice {
     @ModelAttribute("nombreUsuario")
     public String nombreUsuario() {
         Authentication authentication = authenticationNoAnon();
+        Usuario usuario = currentUsuario();
+        if (usuario != null && usuario.getNombre_completo() != null && !usuario.getNombre_completo().isBlank()) {
+            return usuario.getNombre_completo();
+        }
         return authentication != null ? authentication.getName() : "";
     }
 
     @ModelAttribute("usuario")
     public Usuario usuario() {
+        return currentUsuario();
+    }
+
+    private Usuario currentUsuario() {
         Authentication authentication = authenticationNoAnon();
-        if (authentication == null) return null;
-        String email = authentication.getName();
+        if (authentication == null) {
+            return null;
+        }
+
         try {
-            return usuarioRepository.findByEmail(email);
+            Usuario usuario = usuarioRepository.findByEmail(authentication.getName());
+            return usuario;
         } catch (Exception e) {
             return null;
         }

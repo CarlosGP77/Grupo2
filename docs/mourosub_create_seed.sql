@@ -155,8 +155,8 @@ CREATE TABLE IF NOT EXISTS webfooters (
 
 -- Usuarios
 INSERT INTO usuarios (id_usuario, dni, nombre_completo, email, licencia, titulaciones, poliza_seguro, telefono, telefono_contacto, password, rol, verificar_titulacion) VALUES
-(1, 'admin', 'Administrador del Sistema', 'admin@example.com', NULL, NULL, NULL, NULL, NULL, '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'ADMIN', TRUE),
-(2, 'verificador', 'Verificador de Credenciales', 'verificador@example.com', NULL, NULL, NULL, NULL, NULL, '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'VERIFICADOR', TRUE),
+(1, 'admin', 'Administrador del Sistema', 'admin@mourosub.com', NULL, NULL, NULL, NULL, NULL, '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'ADMIN', TRUE),
+(2, 'verificador', 'Verificador de Credenciales', 'verificador@mourosub.com', NULL, NULL, NULL, NULL, NULL, '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'VERIFICADOR', TRUE),
 (3, '12345678A', 'Juan García López', 'juan@example.com', 'LIC-001', 'Bachillerato', 'POL-001', '600123456', '600123456', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'USUARIO', TRUE),
 (4, '87654321B', 'María Rodríguez Pérez', 'maria@example.com', 'LIC-002', 'Técnico Informática', 'POL-002', '600789012', '600789012', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'USUARIO', FALSE),
 (5, '11111111C', 'Carlos López Martínez', 'carlos@example.com', 'LIC-003', 'Grado Informática', 'POL-003', '600555555', '600555555', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'USUARIO', TRUE);
