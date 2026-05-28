@@ -131,7 +131,8 @@
 .certification-list,
 .account-list {
     display: grid;
-    gap: 0.75rem;
+    /* Más espacio entre filas para que los items no queden muy juntos */
+    gap: 1rem;
 }
 
 .reservation-item,
@@ -140,8 +141,9 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem 1.05rem;
+    /* Aumentamos gap y padding para mayor separación visual */
+    gap: 1.25rem;
+    padding: 1.25rem 1.2rem;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
@@ -277,8 +279,8 @@
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 0.75rem;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .certificate-name {
@@ -289,7 +291,16 @@
 
 .certificate-list {
     display: grid;
-    gap: 0.75rem;
+    gap: 1rem;
+}
+
+/* Forzar más separación y apilado consistente en la columna derecha */
+.info-usuario-shell .col-12.col-lg-4,
+.info-usuario-shell .col-lg-4 {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: stretch;
 }
 
 @media (max-width: 768px) {
