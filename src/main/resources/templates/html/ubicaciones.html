@@ -23,9 +23,9 @@
                      th:alt="${'Imagen de ' + u.nombre}">
 
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${#strings.length(u.nombre) > 50 ? u.nombre.substring(0, 50) + '...' : u.nombre}">Nombre</h5>
+                    <h5 class="card-title" th:text="${(u.nombre != null and #strings.length(u.nombre) > 50) ? u.nombre.substring(0, 50) + '...' : u.nombre}">Nombre</h5>
 
-                    <p class="card-text" th:text="${#strings.length(u.descripcion) > 50 ? u.descripcion.substring(0, 50) + '...' : u.descripcion}">
+                    <p class="card-text" th:text="${(u.descripcion != null and #strings.length(u.descripcion) > 50) ? u.descripcion.substring(0, 50) + '...' : (u.descripcion ?: 'Sin descripción')}">
                         Descripción de la ubicación
                     </p>
 

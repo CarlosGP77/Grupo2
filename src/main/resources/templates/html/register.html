@@ -33,7 +33,7 @@
                 <p class="font-body-lg text-body-lg text-on-surface-variant">Rellena tus datos y deja la titulación indicada si quieres que se revise.</p>
             </div>
             <div th:if="${error}" class="mb-md rounded-lg border border-red-500/30 bg-red-500/10 px-md py-sm text-red-200" th:text="${error}"></div>
-            <form method="post" action="/register" class="space-y-md" th:object="${usuario}">
+            <form method="post" th:action="@{/register}" class="space-y-md" th:object="${usuario}">
                 <div>
                     <label class="block font-label-md text-label-md text-on-surface mb-xs" for="dni">DNI</label>
                     <input id="dni" th:field="*{dni}" type="text" required class="w-full bg-surface-container-highest border border-outline-variant text-on-surface rounded-lg py-sm px-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" placeholder="12345678A"/>
