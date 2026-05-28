@@ -41,10 +41,6 @@ public class NavbarViewAdvice {
         return authentication != null ? authentication.getName() : "";
     }
 
-    @ModelAttribute("usuario")
-    public Usuario usuario() {
-        return currentUsuario();
-    }
 
     private Usuario currentUsuario() {
         Authentication authentication = authenticationNoAnon();
