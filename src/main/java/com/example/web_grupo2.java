@@ -8,5 +8,3 @@ public class web_grupo2 {
         SpringApplication.run(web_grupo2.class, args);
     }
 }
-
-
