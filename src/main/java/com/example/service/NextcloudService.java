@@ -26,6 +26,12 @@ public class NextcloudService implements FileStorageService {
     @Value("${nextcloud.password:}")
     private String password;
 
+    private final LocalFileStorageService localFileStorageService;
+
+    public NextcloudService(LocalFileStorageService localFileStorageService) {
+        this.localFileStorageService = localFileStorageService;
+    }
+
     private String webDavBaseUrl() {
         String base = trimTrailingSlash(nextcloudUrl);
         // Endpoint recomendado en Nextcloud actual.
@@ -78,8 +84,8 @@ public class NextcloudService implements FileStorageService {
             int responseCode = conn.getResponseCode();
             return responseCode == 207 || responseCode == 200;
         } catch (Exception e) {
-            log.warn("Error comprobando archivo en Nextcloud: {}", filepath, e);
-            return false;
+            log.warn("Nextcloud no disponible al comprobar archivo, usando almacenamiento local: {}", filepath, e);
+            return localFileStorageService.fileExists(filepath);
         }
     }
 
@@ -103,12 +109,12 @@ public class NextcloudService implements FileStorageService {
                 log.info("Archivo subido a Nextcloud: {}", filepath);
                 return true;
             } else {
-                log.error("Error al subir a Nextcloud: código {}", responseCode);
-                return false;
+                log.warn("Nextcloud devolvió código {} al subir {}, usando almacenamiento local", responseCode, filepath);
+                return localFileStorageService.uploadFile(fileContent, filepath);
             }
         } catch (Exception e) {
-            log.error("Error en uploadFile", e);
-            return false;
+            log.warn("Nextcloud no disponible al subir {}, usando almacenamiento local", filepath, e);
+            return localFileStorageService.uploadFile(fileContent, filepath);
         }
     }
 
@@ -126,12 +132,12 @@ public class NextcloudService implements FileStorageService {
                     return is.readAllBytes();
                 }
             } else {
-                log.error("Error al descargar de Nextcloud: código {}", conn.getResponseCode());
-                return null;
+                log.warn("Nextcloud devolvió código {} al descargar {}, usando almacenamiento local", conn.getResponseCode(), filepath);
+                return localFileStorageService.downloadFile(filepath);
             }
         } catch (Exception e) {
-            log.error("Error en downloadFile", e);
-            return null;
+            log.warn("Nextcloud no disponible al descargar {}, usando almacenamiento local", filepath, e);
+            return localFileStorageService.downloadFile(filepath);
         }
     }
 
@@ -149,12 +155,12 @@ public class NextcloudService implements FileStorageService {
                 log.info("Archivo eliminado de Nextcloud: {}", filepath);
                 return true;
             } else {
-                log.error("Error al eliminar de Nextcloud: código {}", responseCode);
-                return false;
+                log.warn("Nextcloud devolvió código {} al eliminar {}, usando almacenamiento local", responseCode, filepath);
+                return localFileStorageService.deleteFile(filepath);
             }
         } catch (Exception e) {
-            log.error("Error en deleteFile", e);
-            return false;
+            log.warn("Nextcloud no disponible al eliminar {}, usando almacenamiento local", filepath, e);
+            return localFileStorageService.deleteFile(filepath);
         }
     }
 
