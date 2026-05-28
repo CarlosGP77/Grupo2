@@ -14,7 +14,7 @@
 
 .info-usuario-shell {
     padding-top: 7rem;
-    padding-bottom: 3rem;
+    padding-bottom: 20rem;
     width: 100%;
 }
 
@@ -295,6 +295,7 @@
 @media (max-width: 768px) {
     .info-usuario-shell {
         padding-top: 6.25rem;
+        padding-bottom: 15rem;
     }
 
     .info-hero {
