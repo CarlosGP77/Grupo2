@@ -18,6 +18,10 @@ public class VerifiedImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+
     @Column(nullable = false)
     private String filename;
 
@@ -57,6 +61,16 @@ public class VerifiedImage {
         this.mimeType = mimeType;
     }
 
+    public VerifiedImage(Usuario usuario, String filename, String nextcloudPath, Long fileSize, String mimeType) {
+        this.usuario = usuario;
+        this.filename = filename;
+        this.nextcloudPath = nextcloudPath;
+        this.uploadDate = LocalDateTime.now();
+        this.status = VerificationStatus.PENDING;
+        this.fileSize = fileSize;
+        this.mimeType = mimeType;
+    }
+
     // Getters y Setters
     public Long getId() {
         return id;
@@ -64,6 +78,14 @@ public class VerifiedImage {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getFilename() {

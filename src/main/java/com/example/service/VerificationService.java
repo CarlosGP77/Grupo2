@@ -1,7 +1,9 @@
 package com.example.service;
 
 import com.example.model.VerifiedImage;
+import com.example.model.Usuario;
 import com.example.repository.VerifiedImageRepository;
+import com.example.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,15 +19,19 @@ import java.util.stream.Collectors;
 public class VerificationService {
 
     private static final Set<String> ALLOWED_MIME_TYPES = Set.of(
-        "image/jpeg", "image/png", "image/gif", "image/webp"
+        "image/jpeg", "image/png", "image/gif", "image/webp",
+        "application/pdf"
     );
     private static final Set<String> ALLOWED_EXTENSIONS = Set.of(
-        "jpg", "jpeg", "png", "gif", "webp"
+        "jpg", "jpeg", "png", "gif", "webp", "pdf"
     );
     private static final long MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
     @Autowired
     private VerifiedImageRepository repository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private NextcloudService nextcloudService;
@@ -74,6 +80,56 @@ public class VerificationService {
         VerifiedImage saved = repository.save(image);
         log.info("Imagen subida y registrada: {}", uniqueFilename);
         return saved;
+    }
+
+    public VerifiedImage uploadCertificate(MultipartFile file, Usuario usuario) throws IOException {
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuario no autenticado");
+        }
+
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("El archivo está vacío");
+        }
+
+        String filename = file.getOriginalFilename();
+        if (filename == null || filename.isBlank()) {
+            throw new IllegalArgumentException("Nombre de archivo inválido");
+        }
+
+        if (file.getSize() > MAX_FILE_SIZE) {
+            throw new IllegalArgumentException("El archivo excede el tamaño máximo de 10MB");
+        }
+
+        String mimeType = file.getContentType();
+        if (mimeType == null || !ALLOWED_MIME_TYPES.contains(mimeType.toLowerCase())) {
+            throw new IllegalArgumentException("Tipo de archivo no permitido");
+        }
+
+        String extension = getFileExtension(filename);
+        if (!ALLOWED_EXTENSIONS.contains(extension.toLowerCase())) {
+            throw new IllegalArgumentException("Extensión de archivo no permitida");
+        }
+
+        String uniqueFilename = generateUniqueFilename(filename);
+        String dniFolder = usuario.getDni();
+        String nextcloudPath = "/Certificados/" + dniFolder + "/" + uniqueFilename;
+
+        if (!nextcloudService.uploadFile(file.getBytes(), nextcloudPath)) {
+            throw new RuntimeException("Error al subir el certificado a Nextcloud");
+        }
+
+        VerifiedImage certificate = new VerifiedImage(usuario, uniqueFilename, nextcloudPath, file.getSize(), mimeType);
+        VerifiedImage saved = repository.save(certificate);
+        log.info("Certificado subido para usuario {}: {}", usuario.getDni(), uniqueFilename);
+        return saved;
+    }
+
+    public List<VerifiedImage> getCertificatesByUsuario(Usuario usuario) {
+        return repository.findByUsuarioOrderByUploadDateDesc(usuario);
+    }
+
+    public List<VerifiedImage> getPendingCertificatesByUsuario(Usuario usuario) {
+        return repository.findByUsuarioAndStatus(usuario, VerifiedImage.VerificationStatus.PENDING);
     }
 
     public List<VerifiedImage> getPendingImages() {

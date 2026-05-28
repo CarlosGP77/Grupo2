@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import com.example.model.VerifiedImage;
+import com.example.model.Usuario;
+import com.example.repository.UsuarioRepository;
 import com.example.service.VerificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class VerificationController {
 
     @Autowired
     private VerificationService verificationService;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @PostMapping("/upload")
     public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) {
@@ -157,5 +162,64 @@ public class VerificationController {
     @GetMapping("/health")
     public ResponseEntity<Map<String, String>> health() {
         return ResponseEntity.ok(Map.of("status", "ok"));
+    }
+
+    @GetMapping("/certificados/usuario/{dni}")
+    public ResponseEntity<?> getCertificatesByUsuario(@PathVariable String dni) {
+        try {
+            Usuario usuario = usuarioRepository.findByDni(dni);
+            if (usuario == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "Usuario no encontrado"));
+            }
+
+            List<VerifiedImage> certificados = verificationService.getCertificatesByUsuario(usuario);
+            return ResponseEntity.ok(certificados);
+        } catch (Exception e) {
+            log.error("Error en getCertificatesByUsuario", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Error al obtener certificados"));
+        }
+    }
+
+    @GetMapping("/certificados/usuario/{dni}/pendientes")
+    public ResponseEntity<?> getPendingCertificatesByUsuario(@PathVariable String dni) {
+        try {
+            Usuario usuario = usuarioRepository.findByDni(dni);
+            if (usuario == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "Usuario no encontrado"));
+            }
+
+            List<VerifiedImage> certificados = verificationService.getPendingCertificatesByUsuario(usuario);
+            return ResponseEntity.ok(certificados);
+        } catch (Exception e) {
+            log.error("Error en getPendingCertificatesByUsuario", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Error al obtener certificados pendientes"));
+        }
+    }
+
+    @GetMapping("/usuarios-con-certificados")
+    public ResponseEntity<?> getUsersWithCertificates() {
+        try {
+            List<VerifiedImage> allCertificates = verificationService.getPendingImages();
+            Map<String, Object> result = new HashMap<>();
+
+            Set<String> usuariosSet = new HashSet<>();
+            for (VerifiedImage cert : allCertificates) {
+                if (cert.getUsuario() != null) {
+                    usuariosSet.add(cert.getUsuario().getDni());
+                }
+            }
+
+            result.put("usuarios", usuariosSet);
+            result.put("total", usuariosSet.size());
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            log.error("Error en getUsersWithCertificates", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Error al obtener usuarios"));
+        }
     }
 }
