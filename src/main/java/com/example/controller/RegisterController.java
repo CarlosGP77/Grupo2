@@ -6,6 +6,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.dao.DataAccessException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,8 @@ import java.util.Locale;
 
 @Controller
 public class RegisterController {
+
+    private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
@@ -77,7 +81,14 @@ public class RegisterController {
 
             return "redirect:/login?registered";
         } catch (DataAccessException e) {
+            logger.error("Error al guardar usuario en la base de datos", e);
             model.addAttribute("error", "No se pudo crear la cuenta en este momento. Revisa los datos e inténtalo de nuevo.");
+            return "html/register";
+        } catch (Exception e) {
+            // Capturamos excepciones no esperadas para evitar que el usuario vea la Whitelabel Error Page
+            logger.error("Excepción inesperada al crear cuenta", e);
+            String msg = e.getMessage() == null ? "Error interno" : e.getMessage();
+            model.addAttribute("error", "No se pudo crear la cuenta: " + msg);
             return "html/register";
         }
     }
