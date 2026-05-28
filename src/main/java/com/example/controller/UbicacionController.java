@@ -1,29 +1,50 @@
 package com.example.controller;
 
+import com.example.model.Ubicacion;
 import com.example.service.UbicacionService;
+import com.example.service.WebFooterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import java.util.List;
 
 @Controller
 public class UbicacionController {
 
     private final UbicacionService servicio;
+    private final WebFooterService footerService;
 
-    public UbicacionController(UbicacionService servicio) {
+    public UbicacionController(UbicacionService servicio, WebFooterService footerService) {
         this.servicio = servicio;
+        this.footerService = footerService;
+    }
+
+    private void addFooterAttributes(Model model) {
+        model.addAttribute("footerEmpresa", footerService.getContenido("empresa"));
+        model.addAttribute("footerDescripcion", footerService.getContenido("descripcion"));
+        model.addAttribute("footerDireccion", footerService.getContenido("direccion"));
+        model.addAttribute("footerCopyright", footerService.getContenido("copyright"));
+        model.addAttribute("footerEnlacesLegales", footerService.getContenidosPorTipo("enlace_legal"));
+        model.addAttribute("footerEmpresaInfo", footerService.getContenidosPorTipo("empresa_info"));
+        model.addAttribute("footerRedesSociales", footerService.getContenidosPorTipo("red_social"));
     }
 
     @GetMapping("/ubicaciones")
     public String listarUbicaciones(Model model) {
         model.addAttribute("listaUbicaciones", servicio.listarTodas());
+        addFooterAttributes(model);
         return "html/ubicaciones";
     }
 
     @GetMapping("/ubicaciones/{id}")
     public String verUbicacion(@PathVariable Integer id, Model model) {
-        model.addAttribute("ubicacion", servicio.buscarPorId(id));
-        return "html/ubicacion-detalle";
+        Ubicacion ubicacion = servicio.buscarPorId(id);
+        if (ubicacion != null) {
+            model.addAttribute("ubicacion", ubicacion);
+            addFooterAttributes(model);
+            return "html/ubicacion-detalle";
+        }
+        return "error/404";
     }
 }

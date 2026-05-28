@@ -18,7 +18,10 @@
       "Bash(export SSH_ASKPASS=/tmp/ssh_pass_root.sh)",
       "PowerShell(New-Item *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git commit -m 'Fix: correct deploy.py header syntax *)",
+      "Bash(python3 -c \"import paramiko; print\\('Paramiko is available'\\)\")",
+      "Bash(ssh-keygen *)"
     ]
   }
 }

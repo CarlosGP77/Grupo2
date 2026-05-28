@@ -1,80 +1,90 @@
 #!/bin/bash
 
-# Colores para output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+# Script de despliegue remoto para Grupo2 App
+# Ejecutar en el servidor remoto
 
-echo -e "${YELLOW}╔════════════════════════════════════════╗${NC}"
-echo -e "${YELLOW}║   GRUPO2 - DOCKER DEPLOYMENT SCRIPT    ║${NC}"
-echo -e "${YELLOW}╚════════════════════════════════════════╝${NC}"
+PROJECT_PATH="/home/dario/grupo2"
 
-# Verificar que docker-compose existe
-if ! command -v docker-compose &> /dev/null; then
-    echo -e "${RED}✗ docker-compose no está instalado${NC}"
-    exit 1
-fi
+echo ""
+echo "??????????????????????????????????????????????????????????"
+echo "?           DEPLOYING GRUPO2 APP TO DOCKER              ?"
+echo "??????????????????????????????????????????????????????????"
+echo ""
 
-echo -e "${GREEN}✓ docker-compose encontrado${NC}"
+# PASO 1
+echo "[1/10] Estado actual:"
+echo "========================================================"
+cd $PROJECT_PATH && pwd
 
-# Verificar que estamos en el directorio correcto
-if [ ! -f "docker-compose.yml" ]; then
-    echo -e "${RED}✗ Error: No se encuentra docker-compose.yml${NC}"
-    echo "Ejecuta este script desde el directorio raíz del proyecto"
-    exit 1
-fi
+# PASO 2
+echo ""
+echo "[2/10] Apagando Docker containers..."
+echo "========================================================"
+docker-compose down 2>/dev/null || echo "No hab?a containers activos"
 
-echo -e "${GREEN}✓ docker-compose.yml encontrado${NC}"
+# PASO 3
+echo ""
+echo "[3/10] Verificando Docker..."
+echo "========================================================"
+docker --version && docker-compose --version
 
-# Detener servicios antiguos
-echo -e "\n${YELLOW}[1/5] Deteniendo servicios antiguos...${NC}"
-docker-compose down
+# PASO 4
+echo ""
+echo "[4/10] Actualizando c?digo desde Git..."
+echo "========================================================"
+cd $PROJECT_PATH && git fetch origin && git pull origin main
 
-# Limpiar imágenes no usadas (opcional)
-echo -e "\n${YELLOW}[2/5] Limpiando imágenes no usadas...${NC}"
-docker image prune -f --filter "until=24h" || true
+# PASO 5
+echo ""
+echo "[5/10] ?ltimos cambios:"
+echo "========================================================"
+cd $PROJECT_PATH && git log -1 --oneline
 
-# Construir imagen
-echo -e "\n${YELLOW}[3/5] Construyendo imagen Docker...${NC}"
-docker-compose build --no-cache
+# PASO 6
+echo ""
+echo "[6/10] Verificando dependencias en docker-compose..."
+echo "========================================================"
+cd $PROJECT_PATH && grep -A 10 'depends_on:' docker-compose.yml || echo "Sin dependencias expl?citas"
 
-# Iniciar servicios
-echo -e "\n${YELLOW}[4/5] Iniciando servicios...${NC}"
-docker-compose up -d
+# PASO 7
+echo ""
+echo "[7/10] Iniciando Docker (construyendo imagen)..."
+echo "========================================================"
+cd $PROJECT_PATH && docker-compose up -d --build
 
-# Esperar a que todo esté listo
-echo -e "\n${YELLOW}[5/5] Esperando a que los servicios estén listos...${NC}"
-sleep 10
+# PASO 8
+echo ""
+echo "[8/10] Esperando inicializaci?n (40 segundos)..."
+echo "========================================================"
+for i in {40..10..10}; do
+    echo "  ? ${i}s restantes..."
+    sleep 10
+done
+echo "  ? Inicializaci?n completada"
 
-# Verificar que todo está corriendo
-echo -e "\n${YELLOW}═══════════════════════════════════════${NC}"
-echo -e "${YELLOW}ESTADO DE SERVICIOS:${NC}"
-echo -e "${YELLOW}═══════════════════════════════════════${NC}\n"
+# PASO 9
+echo ""
+echo "[9/10] Estado de servicios:"
+echo "========================================================"
+cd $PROJECT_PATH && docker-compose ps
 
-docker-compose ps
+# PASO 10
+echo ""
+echo "[10/10] Logs de la aplicaci?n:"
+echo "========================================================"
+cd $PROJECT_PATH && docker-compose logs --tail=20 grupo2-app
 
-# Mostrar URLs
-echo -e "\n${GREEN}╔════════════════════════════════════════╗${NC}"
-echo -e "${GREEN}║   ACCESO A SERVICIOS                   ║${NC}"
-echo -e "${GREEN}╚════════════════════════════════════════╝${NC}"
-echo -e ""
-echo -e "${GREEN}Aplicación:${NC}"
-echo -e "  http://localhost:8080"
-echo -e ""
-echo -e "${GREEN}Verificador de Imágenes:${NC}"
-echo -e "  http://localhost:8080/verificador.html"
-echo -e ""
-echo -e "${GREEN}API REST:${NC}"
-echo -e "  http://localhost:8080/api/verificador"
-echo -e ""
-echo -e "${GREEN}Nextcloud (Almacenamiento):${NC}"
-echo -e "  http://localhost:8888"
-echo -e "  Usuario: admin"
-echo -e "  Contraseña: admin_123"
-echo -e ""
-echo -e "${YELLOW}═══════════════════════════════════════${NC}"
-
-# Mostrar logs iniciales
-echo -e "\n${YELLOW}Mostrando logs de la aplicación (Ctrl+C para salir):${NC}\n"
-docker-compose logs -f grupo2-app
+echo ""
+echo "??????????????????????????????????????????????????????????"
+echo "?           ? DESPLIEGUE COMPLETADO                    ?"
+echo "??????????????????????????????????????????????????????????"
+echo ""
+echo "?? SERVICIOS DISPONIBLES:"
+echo "  ? Aplicaci?n:     http://192.168.35.132:8080"
+echo "  ? Verificador:    http://192.168.35.132:8080/verificador.html"
+echo "  ? API REST:       http://192.168.35.132:8080/api/verificador"
+echo "  ? Nextcloud:      http://192.168.35.132:8888"
+echo ""
+echo "?? Para ver logs en tiempo real:"
+echo "   docker-compose logs -f grupo2-app"
+echo ""

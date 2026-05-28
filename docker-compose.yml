@@ -1,5 +1,29 @@
 
 services:
+  dns:
+    image: jpillora/dnsmasq:latest
+    container_name: grupo2-dns
+    restart: unless-stopped
+
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+      - "8888:8080"
+
+    environment:
+      HTTP_USER: admin
+      HTTP_PASS: admin
+
+    networks:
+      - grupo2-network
+
+    healthcheck:
+      test: ["CMD", "nslookup", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
   mariadb:
     image: mariadb:11
     container_name: grupo2-mariadb
@@ -42,9 +66,14 @@ services:
     networks:
       - grupo2-network
 
+    dns:
+      - dns
+
     depends_on:
       app:
         condition: service_started
+      dns:
+        condition: service_healthy
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/health"]
@@ -91,8 +120,13 @@ services:
     networks:
       - grupo2-network
 
+    dns:
+      - dns
+
     depends_on:
       mariadb:
+        condition: service_healthy
+      dns:
         condition: service_healthy
 
 
