@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import java.util.List;
 
 @Controller
 public class UbicacionController {
@@ -45,6 +44,11 @@ public class UbicacionController {
             addFooterAttributes(model);
             return "html/ubicacion-detalle";
         }
-        return "error/404";
+
+        model.addAttribute("status", 404);
+        model.addAttribute("message", "No se encontró la ubicación solicitada.");
+        model.addAttribute("error", "Ubicación no encontrada");
+        addFooterAttributes(model);
+        return "html/error";
     }
 }

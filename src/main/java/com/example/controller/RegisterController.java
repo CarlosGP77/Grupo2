@@ -50,6 +50,17 @@ public class RegisterController {
         usuario.setTelefono(normalizar(usuario.getTelefono()));
         usuario.setTelefono_contacto(normalizar(usuario.getTelefono_contacto()));
 
+        if (!esLongitudValida(usuario.getDni(), 9)
+                || !esLongitudValida(usuario.getNombre_completo(), 100)
+                || !esLongitudValida(usuario.getEmail(), 100)
+                || !esLongitudValida(usuario.getLicencia(), 50)
+                || !esLongitudValida(usuario.getPoliza_seguro(), 50)
+                || !esLongitudValida(usuario.getTelefono(), 20)
+                || !esLongitudValida(usuario.getTelefono_contacto(), 20)) {
+            model.addAttribute("error", "Alguno de los campos supera la longitud permitida.");
+            return "html/register";
+        }
+
         if (usuario.getDni() == null || usuario.getDni().isBlank()
                 || usuario.getNombre_completo() == null || usuario.getNombre_completo().isBlank()
                 || usuario.getEmail() == null || usuario.getEmail().isBlank()
@@ -107,6 +118,10 @@ public class RegisterController {
         }
         String limpio = valor.trim();
         return limpio.isBlank() ? null : limpio;
+    }
+
+    private boolean esLongitudValida(String valor, int maximo) {
+        return valor == null || valor.length() <= maximo;
     }
 }
 
