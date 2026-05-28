@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS webfooters (
 
 -- Usuarios por defecto (idempotente)
 INSERT INTO usuarios (dni, nombre_completo, email, password, rol, Verificar_titulacion)
-VALUES ('admin', 'Administrador del Sistema', 'admin@example.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'ADMIN', 1)
+VALUES ('admin', 'Administrador del Sistema', 'admin@mourosub.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'ADMIN', 1)
 ON DUPLICATE KEY UPDATE
     nombre_completo = VALUES(nombre_completo),
     email = VALUES(email),
@@ -156,7 +156,7 @@ ON DUPLICATE KEY UPDATE
     Verificar_titulacion = VALUES(Verificar_titulacion);
 
 INSERT INTO usuarios (dni, nombre_completo, email, password, rol, Verificar_titulacion)
-VALUES ('verificador', 'Verificador de Credenciales', 'verificador@example.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'VERIFICADOR', 1)
+VALUES ('verificador', 'Verificador de Credenciales', 'verificador@mourosub.com', '$2a$10$slYQmyNdGzin5FEKgXNJqOPt3qhw4dVB3nZJUSXv.1OrmF8qkFLne', 'VERIFICADOR', 1)
 ON DUPLICATE KEY UPDATE
     nombre_completo = VALUES(nombre_completo),
     email = VALUES(email),
