@@ -37,6 +37,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./docker/init-nextcloud-db.sql:/docker-entrypoint-initdb.d/init-nextcloud-db.sql:ro
+      - ./docker/insert-test-certificates.sql:/docker-entrypoint-initdb.d/insert-test-certificates.sql:ro
 
     ports:
       - "3306:3306"
