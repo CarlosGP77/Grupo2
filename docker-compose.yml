@@ -93,7 +93,7 @@ services:
 
     depends_on:
       app:
-        condition: service_started
+        condition: service_healthy
       dns:
         condition: service_started
 
@@ -140,6 +140,13 @@ services:
 
     ports:
       - "8081:8081"
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
     volumes:
       - uploads_data:/data/uploads
