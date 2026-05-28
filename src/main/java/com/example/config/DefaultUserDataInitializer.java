@@ -44,6 +44,23 @@ public class DefaultUserDataInitializer implements CommandLineRunner {
                 "1234",
                 Usuario.Rol.USUARIO
         );
+
+        // Usuarios temporales para pruebas manuales.
+        upsertDefaultUser(
+                "9990001",
+                "Admin Temporal",
+                "admin.temp@mourosub.com",
+                "1234",
+                Usuario.Rol.ADMIN
+        );
+
+        upsertDefaultUser(
+                "9990002",
+                "Verificador Temporal",
+                "verificador.temp@mourosub.com",
+                "1234",
+                Usuario.Rol.VERIFICADOR
+        );
     }
 
     private void upsertDefaultUser(String dni, String nombreCompleto, String email, String password, Usuario.Rol rol) {

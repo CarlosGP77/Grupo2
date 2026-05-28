@@ -28,6 +28,12 @@ public class VerificadorWebController {
     @Autowired
     private VerificationService verificationService;
 
+    @GetMapping("/panel")
+    public String panel() {
+        // Mantiene compatibilidad con enlaces existentes del navbar y panel admin.
+        return "redirect:/verificador/certificados";
+    }
+
     @GetMapping("/certificados")
     public String certificados(Model model) {
         List<VerifiedImage> certificadosPendientes = verificationService.getPendingImages();

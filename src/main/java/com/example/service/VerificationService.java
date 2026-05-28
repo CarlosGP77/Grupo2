@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 @Service
 public class VerificationService {
 
+    private static final String VERIFIER_IMAGES_DIR = "Verificador/imagenes/";
+    private static final String CERTIFICATES_DIR = "Certificados/";
+
     private static final Set<String> ALLOWED_MIME_TYPES = Set.of(
         "image/jpeg", "image/png", "image/gif", "image/webp",
         "application/pdf"
@@ -62,14 +65,15 @@ public class VerificationService {
         String uniqueFilename = generateUniqueFilename(filename);
 
         // Guardar en almacenamiento local
-        if (!fileStorageService.uploadFile(file.getBytes(), "/Verificador/imagenes/" + uniqueFilename)) {
+        String verifierImagePath = VERIFIER_IMAGES_DIR + uniqueFilename;
+        if (!fileStorageService.uploadFile(file.getBytes(), verifierImagePath)) {
             throw new RuntimeException("Error al guardar el archivo");
         }
 
         // Guardar en BD
         VerifiedImage image = new VerifiedImage(
             uniqueFilename,
-            "/Verificador/imagenes/" + uniqueFilename,
+            verifierImagePath,
             file.getSize(),
             mimeType
         );
@@ -112,7 +116,7 @@ public class VerificationService {
 
         String uniqueFilename = generateUniqueFilename(filename);
         String dniFolder = usuario.getDni();
-        String filePath = "Certificados/" + dniFolder + "/" + uniqueFilename;
+        String filePath = CERTIFICATES_DIR + dniFolder + "/" + uniqueFilename;
 
         if (!fileStorageService.uploadFile(file.getBytes(), filePath)) {
             throw new RuntimeException("Error al guardar el certificado");
