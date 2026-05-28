@@ -21,13 +21,13 @@ public class UbicacionController {
     }
 
     private void addFooterAttributes(Model model) {
-        model.addAttribute("footerEmpresa", footerService.getContenido("empresa"));
-        model.addAttribute("footerDescripcion", footerService.getContenido("descripcion"));
-        model.addAttribute("footerDireccion", footerService.getContenido("direccion"));
-        model.addAttribute("footerCopyright", footerService.getContenido("copyright"));
-        model.addAttribute("footerEnlacesLegales", footerService.getContenidosPorTipo("enlace_legal"));
-        model.addAttribute("footerEmpresaInfo", footerService.getContenidosPorTipo("empresa_info"));
-        model.addAttribute("footerRedesSociales", footerService.getContenidosPorTipo("red_social"));
+        model.addAttribute("footerEmpresa", footerService.obtenerTextoPorTipo("empresa"));
+        model.addAttribute("footerDescripcion", footerService.obtenerTextoPorTipo("descripcion"));
+        model.addAttribute("footerDireccion", footerService.obtenerTextoPorTipo("direccion"));
+        model.addAttribute("footerCopyright", footerService.obtenerTextoPorTipo("copyright"));
+        model.addAttribute("footerEnlacesLegales", footerService.obtenerContenidosPorTipo("enlace_legal"));
+        model.addAttribute("footerEmpresaInfo", footerService.obtenerContenidosPorTipo("empresa_info"));
+        model.addAttribute("footerRedesSociales", footerService.obtenerContenidosPorTipo("red_social"));
     }
 
     @GetMapping("/ubicaciones")
