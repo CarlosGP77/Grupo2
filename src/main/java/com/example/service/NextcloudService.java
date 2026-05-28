@@ -11,8 +11,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Primary
@@ -27,9 +25,6 @@ public class NextcloudService implements FileStorageService {
 
     @Value("${nextcloud.password:}")
     private String password;
-
-    @Value("${nextcloud.images-path:/Verificador/imagenes/}")
-    private String imagesPath;
 
     private String webDavBaseUrl() {
         String base = trimTrailingSlash(nextcloudUrl);
@@ -64,19 +59,7 @@ public class NextcloudService implements FileStorageService {
         if (normalized.isBlank()) {
             return "";
         }
-
-        String[] parts = normalized.split("/");
-        StringBuilder encoded = new StringBuilder();
-        for (int i = 0; i < parts.length; i++) {
-            if (parts[i].isBlank()) {
-                continue;
-            }
-            if (encoded.length() > 0) {
-                encoded.append('/');
-            }
-            encoded.append(encodePathSegment(parts[i]));
-        }
-        return encoded.toString();
+        return encodePathSegment(normalized.replace("/", "__"));
     }
 
     private String getAuthHeader() {
@@ -103,7 +86,6 @@ public class NextcloudService implements FileStorageService {
     @Override
     public boolean uploadFile(byte[] fileContent, String filepath) {
         try {
-            ensureDirectoryExists(filepath);
             String url = fileUrl(filepath);
 
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
@@ -119,68 +101,6 @@ public class NextcloudService implements FileStorageService {
             int responseCode = conn.getResponseCode();
             if (responseCode == 201 || responseCode == 204) {
                 log.info("Archivo subido a Nextcloud: {}", filepath);
-                return true;
-            } else {
-                log.error("Error al subir a Nextcloud: código {}", responseCode);
-                return false;
-            }
-        } catch (Exception e) {
-            log.error("Error en uploadFile", e);
-            return false;
-        }
-    }
-
-    private void ensureDirectoryExists(String filepath) {
-        try {
-            String normalized = normalizeRelativePath(filepath);
-            String[] parts = normalized.split("/");
-            StringBuilder current = new StringBuilder();
-
-            for (int i = 0; i < parts.length - 1; i++) {
-                if (parts[i].isBlank()) {
-                    continue;
-                }
-
-                if (current.length() > 0) {
-                    current.append('/');
-                }
-                current.append(encodePathSegment(parts[i]));
-
-                String url = webDavBaseUrl() + current;
-                HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-                conn.setRequestMethod("MKCOL");
-                conn.setRequestProperty("Authorization", getAuthHeader());
-
-                int responseCode = conn.getResponseCode();
-                // 201 = creado, 405 = ya existe
-                if (responseCode != 201 && responseCode != 405) {
-                    log.debug("MKCOL {} devolvio codigo {}", url, responseCode);
-                }
-            }
-        } catch (Exception e) {
-            log.warn("Error al crear directorios en Nextcloud", e);
-        }
-    }
-
-    public boolean uploadFileLegacy(byte[] fileContent, String filename) {
-        try {
-            String encodedPath = URLEncoder.encode(filename, StandardCharsets.UTF_8.name());
-            String fullPath = imagesPath + encodedPath;
-            String url = nextcloudUrl + "/remote.php/webdav" + fullPath;
-
-            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-            conn.setRequestMethod("PUT");
-            conn.setRequestProperty("Authorization", getAuthHeader());
-            conn.setRequestProperty("Content-Length", String.valueOf(fileContent.length));
-            conn.setDoOutput(true);
-
-            try (OutputStream os = conn.getOutputStream()) {
-                os.write(fileContent);
-            }
-
-            int responseCode = conn.getResponseCode();
-            if (responseCode == 201 || responseCode == 204) {
-                log.info("Archivo subido a Nextcloud: {}", filename);
                 return true;
             } else {
                 log.error("Error al subir a Nextcloud: código {}", responseCode);
@@ -238,48 +158,4 @@ public class NextcloudService implements FileStorageService {
         }
     }
 
-    public List<String> listFiles() {
-        List<String> files = new ArrayList<>();
-        try {
-            String url = webDavBaseUrl() + encodeRelativePath(imagesPath);
-            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-            conn.setRequestMethod("PROPFIND");
-            conn.setRequestProperty("Authorization", getAuthHeader());
-            conn.setRequestProperty("Depth", "1");
-
-            if (conn.getResponseCode() == 207) {
-                try (InputStream is = conn.getInputStream()) {
-                    String response = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-                    // Simple parsing XML response (basic implementation)
-                    String[] lines = response.split("\n");
-                    for (String line : lines) {
-                        if (line.contains("<d:href>")) {
-                            String href = line.substring(line.indexOf("<d:href>") + 8, line.indexOf("</d:href>"));
-                            if (!href.endsWith("/")) {
-                                files.add(href.substring(href.lastIndexOf('/') + 1));
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            log.error("Error en listFiles", e);
-        }
-        return files;
-    }
-
-    public boolean validateConnection() {
-        try {
-            String url = webDavBaseUrl();
-            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-            conn.setRequestMethod("PROPFIND");
-            conn.setRequestProperty("Authorization", getAuthHeader());
-            conn.setRequestProperty("Depth", "0");
-
-            return conn.getResponseCode() == 207;
-        } catch (Exception e) {
-            log.error("Error al validar conexión a Nextcloud", e);
-            return false;
-        }
-    }
 }
