@@ -20,7 +20,7 @@ public class DefaultUserDataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         upsertDefaultUser(
-                "admin",
+                "1111111",
                 "Administrador del Sistema",
                 "admin@mourosub.com",
                 Usuario.Rol.ADMIN
