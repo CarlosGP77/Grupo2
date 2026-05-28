@@ -24,10 +24,7 @@ public class RegisterController {
     }
 
     @GetMapping("/register")
-    public String formRegistro(Model model) {
-        if (!model.containsAttribute("usuario")) {
-            model.addAttribute("usuario", new Usuario());
-        }
+    public String formRegistro(@org.springframework.web.bind.annotation.ModelAttribute("usuario") Usuario usuario) {
         return "html/register";
     }
 
