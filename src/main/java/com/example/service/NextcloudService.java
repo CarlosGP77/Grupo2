@@ -5,6 +5,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -30,6 +31,54 @@ public class NextcloudService implements FileStorageService {
     @Value("${nextcloud.images-path:/Verificador/imagenes/}")
     private String imagesPath;
 
+    private String webDavBaseUrl() {
+        String base = trimTrailingSlash(nextcloudUrl);
+        // Endpoint recomendado en Nextcloud actual.
+        return base + "/remote.php/dav/files/" + encodePathSegment(username) + "/";
+    }
+
+    private String fileUrl(String filepath) {
+        return webDavBaseUrl() + encodeRelativePath(filepath);
+    }
+
+    private String trimTrailingSlash(String value) {
+        if (value == null || value.isBlank()) {
+            return "";
+        }
+        return value.endsWith("/") ? value.substring(0, value.length() - 1) : value;
+    }
+
+    private String normalizeRelativePath(String filepath) {
+        if (filepath == null) {
+            return "";
+        }
+        return filepath.replace('\\', '/').replaceFirst("^/+", "");
+    }
+
+    private String encodePathSegment(String segment) {
+        return URLEncoder.encode(segment, StandardCharsets.UTF_8).replace("+", "%20");
+    }
+
+    private String encodeRelativePath(String filepath) {
+        String normalized = normalizeRelativePath(filepath);
+        if (normalized.isBlank()) {
+            return "";
+        }
+
+        String[] parts = normalized.split("/");
+        StringBuilder encoded = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].isBlank()) {
+                continue;
+            }
+            if (encoded.length() > 0) {
+                encoded.append('/');
+            }
+            encoded.append(encodePathSegment(parts[i]));
+        }
+        return encoded.toString();
+    }
+
     private String getAuthHeader() {
         String auth = username + ":" + password;
         return "Basic " + Base64.encodeBase64String(auth.getBytes(StandardCharsets.UTF_8));
@@ -38,13 +87,15 @@ public class NextcloudService implements FileStorageService {
     @Override
     public boolean fileExists(String filepath) {
         try {
-            String url = nextcloudUrl + "/remote.php/webdav/" + URLEncoder.encode(filepath, StandardCharsets.UTF_8.name());
+            String url = fileUrl(filepath);
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod("PROPFIND");
             conn.setRequestProperty("Authorization", getAuthHeader());
             conn.setRequestProperty("Depth", "0");
-            return conn.getResponseCode() == 207;
+            int responseCode = conn.getResponseCode();
+            return responseCode == 207 || responseCode == 200;
         } catch (Exception e) {
+            log.warn("Error comprobando archivo en Nextcloud: {}", filepath, e);
             return false;
         }
     }
@@ -52,9 +103,8 @@ public class NextcloudService implements FileStorageService {
     @Override
     public boolean uploadFile(byte[] fileContent, String filepath) {
         try {
-            String encodedPath = URLEncoder.encode(filepath, StandardCharsets.UTF_8.name());
-            String url = nextcloudUrl + "/remote.php/webdav/" + encodedPath;
             ensureDirectoryExists(filepath);
+            String url = fileUrl(filepath);
 
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod("PUT");
@@ -82,16 +132,30 @@ public class NextcloudService implements FileStorageService {
 
     private void ensureDirectoryExists(String filepath) {
         try {
-            String[] parts = filepath.split("/");
+            String normalized = normalizeRelativePath(filepath);
+            String[] parts = normalized.split("/");
             StringBuilder current = new StringBuilder();
+
             for (int i = 0; i < parts.length - 1; i++) {
-                if (parts[i].isEmpty()) continue;
-                current.append("/").append(parts[i]);
-                String url = nextcloudUrl + "/remote.php/webdav" + current;
+                if (parts[i].isBlank()) {
+                    continue;
+                }
+
+                if (current.length() > 0) {
+                    current.append('/');
+                }
+                current.append(encodePathSegment(parts[i]));
+
+                String url = webDavBaseUrl() + current;
                 HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
                 conn.setRequestMethod("MKCOL");
                 conn.setRequestProperty("Authorization", getAuthHeader());
-                conn.getResponseCode();
+
+                int responseCode = conn.getResponseCode();
+                // 201 = creado, 405 = ya existe
+                if (responseCode != 201 && responseCode != 405) {
+                    log.debug("MKCOL {} devolvio codigo {}", url, responseCode);
+                }
             }
         } catch (Exception e) {
             log.warn("Error al crear directorios en Nextcloud", e);
@@ -131,8 +195,7 @@ public class NextcloudService implements FileStorageService {
     @Override
     public byte[] downloadFile(String filepath) {
         try {
-            String encodedPath = URLEncoder.encode(filepath, StandardCharsets.UTF_8.name());
-            String url = nextcloudUrl + "/remote.php/webdav/" + encodedPath;
+            String url = fileUrl(filepath);
 
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod("GET");
@@ -155,8 +218,7 @@ public class NextcloudService implements FileStorageService {
     @Override
     public boolean deleteFile(String filepath) {
         try {
-            String encodedPath = URLEncoder.encode(filepath, StandardCharsets.UTF_8.name());
-            String url = nextcloudUrl + "/remote.php/webdav/" + encodedPath;
+            String url = fileUrl(filepath);
 
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod("DELETE");
@@ -179,7 +241,7 @@ public class NextcloudService implements FileStorageService {
     public List<String> listFiles() {
         List<String> files = new ArrayList<>();
         try {
-            String url = nextcloudUrl + "/remote.php/webdav" + imagesPath;
+            String url = webDavBaseUrl() + encodeRelativePath(imagesPath);
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod("PROPFIND");
             conn.setRequestProperty("Authorization", getAuthHeader());
@@ -208,7 +270,7 @@ public class NextcloudService implements FileStorageService {
 
     public boolean validateConnection() {
         try {
-            String url = nextcloudUrl + "/remote.php/webdav" + imagesPath;
+            String url = webDavBaseUrl();
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod("PROPFIND");
             conn.setRequestProperty("Authorization", getAuthHeader());
