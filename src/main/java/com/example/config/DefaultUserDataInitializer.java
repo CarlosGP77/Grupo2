@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class exDefaultUserDataInitializer implements CommandLineRunner {
+public class DefaultUserDataInitializer implements CommandLineRunner {
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
