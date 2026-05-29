@@ -175,8 +175,17 @@ public class VerificationService {
     public byte[] getImageContent(Long id) {
         VerifiedImage image = repository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Imagen no encontrada"));
+        byte[] content = fileStorageService.downloadFile(image.getNextcloudPath());
+        if (content != null) {
+            return content;
+        }
 
-        return fileStorageService.downloadFile(image.getNextcloudPath());
+        // Compatibilidad con registros antiguos o despliegues sin Nextcloud real.
+        if (fileStorageService instanceof LocalFileStorageService localFileStorageService) {
+            return localFileStorageService.downloadFile(image.getNextcloudPath());
+        }
+
+        return null;
     }
 
     public byte[] downloadImage(Long id) {
@@ -188,7 +197,11 @@ public class VerificationService {
             .orElseThrow(() -> new IllegalArgumentException("Imagen no encontrada"));
 
         // Eliminar del almacenamiento
-        if (!fileStorageService.deleteFile(image.getNextcloudPath())) {
+        boolean deleted = fileStorageService.deleteFile(image.getNextcloudPath());
+        if (!deleted && fileStorageService instanceof LocalFileStorageService localFileStorageService) {
+            deleted = localFileStorageService.deleteFile(image.getNextcloudPath());
+        }
+        if (!deleted) {
             log.warn("Error al eliminar archivo: {}", image.getNextcloudPath());
         }
 

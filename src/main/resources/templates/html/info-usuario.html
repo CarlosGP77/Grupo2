@@ -142,7 +142,7 @@
                                         <div>
                                             <p class="certificate-name mb-1" th:text="${cert.filename}">Nombre archivo</p>
                                             <p class="small text-muted mb-0">
-                                                Subido: <span th:text="${#dates.format(cert.uploadDate, 'dd/MM/yyyy HH:mm')}">fecha</span>
+                                                Subido: <span th:text="${cert.uploadDate != null ? #temporals.format(cert.uploadDate, 'dd/MM/yyyy HH:mm') : 'Fecha no disponible'}">fecha</span>
                                             </p>
                                         </div>
                                         <span class="badge" th:classappend="${cert.status == 'PENDING' ? 'bg-warning' : (cert.status == 'APPROVED' ? 'bg-success' : 'bg-danger')}"
@@ -248,7 +248,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 fileInput.value = '';
                 const button = uploadArea.querySelector('button');
                 button.textContent = 'Selecciona archivos';
-                setTimeout(() => location.reload(), 2000);
             } else {
                 showError(payload.error || `Error al subir el archivo (HTTP ${response.status})`);
             }

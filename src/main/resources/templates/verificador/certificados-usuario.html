@@ -10,6 +10,8 @@
     <link rel="stylesheet" th:href="@{/styles/modern.css}">
     <style>
         body { background: var(--color-background); color: var(--color-on-surface); }
+        h1, h2, h3, h4, h5, h6, p, strong, small, label, span { color: var(--color-on-surface); }
+        .text-muted { color: rgba(232, 236, 255, 0.72) !important; }
         .usuario-header {
             background: rgba(23, 31, 51, 0.92);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -56,11 +58,17 @@
             gap: 0.5rem;
             flex-wrap: wrap;
         }
+        .action-buttons .btn {
+            min-width: 120px;
+        }
         .modal-header {
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         .modal-body {
             background: rgba(23, 31, 51, 0.92);
+        }
+        .modal-content {
+            color: var(--color-on-surface);
         }
     </style>
 </head>
@@ -88,6 +96,10 @@
                           th:text="${usuario.verificar_titulacion ? '✓ Titulación Verificada' : '⚠ Pendiente Verificación'}">
                         Estado
                     </span>
+                    <span class="status-badge" th:classappend="${#lists.isEmpty(certificadosPendientes) ? ' status-approved' : ' status-pending'}"
+                          th:text="${#lists.isEmpty(certificadosPendientes) ? '✓ Certificado(s) revisado(s)' : '⚠ ' + totalPendientes + ' pendiente(s)'}">
+                        Estado certificados
+                    </span>
                 </div>
             </div>
         </div>
@@ -112,7 +124,7 @@
                         <span th:text="${cert.filename}">Nombre archivo</span>
                     </h6>
                     <p class="small text-muted mb-2">
-                        <strong>Subido:</strong> <span th:text="${#dates.format(cert.uploadDate, 'dd/MM/yyyy HH:mm')}">fecha</span>
+                        <strong>Subido:</strong> <span th:text="${#temporals.format(cert.uploadDate, 'dd/MM/yyyy HH:mm')}">fecha</span>
                     </p>
                     <p class="small text-muted mb-2">
                         <strong>Tamaño:</strong> <span th:text="${cert.fileSize / 1024 / 1024} + ' MB'">0 MB</span>

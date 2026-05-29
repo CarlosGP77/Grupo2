@@ -120,10 +120,10 @@ public class VerificationController {
             }
 
             VerifiedImage image = verificationService.getImageById(id);
-            String filename = image.getFilename();
+            String filename = image.getFilename() != null ? image.getFilename() : ("certificado-" + id);
 
             return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentType(MediaType.parseMediaType(image.getMimeType() != null ? image.getMimeType() : MediaType.APPLICATION_OCTET_STREAM_VALUE))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
                 .body(imageContent);
         } catch (Exception e) {

@@ -10,6 +10,12 @@
     <link rel="stylesheet" th:href="@{/styles/modern.css}">
     <style>
         body { background: var(--color-background); color: var(--color-on-surface); }
+        h1, h2, h3, h4, h5, h6, p, strong, small, label, span {
+            color: var(--color-on-surface);
+        }
+        .text-muted {
+            color: rgba(232, 236, 255, 0.72) !important;
+        }
         .certificado-card {
             border: 1px solid rgba(255,255,255,.12);
             background: rgba(255,255,255,.04);
@@ -37,6 +43,10 @@
             border-radius: 999px;
             padding: 0.5rem 1rem;
             font-weight: 600;
+        }
+        .card-title,
+        .card-text {
+            color: var(--color-on-surface);
         }
     </style>
 </head>
