@@ -123,6 +123,17 @@ button:hover, .btn:hover {
     color: var(--color-secondary);
 }
 
+/* Texto en fondos azules oscuros / blocks azulados */
+.text-white-on-blue,
+.text-white-on-blue * {
+    color: #ffffff !important;
+}
+
+.text-white-on-blue .text-muted,
+.text-white-on-blue .muted {
+    color: rgba(255, 255, 255, 0.78) !important;
+}
+
 /* Card Base */
 .card {
     background: var(--color-surface-container);
@@ -155,7 +166,7 @@ input::placeholder {
 
 /* Material Symbols Icons */
 .material-symbols-outlined {
-    font-family: 'Material Symbols Outlined';
+    font-family: 'Material Symbols Outlined', sans-serif;
     font-weight: normal;
     font-style: normal;
     font-size: 24px;
