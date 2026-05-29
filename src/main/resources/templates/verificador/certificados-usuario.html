@@ -153,14 +153,14 @@
                 </div>
                 <div class="col-md-5">
                     <div class="verification-actions">
-                        <a th:href="@{/api/verificador/ver/{id}(id=${cert.id})}"
+                        <a th:href="@{/verificador/file/{id}(id=${cert.id})}"
                            class="btn btn-sm btn-outline-info"
                            target="_blank">
-                            <i class="bi bi-eye me-1"></i>Ver
+                             <i class="bi bi-eye me-1"></i>Ver
                         </a>
-                        <a th:href="@{/api/verificador/descargar/{id}(id=${cert.id})}"
+                        <a th:href="@{/verificador/file/{id}/descargar(id=${cert.id})}"
                            class="btn btn-sm btn-outline-secondary">
-                            <i class="bi bi-download me-1"></i>Descargar
+                             <i class="bi bi-download me-1"></i>Descargar
                         </a>
                         <button class="btn btn-sm btn-outline-success"
                                 th:if="${cert.status == 'PENDING'}"

@@ -7,7 +7,9 @@ import com.example.repository.VerifiedImageRepository;
 import com.example.service.VerificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -123,6 +125,52 @@ public class VerificadorWebController {
             log.error("Error al rechazar certificado", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of("success", false, "error", "Error al rechazar el certificado"));
+        }
+    }
+
+    // Endpoints para servir archivos (vista/descarga) dentro del espacio /verificador
+    @GetMapping("/file/{id}")
+    public ResponseEntity<?> serveFileInline(@PathVariable Long id) {
+        try {
+            byte[] content = verificationService.getImageContent(id);
+            if (content == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Archivo no encontrado");
+            }
+            var image = verificationService.getImageById(id);
+            String mediaType = image.getMimeType() != null ? image.getMimeType() : MediaType.APPLICATION_OCTET_STREAM_VALUE;
+
+            return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(mediaType))
+                .header(HttpHeaders.CACHE_CONTROL, "public, max-age=3600")
+                .body(content);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            log.error("Error al servir archivo {}", id, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener archivo");
+        }
+    }
+
+    @GetMapping("/file/{id}/descargar")
+    public ResponseEntity<?> serveFileDownload(@PathVariable Long id) {
+        try {
+            byte[] content = verificationService.getImageContent(id);
+            if (content == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Archivo no encontrado");
+            }
+            var image = verificationService.getImageById(id);
+            String mediaType = image.getMimeType() != null ? image.getMimeType() : MediaType.APPLICATION_OCTET_STREAM_VALUE;
+            String filename = image.getFilename() != null ? image.getFilename() : ("certificado-" + id);
+
+            return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(mediaType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
+                .body(content);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            log.error("Error al descargar archivo {}", id, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al descargar archivo");
         }
     }
 }

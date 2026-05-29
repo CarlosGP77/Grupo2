@@ -142,6 +142,10 @@ button:hover, .btn:hover {
     padding: 20px;
 }
 
+.card-text {
+    color: #ffffff !important;
+}
+
 /* Input Fields Base */
 input, textarea, select {
     background: var(--color-surface-container-highest);
