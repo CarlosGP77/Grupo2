@@ -48,6 +48,9 @@
         .card-text {
             color: var(--color-on-surface);
         }
+        .usuario-link {
+            min-width: 170px;
+        }
     </style>
 </head>
 <body style="min-height: 100vh;">
@@ -110,7 +113,7 @@
             </div>
             <div class="col-md-4 text-end">
                 <a th:href="@{/verificador/certificados/usuario/{dni}(dni=${entry.key.dni})}"
-                   class="btn btn-primary">
+                   class="btn btn-primary usuario-link">
                     <i class="bi bi-eye me-2"></i>Ver certificados
                 </a>
             </div>

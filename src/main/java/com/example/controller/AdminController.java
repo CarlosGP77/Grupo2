@@ -2,12 +2,15 @@ package com.example.controller;
 
 import com.example.model.*;
 import com.example.repository.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -158,17 +161,32 @@ public class AdminController {
         inmersion.setNombre(normalizar(nombre));
         inmersion.setDescripcion(normalizarTexto(descripcion));
         inmersion.setDatos(normalizarTexto(datos));
-        inmersion.setDificultad(Inmersion.Dificultad.valueOf(dificultad));
+        try {
+            inmersion.setDificultad(Inmersion.Dificultad.valueOf(dificultad));
+        } catch (IllegalArgumentException ex) {
+            return panelConError(model, "Debes seleccionar una dificultad válida.", null, null, null, inmersion);
+        }
         inmersion.setUbicacion(ubicacionRepository.findById(ubicacionId).orElse(null));
 
         if (inmersion.getNombre() == null || inmersion.getNombre().isBlank()) {
             return panelConError(model, "La inmersión necesita un nombre.", null, null, null, inmersion);
         }
+        if (inmersion.getNombre().length() > 150) {
+            return panelConError(model, "El nombre de la inmersión no puede superar 150 caracteres.", null, null, null, inmersion);
+        }
         if (inmersion.getUbicacion() == null) {
             return panelConError(model, "Debes seleccionar una ubicación válida.", null, null, null, inmersion);
         }
-        inmersionRepository.save(inmersion);
-        return "redirect:/admin/panel";
+        try {
+            inmersionRepository.save(inmersion);
+            return "redirect:/admin/panel";
+        } catch (DataIntegrityViolationException ex) {
+            log.warn("Error de integridad al guardar inmersión {}", inmersion.getNombre(), ex);
+            return panelConError(model, "No se pudo guardar la inmersión por una restricción de datos.", null, null, null, inmersion);
+        } catch (Exception ex) {
+            log.error("Error inesperado al guardar inmersión {}", inmersion.getNombre(), ex);
+            return panelConError(model, "Ha ocurrido un error al guardar la inmersión.", null, null, null, inmersion);
+        }
     }
 
     @PostMapping("/inmersiones/{id}/borrar")
